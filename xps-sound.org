@@ -1,0 +1,59 @@
+# -*- mode: org; mode: org2blog/wp; -*-
+#+BLOG: wordpress
+#+POSTID: 44
+#+DATE: [2017-04-01 Sat 16:40]
+#+TAGS: xps, linux, tlp, laptop
+
+#+TITLE: Audio Popping Fix for Linux
+
+The Dell XPS has been my primary computer for the past couple
+months. It has worked great but recently I noticed some audio
+crackling when starting/stopping videos and music playback. 
+
+* Solution
+I [[http://en.community.dell.com/support-forums/laptop/f/3517/t/20006160][found the problem]] was an issue with =tlp= a fantastic little tool
+that helps save power on Linux laptops. Issue was it was cutting power
+to my audio jack when not in use which caused the loud crackling when
+it was turned on and off.
+
+** Check if tlp is running
+Run the command 
+#+BEGIN_SRC 
+$ systemctl status tlp
+#+END_SRC 
+Example output:
+#+BEGIN_SRC 
+tlp.service - TLP system startup/shutdown
+   Loaded: loaded (/usr/lib/systemd/system/tlp.service; enable; 
+   Active: active (exited) since Fri 2017-03-31 19:09:22 EDT
+     Docs: http://linrunner.de/tlp
+  Process: 1954 ExecStart=/usr/sbin/tlp init start
+ Main PID: 1954 (code=exited, status=0/SUCCESS)
+    Tasks: 0 (limit: 4915)
+   CGroup: /system.slice/tlp.service
+#+END_SRC
+
+In the output you should see the 3rd line "=Active: active=" if =tlp=
+is running. Otherwise this solution likely won't fix your problem.
+
+** Edit your tlp config
+
+To solve this edit =/etc/default/tlp= (for beginners use "=gksudo
+gedit /etc/default/tlp=" or "=sudo nano /etc/default/tlp=").
+
+Change lines:
+#+BEGIN_SRC 
+SOUND_POWER_SAVE_ON_AC=0
+SOUND_POWER_SAVE_ON_BAT=1
+#+END_SRC
+To this:
+#+BEGIN_SRC 
+SOUND_POWER_SAVE_ON_AC=0
+SOUND_POWER_SAVE_ON_BAT=0
+#+END_SRC
+Then restart your computer.
+
+That will stop =tlp= from turning your audio on and off when audio
+stops playing. You may loose some slight power savings, but I haven't
+noticed anything significant. So it's worth doing just to ditch the
+annoying crackling!
