@@ -8,10 +8,10 @@ related to free open source software. GNU/Linux, free culture, and
 using free as in freedom tools to get things done. 
 
 All the text on this blog is freely redistributable under the terms of
-the [[https://creativecommons.org/licenses/by/4.0/][Creative Commons Attribution 4.0 International License]]. This means
-you can adapt my posts into new content and share them if you so wish!
-So long as I am credited as the original author and you do not revoke
-these freedoms from anyone else.
+the [[https://creativecommons.org/licenses/by-sa/4.0/][Creative Commons Attribution-ShareAlike 4.0 International (CC
+BY-SA 4.0]]). This means you can adapt my posts into new content and
+share them if you so wish!  So long as I am credited as the original
+author and you do not revoke these freedoms from anyone else.
 
 I write these posts in a markup language called Org-mode which was
 originally made for Emacs but has since been re-implemented in other
