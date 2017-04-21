@@ -1,0 +1,104 @@
+#+BLOG: wordpress
+#+POSTID: 63
+#+DATE: [2017-04-02 Sun 13:34]
+#+TITLE: Write WordPress Posts in Emacs Org
+#+OPTIONS: syntax:nil
+#+TAGS: emacs, org-mode, wordpress
+
+Every day I work hard to move my entirely life inside the operating
+system/text editor that is GNU Emacs. Today I have moved my blogging
+over using [[http://orgmode.org/][org-mode]] and [[https://github.com/punchagan/org2blog][org2blog]] making blogging awesome!
+
+* Installing org2blog
+** MELPA
+If use [[https://melpa.org/#/][melpa]] you can install org2blog with the following
+#+BEGIN_SRC 
+M-x package-install RET org2blog
+#+END_SRC
+Move to setup.
+** Manual
+Otherwise you can install it manually with
+#+BEGIN_SRC  sh
+cd ~/.emacs.d
+git clone http://github.com/punchagan/org2blog.git
+#+END_SRC
+And then add the following to your =~/.emacs=
+#+BEGIN_SRC
+(setq load-path (cons "~/.emacs.d/org2blog/" load-path))
+(require 'org2blog-autoloads)
+#+END_SRC
+
+* Setup
+Now to post you need to configure org2blog to use your particular
+blog. Add the following to your =~/.emacs=, replacing my url and
+username with your own. Be sure to add "=/xmlrpc.php=" to the end of
+your url.
+#+BEGIN_SRC emacs-lisp
+(require 'org2blog)
+(setq org2blog/wp-blog-alist
+      '(("wordpress"
+         :url "https://taingram.org/xmlrpc.php"
+         :username "taingram")))
+#+END_SRC
+This is the very basics you need to send a post, although other
+variables can be defined here as well.
+
+** Enabling org2blog
+*** Per Buffer Biases 
+In an Org buffer you wish to enable org2blog in 
+#+BEGIN_SRC 
+M-x org2blog/wp-mode
+#+END_SRC
+You can automate this by adding the following to the top of your Org
+files you wish to use org2blog with.
+#+BEGIN_SRC
+# -*- mode: org; mode: org2blog/wp; -*-
+#+END_SRC
+*** Globally
+If you'd like org2blog in all your Org files you can add this hook to
+to your =~/.emacs=
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook 'org2blog/wp-mode)
+#+END_SRC
+*** Per Directory
+
+
+
+* Posting
+#+BEGIN_SRC
+M-x org2blog/wp-login
+#+END_SRC
+
+Now in your buffer you can use the default keybindings to post
+to your WordPress blog
+| C-c M-p p | Post buffer             |
+| C-c M-p d | Post buffer as draft    |
+| C-c M-p P | Post buffer as page     |
+Some new Org tags will be added to your file when you post, this
+will allow you to republish the same file and it will edit the same
+post on your blog.
+
+You can also tag your post:
+#+BEGIN_SRC
+#+TAGS: emacs, org-mode, wordpress
+#+END_SRC
+
+* Configurations
+For most of my private Org files I don't want any of these features so
+instead I want to enable org2blog only in certain files.  One option
+would be to add the following to the top of my blog posts
+#+BEGIN_SRC
+# -*- mode: org; mode: org2blog/wp; -*-
+#+END_SRC
+but that is tedious and ugly in org files. Plus I know all files in
+my =~/org/blog= directory will need org2blog, so instead maybe an org-mode hook
+would be a better solution.
+
+* Issues 
+For some reason after finishing posting a new window is opened with
+the same buffer, mild annoyance. [[https://github.com/punchagan/org2blog/issues/193][Bug listed here]]. It appears when
+asking if I wish to view the post in browser.
+
+For more options and information check out the [[https://github.com/punchagan/org2blog][org2blog]] project page.
+
+
