@@ -6,8 +6,24 @@ posts on taingram.org
 * License 
 taingram.org (c) by Thomas Ingram
 
-taingram.org is licensed under a Creative Commons Attribution
-4.0 International License.
+The content of taingram.org is licensed under a Creative Commons
+Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).
 
 You should have received a copy of the license along with this
-work. If not, see <http://creativecommons.org/licenses/by/4.0/>.
+work. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>.
+
+
+* Post Ideas
+
+** Tutorial
+*** Intro to FOSS License's (and why they matter)
+*** Intro to GPG Encryption
+*** How to use and set up mpd 
+Don't forget to mention the systemctl script.
+
+
+*** How to setup automatic updates on Debian and Fedora
+*** Tweaks I make to GNOME
+
+** Opinion 
+*** Why use Encryption and Tor?
