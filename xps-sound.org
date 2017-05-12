@@ -1,10 +1,8 @@
-# -*- mode: org; mode: org2blog/wp; -*-
 #+BLOG: wordpress
 #+POSTID: 44
 #+DATE: [2017-04-01 Sat 16:40]
-#+TAGS: xps, linux, tlp, laptop
-
 #+TITLE: Audio Popping Fix for Linux
+#+TAGS: xps, linux, tlp, laptop
 
 The Dell XPS has been my primary computer for the past couple
 months. It has worked great but recently I noticed some audio
@@ -18,20 +16,27 @@ it was turned on and off.
 
 ** Check if tlp is running
 Run the command 
-#+BEGIN_SRC 
-$ systemctl status tlp
+#+BEGIN_SRC bash :results text verbatim
+systemctl status tlp
 #+END_SRC 
+
 Example output:
-#+BEGIN_SRC 
-tlp.service - TLP system startup/shutdown
-   Loaded: loaded (/usr/lib/systemd/system/tlp.service; enable; 
-   Active: active (exited) since Fri 2017-03-31 19:09:22 EDT
+#+RESULTS:
+#+begin_example
+● tlp.service - TLP system startup/shutdown
+   Loaded: loaded (/usr/lib/systemd/system/tlp.service; enabled; vendor preset: enabled)
+   Active: active (exited) since Fri 2017-05-12 00:27:00 EDT; 59min ago
      Docs: http://linrunner.de/tlp
-  Process: 1954 ExecStart=/usr/sbin/tlp init start
- Main PID: 1954 (code=exited, status=0/SUCCESS)
+  Process: 1574 ExecStart=/usr/sbin/tlp init start (code=exited, status=0/SUCCESS)
+ Main PID: 1574 (code=exited, status=0/SUCCESS)
     Tasks: 0 (limit: 4915)
    CGroup: /system.slice/tlp.service
-#+END_SRC
+
+May 12 00:27:00 XPS systemd[1]: Starting TLP system startup/shutdown...
+May 12 00:27:00 XPS tlp[1574]: Applying power save settings...done.
+May 12 00:27:00 XPS tlp[1574]: Setting battery charge thresholds...done.
+May 12 00:27:00 XPS systemd[1]: Started TLP system startup/shutdown.
+#+end_example
 
 In the output you should see the 3rd line "=Active: active=" if =tlp=
 is running. Otherwise this solution likely won't fix your problem.
