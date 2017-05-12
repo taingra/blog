@@ -19,5 +19,6 @@ editors as well (albeit more limited). You can view the source on my
 [[https://gitlab.com/taingram/blog/][GitLab]].
 
 I release all of my works under Creative Commons and free software
-licenses consider helping me pay rent and do more of this.
+licenses.
+
 - Bitcoin: 17JSBn8DKXgtb7X1noscvUsj26DrFrc82
