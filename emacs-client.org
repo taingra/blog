@@ -41,7 +41,7 @@ To do this you must create a .service in =~/.config/systemd/user/=. My
 example: =emacs.service= [fn:1]
 
 #+NAME: emacs.service
-#+BEGIN_SRC 
+#+BEGIN_SRC
 [Unit]
 Description=Emacs Daemon
 
@@ -54,11 +54,11 @@ Restart=always
 [Install]
 WantedBy=default.target
 #+END_SRC
- 
+
 In order to control this user created service we have to preface our
 commands with =--user=. This gives us the benefit of our service being
 controlled and run without root privileges. You should always avoid
-running anything as root if you do not absolutely have to. 
+running anything as root if you do not absolutely have to.
 
 Then start and enable
  this service run
@@ -70,9 +70,10 @@ systemctl --user enable emacs.service  # Enable emacs to be started at login
 * Open files with your file browser
 Now like any other graphical editor you will want to be able to open
 files from your graphical file browser. To do so create a desktop file
-for emacsclient.[fn:3]
+for emacsclient and place it in =~/.local/share/applications/=[fn:3]
 
-#+BEGIN_SRC 
+#+NAME: emacsclient.desktop
+#+BEGIN_SRC
 [Desktop Entry]
 Name=Emacs Client
 GenericName=Text Editor
@@ -110,9 +111,9 @@ fi
 emacsclient -e "(frames-on-display-list \"$DISPLAY\")" &>/dev/null
 
 if [ $? -eq 0 ]; then
-    emacsclient -n $*
+    emacsclient -n "$*"
 else
-    emacsclient -c -n $*
+    emacsclient -c -n "$*"
 fi
 #+END_SRC
 
@@ -131,16 +132,17 @@ The path is the directory where commands are sourced from. Generally
 you place user created executables in =~/bin= or =~/.local/bin=. You
 can check if these are path with
 
-#+BEGIN_SRC bash :results verbatim :exports both
+#+BEGIN_SRC bash :results verbatim
 echo $PATH
 #+END_SRC
 
-#+RESULTS:
-: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+#+BEGIN_SRC
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+#+END_SRC
 
 As you can see =~/bin= and =~/.local/bin= are not in my path. To add
-them you can edit your bash profile which is stored in =~/.profile= or
-=~/.bash_profile=. Add the following lines to the end of the file
+them you can edit your bash profile which is stored in either
+=~/.profile= or =~/.bash_profile=. Add the following
 
 #+BEGIN_SRC bash
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
@@ -148,21 +150,22 @@ export PATH
 #+END_SRC
 
 To verify this was done correctly run this command from a shell
-#+BEGIN_SRC bash :results verbatim :exports both
+#+BEGIN_SRC bash :results verbatim
 source ~/.bash_profile && echo $PATH
 #+END_SRC
 
-#+RESULTS:
-: /usr/lib64/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/home/tingram/.local/bin:/home/tingram/bin
+#+BEGIN_SRC
+/usr/lib64/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/home/tingram/.local/bin:/home/tingram/bin
+#+END_SRC
 
 *** Update the .desktop file
 Change the Exec line in the desktop file we created earlier to use
 this script instead of emacsclient
-#+BEGIN_SRC 
+#+BEGIN_SRC
 Exec=emacsclient-one-frame.sh %f
 #+END_SRC
 
-* Add a command alias 
+* Add a command alias
 If you frequently start Emacs from the commandline you'll want to
 start using emacsclient to speed up your startup time. In your
 =~/.bashrc= consider adding one of the following aliases
