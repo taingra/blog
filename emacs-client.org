@@ -90,6 +90,12 @@ Note that some distributions ship with an Emacs client desktop icon by
 default, e.g. Debian, so this step may be unnecessary unless you want
 to make use of the following script.
 
+** Set as default in Nautilus
+In nautilus file browser find a text file type you wish to be
+associated with Emacs client. Right click it, select properties, move
+to the "Open With" tab choose Emacs Client and press "Set as
+default".
+
 ** Open all files in one frame
 This desktop file will result in each file being opened as a new Emacs
 frame (a new window). This will clutter up your desktop if you open
@@ -175,7 +181,7 @@ alias emacs=emacsclient-one-frame.sh
 alias ec=emacsclient -t # Opens emacs inside terminal
 #+END_SRC
 
-** Set emacsclient as your default editor
+** Set emacsclient as your default terminal  editor
 In your =~/.profile= or =~/.bash_profile= add the following lines
 
 #+BEGIN_SRC bash
