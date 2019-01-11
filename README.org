@@ -3,11 +3,12 @@
 This is is the Emacs Org mode source that is used to generate the
 posts on taingram.org
 
-* License 
+* License
 taingram.org (c) by Thomas Ingram
 
-The content of taingram.org is licensed under a Creative Commons
-Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).
+All content of taingram.org is licensed under a Creative Commons
+Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)
+unless otherwise stated in the file.
 
 You should have received a copy of the license along with this
 work. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>.
