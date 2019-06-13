@@ -1,0 +1,7 @@
+#+TITLE: Sitemap for project blog
+
+- 2019-05-31 [[file:blog/setting-up-minecraft-server.org][Setting Up a Minecraft Server on Fedora GNU/Linux]]
+- 2019-05-16 [[file:blog/improving-how-i-backup.org][Improving How I Backup My Computer]]
+- 2019-03-15 [[file:blog/org-mode-blog.org][Building a Blog with Emacs Org-Mode]]
+- 2017-05-09 [[file:blog/emacs-client.org][Using emacsclient to Speed up Editing]]
+- 2017-04-01 [[file:blog/xps-sound.org][Audio Popping Fix for Linux]]

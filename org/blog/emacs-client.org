@@ -1,5 +1,3 @@
-#+BLOG: wordpress
-#+POSTID: 130
 #+DATE: [2017-05-09 Tue 15:03]
 #+TITLE: Using emacsclient to Speed up Editing
 #+TAGS: emacs
@@ -197,10 +195,10 @@ export VISUAL
 
 * Footnotes
 
-[fn:4] =VISUAL= versus =EDITOR= https://unix.stackexchange.com/questions/4859/visual-vs-editor-whats-the-difference
+[fn:4] [[https://unix.stackexchange.com/questions/4859/visual-vs-editor-whats-the-difference][=VISUAL= versus =EDITOR=]]
 
-[fn:3] Script adapted from http://stackoverflow.com/questions/25029877/using-emacs-as-a-server-and-opening-only-one-window-exactly-which-should-be-max#28015471
+[fn:3] [[http://stackoverflow.com/questions/25029877/using-emacs-as-a-server-and-opening-only-one-window-exactly-which-should-be-max#28015471][Shell script adapted from StackOverflow user mzuther]]
 
-[fn:2] Systemd service adapted from http://blog.refu.co/?p=1296
+[fn:2] [[http://blog.refu.co/?p=1296][Systemd service adapted from Lefteris Karapetsas blog]]
 
-[fn:1] Desktop file documentation https://developer.gnome.org/integration-guide/stable/desktop-files.html.en
+[fn:1] [[https://developer.gnome.org/integration-guide/stable/desktop-files.html.en][GNOME Desktop file guide]]

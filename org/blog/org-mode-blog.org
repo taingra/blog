@@ -1,0 +1,46 @@
+#+TITLE: Building a Blog with Emacs Org-Mode
+
+This year as my WordPress account came near expiring I thought I would finally
+take a moment to rebuild my website using purely Emacs and org-mode. WordPress,
+while a fine CMS is overkill for my simple needs. I have no need for a built-in
+editor, themes, or plug-ins I just need simple HTML page generation.
+
+While using WordPress I wrote my posts in [[https://orgmode.org/][org-mode]] and I imported them to
+WordPress with the [[https://github.com/org2blog/org2blog][org2blog]] package. This was an okay solution, but I was never
+truly happy with how clunky of an experience it was. Cheap WordPress hosting
+plans offer few customization options and WordPress felt like overkill when I
+knew that org-mode had built in HTML exporting.
+
+* Goals
+1. Have a lightweight and consistent layout and structure for my site
+2. Be able to clone my blog's repo and run =make= to generate my site from scratch
+3. Be able to quickly sync exported files with server =make install=
+4. Do this without adding new dependencies (e.g. just git, emacs, make, ssh, rsync)
+
+** Requirements
+|-----------------+---------------+-------------------|
+|                 | My choice     | Other options     |
+|-----------------+---------------+-------------------|
+| Linux Server    | Digital Ocean | Physical server   |
+| Web Server      | Apache        | Nginx, lighthttpd |
+| Syncing         | scp           | rsync, syncthing  |
+| Site Generation | Emacs         | Hugo?, pandoc?    |
+|-----------------+---------------+-------------------|
+
+* Setup
+To do this I took advantage of the built in export features inside org-mode
+which allows us to define how to export the org files, where to export them to,
+as well as add HTML preamble and postamble for navigation. We will also use this
+functionality to insert a CSS style and copy files like images.
+
+#+INCLUDE: "../../publish.el" src emacs-lisp
+
+In this config I do not make use of Emacs' tramp features which would allow for
+directly exporting these files to the remote server by changing
+=:publishing-directory= to something like
+="//ssh:username@website.com:~/public_html//"=. In my (limited) testing I have found
+this to be far to slow in comparison with syncing the files after export.
+
+* Building
+
+#+INCLUDE: "../../makefile" src make
