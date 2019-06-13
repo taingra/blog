@@ -1,0 +1,29 @@
+#+TITLE: Thomas Ingram
+
+- [[file:resume.org][Resume]] [[[file:files/resume-na.pdf][PDF]]]
+- Git([[https://github.com/taingra][Hub]]|[[https://gitlab.com/taingram][Lab]])
+- [[https://social.coop/@ti][Mastodon]]
+- [[https://paypal.me/taingra][PayPal.me/taingra]]
+- *Bitcoin*: 17JSBn8DKXgtb7X1noscvUsj26DrFrc82
+
+Hello, I'm Thomas, a computer science student at Michigan Tech, interested in
+GNU/Linux, computer privacy, security, and advocating for free software
+solutions.
+
+This blog is intentionally minimal, partly because I am not a designer, but also
+to show that websites can be functional without being several megabytes large
+and full of unnecessary JavaScript. I write these posts in a markup language
+called Org-mode and export them to the static web pages you see here. Org-mode
+was originally created for [[https://gnu.org/s/emacs][Emacs]] but has since been re-implemented in other
+editors as well (albeit more limited). You can view the source on [[https://gitlab.com/taingram/blog/][GitLab]].
+
+Whenever possible I prefer to release all of my works under [[https://creativecommons.org/][Creative Commons]] or
+[[Https://www.gnu.org/philosophy/free-sw.html][Free Software]] licenses. This blog is released under the terms of the [[https://creativecommons.org/licenses/by-sa/4.0/][Creative
+Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0]]). That means you
+can adapt my posts into new content if you so wish!  So long as I am credited as
+the original author and you agree share your adapted content as well under the
+terms of the same license.
+
+* Blog
+
+#+INCLUDE: blog/blog.org :lines "2-"
