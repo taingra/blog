@@ -6,7 +6,7 @@
 
 The Dell XPS has been my primary computer for the past couple
 months. It has worked great but recently I noticed some audio
-crackling when starting/stopping videos and music playback. 
+crackling when starting/stopping videos and music playback.
 
 * Solution
 I [[http://en.community.dell.com/support-forums/laptop/f/3517/t/20006160][found the problem]] was an issue with =tlp= a fantastic little tool
@@ -15,10 +15,10 @@ to my audio jack when not in use which caused the loud crackling when
 it was turned on and off.
 
 ** Check if tlp is running
-Run the command 
+Run the command
 #+BEGIN_SRC bash :results text verbatim
 systemctl status tlp
-#+END_SRC 
+#+END_SRC
 
 Example output:
 #+RESULTS:
@@ -47,12 +47,12 @@ To solve this edit =/etc/default/tlp= (for beginners use "=gksudo
 gedit /etc/default/tlp=" or "=sudo nano /etc/default/tlp=").
 
 Change lines:
-#+BEGIN_SRC 
+#+BEGIN_SRC
 SOUND_POWER_SAVE_ON_AC=0
 SOUND_POWER_SAVE_ON_BAT=1
 #+END_SRC
 To this:
-#+BEGIN_SRC 
+#+BEGIN_SRC
 SOUND_POWER_SAVE_ON_AC=0
 SOUND_POWER_SAVE_ON_BAT=0
 #+END_SRC
@@ -62,3 +62,6 @@ That will stop =tlp= from turning your audio on and off when audio
 stops playing. You may loose some slight power savings, but I haven't
 noticed anything significant. So it's worth doing just to ditch the
 annoying crackling!
+
+* See Also
+- [[https://wiki.archlinux.org/index.php/Dell_XPS_13_(9350)#Sound]]
