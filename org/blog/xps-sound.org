@@ -1,5 +1,3 @@
-#+BLOG: wordpress
-#+POSTID: 44
 #+DATE: [2017-04-01 Sat 16:40]
 #+TITLE: Audio Popping Fix for Linux
 #+TAGS: xps, linux, tlp, laptop
