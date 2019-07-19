@@ -1,8 +1,8 @@
 #+DATE: [2017-04-01 Sat 16:40]
-#+TITLE: Audio Popping Fix for Linux
+#+TITLE: Fixing Dell XPS 13 Audio Popping
 #+TAGS: xps, linux, tlp, laptop
 
-The Dell XPS has been my primary computer for the past couple
+The Dell XPS 13 has been my primary computer for the past couple
 months. It has worked great but recently I noticed some audio
 crackling when starting/stopping videos and music playback.
 
@@ -45,12 +45,12 @@ To solve this edit =/etc/default/tlp= (for beginners use "=gksudo
 gedit /etc/default/tlp=" or "=sudo nano /etc/default/tlp=").
 
 Change lines:
-#+BEGIN_SRC
+#+BEGIN_SRC conf
 SOUND_POWER_SAVE_ON_AC=0
 SOUND_POWER_SAVE_ON_BAT=1
 #+END_SRC
 To this:
-#+BEGIN_SRC
+#+BEGIN_SRC conf
 SOUND_POWER_SAVE_ON_AC=0
 SOUND_POWER_SAVE_ON_BAT=0
 #+END_SRC
@@ -61,5 +61,11 @@ stops playing. You may loose some slight power savings, but I haven't
 noticed anything significant. So it's worth doing just to ditch the
 annoying crackling!
 
-* See Also
-- [[https://wiki.archlinux.org/index.php/Dell_XPS_13_(9350)#Sound]]
+* Update: Headphone Audio Whining
+
+Recently I have noticed a consistent whining when using headphones. The [[https://wiki.archlinux.org/index.php/Dell_XPS_13_(9350)#Sound%5D%5D][Arch
+Wiki provides a solution]] that seems to work:
+
+#+BEGIN_SRC bash
+amixer -c 0 cset 'numid=10' 1
+#+END_SRC
