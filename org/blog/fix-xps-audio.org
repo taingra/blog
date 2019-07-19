@@ -4,16 +4,15 @@
 
 The Dell XPS 13 has been my primary computer for the past couple
 months. It has worked great but recently I noticed some audio
-crackling when starting/stopping videos and music playback.
+crackling when starting/stopping playback.
 
 * Solution
-I [[http://en.community.dell.com/support-forums/laptop/f/3517/t/20006160][found the problem]] was an issue with =tlp= a fantastic little tool
-that helps save power on Linux laptops. Issue was it was cutting power
-to my audio jack when not in use which caused the loud crackling when
-it was turned on and off.
+I [[http://en.community.dell.com/support-forums/laptop/f/3517/t/20006160][found the problem]] was an issue with =tlp=, a fantastic tool that helps
+save power on Linux laptops. Issue was it was cutting power to my
+audio jack when not in use which caused the loud crackling when it was
+turned on and off.
 
 ** Check if tlp is running
-Run the command
 #+BEGIN_SRC bash :results text verbatim
 systemctl status tlp
 #+END_SRC
@@ -63,7 +62,7 @@ annoying crackling!
 
 * Update: Headphone Audio Whining
 
-Recently I have noticed a consistent whining when using headphones. The [[https://wiki.archlinux.org/index.php/Dell_XPS_13_(9350)#Sound%5D%5D][Arch
+Recently I have noticed a constant whining when using headphones. The [[https://wiki.archlinux.org/index.php/Dell_XPS_13_(9350)#Sound%5D%5D][Arch
 Wiki provides a solution]] that seems to work:
 
 #+BEGIN_SRC bash
