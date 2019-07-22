@@ -1,4 +1,3 @@
-#+DATE: [2017-05-09 Tue 15:03]
 #+TITLE: Emacsclient Setup with Desktop Integration
 #+TAGS: emacs
 
