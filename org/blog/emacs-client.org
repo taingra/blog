@@ -1,30 +1,27 @@
 #+DATE: [2017-05-09 Tue 15:03]
-#+TITLE: Using emacsclient to Speed up Editing
+#+TITLE: Emacsclient Setup with Desktop Integration
 #+TAGS: emacs
 
-When using a typical graphical text editor like gedit it is expected
-to be able to quickly open files from your file manager and make
-edits. Emacs is generally not well suited for this workflow as it is
-made to be customizable therefore most Emacs users will have long
-configuration files that must be loaded at startup causing Emacs to
-open comparatively slower. This works fine if you like to startup
-Emacs once and do everything inside of it, but if you are frequently
-opening and closing windows you would be better off just starting
-Emacs once and connect to it using the very fast and lightweight
-emacsclient.
+When using a typical text editor (e.g. gedit or vim) it is expected to be able
+to quickly open and close files from your file manager or terminal. Emacs, while
+a great editor, is not well suited for this workflow as typical users have long
+configuration files that must be loaded slowing the start-up time. This is not a
+problem if you start Emacs once and do everything inside of it, but if you are
+frequently opening and closing windows you would be better off just starting
+Emacs once and connect to it using the fast and lightweight =emacsclient=.
 
-* Starting Emacs as a daemon
+* Running Emacs as a daemon
 #+BEGIN_SRC bash
 emacs --daemon
 #+END_SRC
-This can be added to startup files that are sourced at login like your
-=~/.profile=, or =~/.bash_profile= to easily start the daemon at login.
+This can be added to startup files that are sourced at login like your bash
+profile (=~/.profile= or =~/.bash_profile)= to automatically start the daemon at
+login.
 
-*** Using a Systemd service
-Alternatively, I choose to start the Emacs daemon as using a Systemd
-user service. I went this route as it gives me a consistent way to
-manage my Emacs daemon as I would any other process using familiar
-systemctl commands.
+** Using a systemd service
+Alternatively, as of [[https://lists.gnu.org/archive/html/emacs-devel/2018-05/msg00765.html][GNU Emacs 26.1 a systemd unit file is included]], using
+systemd allows for convenient management commands through the familiar =systemctl=
+utility as used with other services.
 
 | Systemctl commands | Description                         |
 |--------------------+-------------------------------------|
@@ -34,44 +31,23 @@ systemctl commands.
 | enable             | Enable one or more unit files       |
 | disable            | Disable one or more unit files      |
 
+Emacs's unit file is a user service, meaning it doesn't require root access and
+is started at login rather than boot. In order to control user services we must
+preface our commands with =--user= flag.
 
-To do this you must create a .service in =~/.config/systemd/user/=. My
-example: =emacs.service= [fn:1]
-
-#+NAME: emacs.service
-#+BEGIN_SRC
-[Unit]
-Description=Emacs Daemon
-
-[Service]
-Type=forking
-ExecStart=/usr/bin/emacs --daemon
-ExecStop=/usr/bin/emacsclient --eval "(progn (setq kill-emacs-hook 'nil) (kill-emacs))"
-Restart=always
-
-[Install]
-WantedBy=default.target
-#+END_SRC
-
-In order to control this user created service we have to preface our
-commands with =--user=. This gives us the benefit of our service being
-controlled and run without root privileges. You should always avoid
-running anything as root if you do not absolutely have to.
-
-Then start and enable
- this service run
 #+BEGIN_SRC bash
 systemctl --user start emacs.service   # Start emacs for the current session
 systemctl --user enable emacs.service  # Enable emacs to be started at login
 #+END_SRC
 
-* Open files with your file browser
-Now like any other graphical editor you will want to be able to open
-files from your graphical file browser. To do so create a desktop file
-for emacsclient and place it in =~/.local/share/applications/=[fn:3]
+
+* Open files from your graphical file browser
+Now like any other graphical editor you will need a desktop icon in order to
+open files from your graphical file browser. To do so create a desktop file for
+emacsclient and place it in =~/.local/share/applications/emacsclient.desktop=[fn:1]
 
 #+NAME: emacsclient.desktop
-#+BEGIN_SRC
+#+BEGIN_SRC conf
 [Desktop Entry]
 Name=Emacs Client
 GenericName=Text Editor
@@ -85,22 +61,15 @@ Categories=Utility;TextEditor;
 #+END_SRC
 
 Note that some distributions ship with an Emacs client desktop icon by
-default, e.g. Debian, so this step may be unnecessary unless you want
-to make use of the following script.
-
-** Set as default in Nautilus
-In nautilus file browser find a text file type you wish to be
-associated with Emacs client. Right click it, select properties, move
-to the "Open With" tab choose Emacs Client and press "Set as
-default".
+default, like Debian, so this step may be unnecessary unless you want
+to make use of the script below.
 
 ** Open all files in one frame
-This desktop file will result in each file being opened as a new Emacs
-frame (a new window). This will clutter up your desktop if you open
-many files. A better option would be to open a new frame only if none
-exist otherwise open the file as a new buffer in the existing
-frame. This is accomplished with the following
-=emacsclient-one-frame.sh= script [fn:2]
+This desktop file will result in each file being opened as a new Emacs frame (a
+new window). This will clutter up your desktop if you open many files. A better
+approach would be to open a new frame only if none exist otherwise open the file
+as a new buffer in the existing frame. This is accomplished with the following
+script [fn:3]
 
 #+NAME: emacsclient-one-frame.sh
 #+BEGIN_SRC bash
@@ -121,53 +90,30 @@ else
 fi
 #+END_SRC
 
-Make the script executable
+Make the script executable:
 #+BEGIN_SRC bash
 chmod +x emacsclient-one-frame.sh
 #+END_SRC
 
-Test run the script with
-#+BEGIN_SRC bash
-./emacsclient-one-frame.sh testfile.sh
-#+END_SRC
-
-*** Add the script to your it to your path
-The path is the directory where commands are sourced from. Generally
-you place user created executables in =~/bin= or =~/.local/bin=. You
-can check if these are path with
-
-#+BEGIN_SRC bash :results verbatim
-echo $PATH
-#+END_SRC
-
-#+BEGIN_SRC
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
-#+END_SRC
-
-As you can see =~/bin= and =~/.local/bin= are not in my path. To add
-them you can edit your bash profile which is stored in either
-=~/.profile= or =~/.bash_profile=. Add the following
+And place it somewhere accessible from your =$PATH=. I use =~/bin= but if you would
+like it hidden =~/.local/bin= is another option. Add both to your =$PATH= by adding
+the following to your =~/bashrc=:
 
 #+BEGIN_SRC bash
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
+PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 export PATH
 #+END_SRC
 
-To verify this was done correctly run this command from a shell
-#+BEGIN_SRC bash :results verbatim
-source ~/.bash_profile && echo $PATH
-#+END_SRC
-
-#+BEGIN_SRC
-/usr/lib64/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/home/tingram/.local/bin:/home/tingram/bin
-#+END_SRC
-
-*** Update the .desktop file
-Change the Exec line in the desktop file we created earlier to use
-this script instead of emacsclient
-#+BEGIN_SRC
+Change the Exec line in the desktop file to the script.
+#+BEGIN_SRC conf
 Exec=emacsclient-one-frame.sh %f
 #+END_SRC
+
+** Set as default in Nautilus
+In nautilus file browser find a text file type you wish to be
+associated with Emacs client. Right click it, select properties, move
+to the "Open With" tab choose Emacs Client and press "Set as
+default".
 
 * Add a command alias
 If you frequently start Emacs from the commandline you'll want to
@@ -175,30 +121,25 @@ start using emacsclient to speed up your startup time. In your
 =~/.bashrc= consider adding one of the following aliases
 
 #+BEGIN_SRC bash
-alias emacs=emacsclient-one-frame.sh
-alias ec=emacsclient -t # Opens emacs inside terminal
+alias emacs='emacsclient-one-frame.sh'
+alias ec='emacsclient -t'                # Opens emacs inside terminal
 #+END_SRC
 
 ** Set emacsclient as your default terminal  editor
 In your =~/.profile= or =~/.bash_profile= add the following lines
 
 #+BEGIN_SRC bash
-EDITOR='emacsclient -t'
-export EDITOR
-
-VISUAL=emacsclient-one-frame.sh
+VISUAL='emacsclient -t'
 export VISUAL
 #+END_SRC
 
-=VISUAL= means visual editor and most things should default to it,
-=EDITOR= will be used if =VISUAL= cannot be. [fn:4]
+=VISUAL= means  full-screen or /visual/ editor, this variable should be used over
+=EDITOR=. =EDITOR=  is a fallback used when full-screen editing features are not
+available. [fn:4]
 
 * Footnotes
-
-[fn:4] [[https://unix.stackexchange.com/questions/4859/visual-vs-editor-whats-the-difference][=VISUAL= versus =EDITOR=]]
+[fn:4] [[https://unix.stackexchange.com/questions/4859/visual-vs-editor-whats-the-difference][VISUAL versus EDITOR]]
 
 [fn:3] [[http://stackoverflow.com/questions/25029877/using-emacs-as-a-server-and-opening-only-one-window-exactly-which-should-be-max#28015471][Shell script adapted from StackOverflow user mzuther]]
-
-[fn:2] [[http://blog.refu.co/?p=1296][Systemd service adapted from Lefteris Karapetsas blog]]
 
 [fn:1] [[https://developer.gnome.org/integration-guide/stable/desktop-files.html.en][GNOME Desktop file guide]]
