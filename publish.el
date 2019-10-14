@@ -77,7 +77,7 @@
                   href=\"../style.css\" type=\"text/css\"/>")
 	("static"
 	 :base-directory "~/Documents/blog/org/"
-	 :base-extension "css\\|pdf"
+	 :base-extension "css\\|txt\\|pdf"
 	 :recursive t
 	 :publishing-directory "~/Documents/blog/html/"
 	 :publishing-function org-publish-attachment)
