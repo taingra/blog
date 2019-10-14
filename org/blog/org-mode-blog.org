@@ -1,46 +1,158 @@
 #+TITLE: Building a Blog with Emacs Org-Mode
 
-This year as my WordPress account came near expiring I thought I would finally
-take a moment to rebuild my website using purely Emacs and org-mode. WordPress,
-while a fine CMS is overkill for my simple needs. I have no need for a built-in
-editor, themes, or plug-ins I just need simple HTML page generation.
+As my WordPress subscription neared its expiration I decided I would finally
+take the time to build my own website using a pure [[https://gnu.org/s/emacs][Emacs]] and [[https://orgmode.org][Org mode]] setup.
+WordPress, while a fine CMS, is overkill as I have no need for a built-in
+editor, themes, or plug-ins. I just need a powerful markup language and static
+HTML page generation.
 
-While using WordPress I wrote my posts in [[https://orgmode.org/][org-mode]] and I imported them to
-WordPress with the [[https://github.com/org2blog/org2blog][org2blog]] package. This was an okay solution, but I was never
-truly happy with how clunky of an experience it was. Cheap WordPress hosting
-plans offer few customization options and WordPress felt like overkill when I
-knew that org-mode had built in HTML exporting.
+While using WordPress I already composed my posts in Org mode and I imported
+them using the [[https://github.com/org2blog/org2blog][org2blog]] package. This was an okay solution, but I was never
+happy with how clunky of an experience it was and felt redundant when Org mode
+has built in HTML exporting. Add to that a cheap WordPress.com plans offer few
+customization options.
 
 * Goals
-1. Have a lightweight and consistent layout and structure for my site
-2. Be able to clone my blog's repo and run =make= to generate my site from scratch
-3. Be able to quickly sync exported files with server =make install=
-4. Do this without adding new dependencies (e.g. just git, emacs, make, ssh, rsync)
+1. Have a lightweight, consistent layout and mobile scaling website
+2. Be able to easily rebuild my website from source and sync it to any web server
+3. Do so without adding any new software dependencies (just Emacs, git, make, ssh, rsync)
 
-** Requirements
-|-----------------+---------------+-------------------|
-|                 | My choice     | Other options     |
-|-----------------+---------------+-------------------|
-| Linux Server    | Digital Ocean | Physical server   |
-| Web Server      | Apache        | Nginx, lighthttpd |
-| Syncing         | scp           | rsync, syncthing  |
-| Site Generation | Emacs         | Hugo?, pandoc?    |
-|-----------------+---------------+-------------------|
+** Tools
+| *Editor*          | Emacs         |
+| *Markup Language* | Org mode      |
+| *Site Generator*  | Emacs         |
+| *Syncing*         | ssh & rsync   |
 
 * Setup
-To do this I took advantage of the built in export features inside org-mode
-which allows us to define how to export the org files, where to export them to,
-as well as add HTML preamble and postamble for navigation. We will also use this
-functionality to insert a CSS style and copy files like images.
+Org mode's built-in [[https://orgmode.org/org.html#Publishing][publishing]] functionality handles converting the Org files
+into HTML pages and linking them all together. We need to specify the
+=org-publish-project-alist= where our files are, how to export them, and where to
+put them.
 
-#+INCLUDE: "../../publish.el" src emacs-lisp
+#+BEGIN_SRC emacs-lisp
+  (setq org-publish-project-alist
+	`(("home"
+	   :base-directory "~/Documents/blog/org/"
+	   :base-extension "org"
+	   :publishing-directory "~/Documents/blog/html/"
+	   :publishing-function org-html-publish-to-html
+	   :recursive nil
+	   :html-head     ,taingram-head
+	   :html-preamble "<div id=\"updated\">Updated: %C</div>"
+	   :html-postamble ,taingram-footer)
+	  ("blog"
+	   :base-directory "~/Documents/blog/org/blog/"
+	   :base-extension "org"
+	   :publishing-directory "~/Documents/blog/html/blog/"
+	   :publishing-function org-html-publish-to-html
+	   :auto-sitemap t
+	   :sitemap-filename "blog.org"
+	   :sitemap-sort-files anti-chronologically
+	   :sitemap-format-entry org-sitemap-custom-entry-format
+	   :html-head ,taingram-head
+	   :html-preamble "<div id=\"updated\">Updated: %C</div><nav><a href=\"/\">&lt; Home</a></nav>"
+	   :html-postamble ,taingram-footer)
+	  ("static"
+	   :base-directory "~/Documents/blog/org/"
+	   :base-extension "css\\|jpg\\|gif\\|png\\|pdf"
+	   :recursive t
+	   :publishing-directory "~/Documents/blog/html/"
+	   :publishing-function org-publish-attachment)
+	  ("taingram.org" :components ("home" "blog" "static"))))
+#+END_SRC
+
+One interesting thing to note is that I've separated "home" from "blog". I did
+this because while I am interested in having a sitemap generated listing my blog
+posts, of which I will keep adding many pages to, I see less value having one
+for the root directory of my website. Where I will rarely add pages and when I
+do it is easier to just add links manually than have a large and confusing
+sitemap.
+
+In order to have my blog sitemap shown on the home page I included just part
+of generated sitemap. Here's the snippet from =index.org=:
+
+#+BEGIN_SRC
+* Blog
+#+HTML: <div class="blog-entries">
+#+INCLUDE: blog/blog.org :lines "2-"
+#+HTML: </div>
+#+END_SRC
+
+The surrounding div class is used for additional CSS styling.
+
+
+Another thing of note is the variables =html-(head|preamble|postamble)= this is
+where I insert my stylesheet, and extra HTML for navigation and footer. The
+variables I set them to are shown below.
+
+#+BEGIN_SRC emacs-lisp
+(defvar taingram-head "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>")
+
+(defvar taingram-footer "<hr/>
+<footer>
+  <div class=\"copyright-container\">
+    <div class=\"copyright\">
+      Copyright &copy; 2019 Thomas Ingram some rights reserved<br/>
+      Content is available under
+      <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
+      CC-BY-SA 4.0
+      </a> unless otherwise noted
+    </div>
+    <div class=\"cc-badge\">
+      <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
+        <img alt=\"Creative Commons License\"
+             src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" />
+       </a>
+    </div>
+  </div>
+
+  <div class=\"generated\">
+    Created with %c; powered by  <a href=\"https://httpd.apache.org/\">Apache</a> and <a href=\"https://getfedora.org/\">Fedora</a> <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
+  </div>
+</footer>")
+#+END_SRC
+
+** HTML5
+I preferred to write my own CSS stylesheet from scratch so I disabled
+
+#+BEGIN_SRC emacs-lisp
+        ; Disable some Org publish defaults
+	:html-head-include-scripts nil
+	:html-head-include-default-style nil
+        :with-toc nil
+	:section-numbers nil
+
+	; Use HTML5 tags
+	:html-html5-fancy t
+	:html-doctype "html5"
+#+END_SRC
+
+** Tramp
 
 In this config I do not make use of Emacs' tramp features which would allow for
 directly exporting these files to the remote server by changing
 =:publishing-directory= to something like
-="//ssh:username@website.com:~/public_html//"=. In my (limited) testing I have found
-this to be far to slow in comparison with syncing the files after export.
+="//ssh:username@website.com:~/public_html//"=.  In my (limited) testing I have
+found this to be far to slow in comparison with syncing the files after export.
+
+** TODO RSS Feed
+#+BEGIN_SRC
+(require 'ox-rss)
+#+END_SRC
 
 * Building
+There are two ways to build this blog, one within Emacs and one outside of
+Emacs.
+
+For those unfamiliar with Emacs I have provided a makefile that will generate
+the HTML files (only GNU Emacs and make are required dependencies).
 
 #+INCLUDE: "../../makefile" src make
+
+* Writing New Blog Posts :noexport:
+Originally, to write a new post I was simply navigating to the blog's git repo
+and adding a new file as you usually would. I am curious if this can be
+streamlined using Org mode's capture features.
+* Thanks
+Thanks to Thibault Marin for his help with make a custom sitemap function using
+an Org mode macro.
