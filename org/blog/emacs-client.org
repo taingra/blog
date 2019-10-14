@@ -1,5 +1,5 @@
 #+TITLE: Emacsclient Setup with Desktop Integration
-#+TAGS: emacs
+#+KEYWORDS: emacs
 
 When using a typical text editor (e.g. gedit or vim) it is expected to be able
 to quickly open and close files from your file manager or terminal. Emacs, while
@@ -38,7 +38,6 @@ preface our commands with =--user= flag.
 systemctl --user start emacs.service   # Start emacs for the current session
 systemctl --user enable emacs.service  # Enable emacs to be started at login
 #+END_SRC
-
 
 * Open files from your graphical file browser
 Now like any other graphical editor you will need a desktop icon in order to
