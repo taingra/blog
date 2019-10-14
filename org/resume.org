@@ -1,0 +1,69 @@
+#+TITLE: Resume
+
+[[file:files/resume-public.pdf][PDF Download]]
+
+{{{cc-by-nd}}}
+
+* Education
+** Michigan Technological University /{{{right(Expected: Spring 2020)}}}/
+- B.S. In Computer Science
+** Brighton High School /{{{right(2011-2015)}}}/
+* Technical Skills
+- Passionate interest in free and open source software
+- Experience configuring and maintaining GNU/Linux and Unix-like servers
+
+** Programming Languages
+#+HTML: <div class="comma-list">
+- C
+- Java
+- SQL (MySQL)
+- Go
+- Shell Scripting
+#+HTML: </div>
+*** Some Experience With
+#+HTML: <div class="comma-list">
+- C++
+- Python
+- Lisp
+#+HTML: </div>
+
+** Software
+#+HTML: <div class="comma-list">
+- Apache
+- Audacity
+- Blender (video editing)
+- GIMP
+- GNU/Linux
+- Git
+- HTML/CSS
+- LaTeX
+- Word Processors and Spreadsheets
+- WordPress
+#+HTML: </div>
+
+* Project Experience
+** Team Software Project /{{{right(2018)}}}/
+*Objective:* Create a web app for organizing events
+
+- Worked in a team of 4 as the “scrum master” in an agile development style
+- Built web application in Java with the Play Framework
+- Used Ebean ORM to create SQL queries in Java
+- Setup and maintained MariaDB database on a Fedora server
+
+* Work Experience
+*** MildlyMeandering.com, SnacksAndSips.com, & WhoNeedsACape.com /{{{right(2017-present)}}}/
+ - WordPress site maintenance, SEO, communicating remotely, and video editing
+
+*** Munn Mold Manufacturing and Design /{{{right(2016)}}}/
+ - Basic web design, creating static webpages with HTML and CSS
+
+*** Sunrise Vacations, LLC /{{{right(2008-2016)}}}/
+ - Performing maintenance, home improvements, and completing goals on a deadline.
+
+** Volunteer Work
+
+*** Labor of Love, Livingston County, MI /{{{right(2008-2015)}}}/
+- Performing home improvement for those in need
+
+** Co-curricular Involvement
+- Member of MTU’s Linux Users Group (LUG)
