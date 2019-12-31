@@ -18,11 +18,17 @@
   <div class=\"license-notice\">
     <div class\"notice\">
       <span><b>Note:</b></span>
-      <span><a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nd/4.0/\">
-        <img alt=\"Creative Commons License\" src=\"https://i.creativecommons.org/l/by-nd/4.0/88x31.png\" />
-      </a></span>
+      <span>
+        <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nd/4.0/\">
+          <img alt=\"Creative Commons License\"
+               src=\"https://i.creativecommons.org/l/by-nd/4.0/88x31.png\" />
+        </a>
+      </span>
     </div>
-    This post is licensed under the <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nd/4.0/\">CC-BY-ND 4.0</a>.
+    This post is licensed under the
+    <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nd/4.0/\">
+      CC-BY-ND 4.0
+    </a>.
   </div>
 </div>@@")
 	("right" . "@@html:<span class=\"right-justify\">$1</span>@@")))
