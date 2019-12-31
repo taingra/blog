@@ -10,10 +10,10 @@
 - Git([[https://github.com/taingra][Hub]]|[[https://gitlab.com/taingram][Lab]])
 - [[https://paypal.me/taingra][PayPal.me/taingra]]
 
-#+HTML: <div class="urgent">
-[[https://www.icrc.org/en/nuclear-ban-treaty-no-to-nukes][Stop the construction of Nuclear Weapons, encourage your country to sign the
-Nuclear Weapon Ban Treaty!]]
-#+HTML: </div>
+# #+HTML: <div class="urgent">
+# [[https://www.icrc.org/en/nuclear-ban-treaty-no-to-nukes][Stop the construction of Nuclear Weapons, encourage your country to sign the
+# Nuclear Weapon Ban Treaty!]]
+# #+HTML: </div>
 
 Welcome to my personal website. I am a computer science student studying at
 Michigan Tech, interested in GNU/Linux, computer privacy, security, distributed
