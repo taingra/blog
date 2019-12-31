@@ -71,12 +71,11 @@ sitemap.
 In order to have my blog sitemap shown on the home page I included just part
 of generated sitemap. Here's the snippet from =index.org=:
 
-#+BEGIN_SRC
-* Blog
-#+HTML: <div class="blog-entries">
-#+INCLUDE: blog/blog.org :lines "2-"
-#+HTML: </div>
-#+END_SRC
+: * Blog
+: #+HTML: <div class="blog-entries">
+: #+INCLUDE: blog/blog.org :lines "2-"
+: #+HTML: </div>
+
 
 The surrounding div class is used for additional CSS styling.
 
