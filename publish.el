@@ -10,8 +10,7 @@
 
 (require 'ox-publish)
 
-(when (not (require 'htmlize))
-  (setq org-html-htmlize-output-type `nil))
+(setq org-html-htmlize-output-type `nil)
 
 (setq org-export-global-macros
       '(("timestamp" . "@@html:<span class=\"timestamp\">[$1]</span>@@")
@@ -42,6 +41,10 @@
 (setf org-html-metadata-timestamp-format "%Y %b %d")
 (setf org-export-date-timestamp-format "%Y-%m-%d")
 
+(defvar taingram-urgent "<div class=\"urgent\">
+<a href=\"https://www.icrc.org/en/nuclear-ban-treaty-no-to-nukes\">Stop the construction of Nuclear Weapons, encourage your country to sign the
+Nuclear Weapon Ban Treaty!</a>
+</div>")
 (defvar taingram-css "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>")
 (defvar taingram-header "<div id=\"updated\">Updated: %C</div>
 <nav>
@@ -148,7 +151,6 @@
 	("taingram.org" :components ("index" "pages" "blog" "static"))))
 
 ;; Uncomment to force full site regeneration
-(org-publish "taingram.org" t)
-;; (org-publish "taingram.org")
+;; (org-publish "taingram.org" t)
 
 ;;; publish.el ends here
