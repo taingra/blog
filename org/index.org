@@ -6,7 +6,7 @@
 [[./img/dithered-casual.gif]]
 #+HTML: </div>
 
-- [[file:resume.org][Resume]] [[[file:files/resume-public.pdf][PDF]]]
+#+INCLUDE: sitemap.org :lines "2-"
 - Git([[https://github.com/taingra][Hub]]|[[https://gitlab.com/taingram][Lab]])
 - [[https://paypal.me/taingra][PayPal.me/taingra]]
 
