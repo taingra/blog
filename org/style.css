@@ -1,4 +1,36 @@
 
+:root {
+    --color-scheme-background: white;
+    --color-scheme-text: black;
+    --color-scheme-secondary: #333;
+    --color-scheme-shadow: #eee;
+}
+
+/* Light Theme */
+@media (prefers-color-scheme: light) {
+    :root {
+	--color-scheme-background: white;
+	--color-scheme-text: black;
+	--color-scheme-secondary: #333;
+	--color-scheme-shadow: #eee;
+    }
+}
+
+/* Dark Theme */
+@media (prefers-color-scheme: dark) {
+    :root {
+	--color-scheme-background: #222;
+	--color-scheme-text: white;
+	--color-scheme-secondary: #eee;
+	--color-scheme-shadow: #333;
+    }
+
+    /* Make links readable */
+    a:link    { color: lightblue }
+    a:visited { color: lightblue }
+    a:hover   { color: lightblue }
+}
+
 body {
     margin-top: 0;
     margin-left: auto;
@@ -6,6 +38,8 @@ body {
     padding-left: 1em;
     padding-right: 1em;
     max-width: 52em;
+    color: var(--color-scheme-text);
+    background: var(--color-scheme-background);
 }
 
 #content {
@@ -14,8 +48,6 @@ body {
     margin-right: auto;
 }
 
-/* Dark Theme Mode */
-/* @media (prefers-color-scheme: dark) { color: white;   background: black } */
 
 @media  (width >= 43em) {
     #profile {
@@ -41,12 +73,12 @@ body {
 #updated {
     font-family: monospace;
     font-size: 1em;
-    color: grey;
+    color: var(--color-scheme-secondary);
     padding-top: 2em;
     padding-bottom: 0.75em;
     padding-left: 1em;
     padding-right: 1em;
-    border-bottom: 1px dotted grey;
+    border-bottom: 1px dotted var(--color-scheme-secondary);
 }
 
 nav {
@@ -55,22 +87,22 @@ nav {
 
 nav a {
     text-transform: uppercase;
-    border: 1px solid #333;
+    border: 1px solid var(--color-scheme-secondary);
     padding: 0.2em;
     padding-left: 0.3em;
     padding-right: 0.3em;
 }
 
-nav a:link { color: black; }
-nav a:visited { color: black; }
+nav a:link { color: var(--color-scheme-text); }
+nav a:visited { color: var(--color-scheme-text); }
 nav a:hover {
-    color: white;
-    background: black;
+    color: var(--color-scheme-background);
+    background: var(--color-scheme-text);
 }
 
 figure {
-    border: 2px solid black;
-    box-shadow: 4px 4px 6px #eee;
+    border: 2px solid var(--color-scheme-text);
+    box-shadow: 4px 4px 6px var(--color-scheme-shadow);
     display: inline-block;
     font-family: monospace;
 }
@@ -90,7 +122,7 @@ figcaption {
 
 .timestamp {
     font-family: monospace;
-    color: grey;
+    color: var(--color-scheme-secondary);
 }
 
 .timestamp:after {
@@ -129,20 +161,20 @@ h6 {
 
 table {
     border-collapse: collapse;
-    border: 2px solid black;
-    box-shadow: 4px 4px 6px #eee;
+    border: 2px solid var(--color-scheme-text);
+    box-shadow: 4px 4px 6px var(--color-scheme-shadow);
 }
 
 th, td {
     padding: 0.25em;
-    border: 1px solid #333;
+    border: 1px solid var(--color-scheme-secondary);
 }
 
 pre {
     font-size: 1.25em;
     overflow: auto;
-    border: 2px solid black;
-    box-shadow: 4px 4px 6px #eee;
+    border: 2px solid var(--color-scheme-text);
+    box-shadow: 4px 4px 6px var(--color-scheme-shadow);
     padding: 1em;
 }
 
@@ -150,9 +182,8 @@ pre {
 .published {
     font-family: monospace;
     font-size: 1.3em;
-    color: grey;
+    color: var(--color-scheme-secondary);
 }
-
 
 .right-justify {
     float: right;
@@ -194,7 +225,7 @@ pre {
     margin-right: -50%;
     transform: translate(-50%, -50%);
     background: lightyellow;
-    border: 1px dotted grey;
+    border: 1px dotted var(--color-scheme-secondary);
     border-radius: 1em;
 }
 
