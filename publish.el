@@ -41,10 +41,6 @@
 (setf org-html-metadata-timestamp-format "%Y %b %d")
 (setf org-export-date-timestamp-format "%Y-%m-%d")
 
-(defvar taingram-urgent "<div class=\"urgent\">
-<a href=\"https://www.icrc.org/en/nuclear-ban-treaty-no-to-nukes\">Stop the construction of Nuclear Weapons, encourage your country to sign the
-Nuclear Weapon Ban Treaty!</a>
-</div>")
 (defvar taingram-css "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>")
 (defvar taingram-header "<div id=\"updated\">Updated: %C</div>
 <nav>
