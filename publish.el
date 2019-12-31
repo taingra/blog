@@ -42,12 +42,11 @@
 (setf org-html-metadata-timestamp-format "%Y %b %d")
 (setf org-export-date-timestamp-format "%Y-%m-%d")
 
-(defvar taingram-head "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>")
-
-(defvar taingram-urgent "<div class=\"urgent\">
-<a href=\"https://www.icrc.org/en/nuclear-ban-treaty-no-to-nukes\">Stop the construction of Nuclear Weapons, encourage your country to sign the
-Nuclear Weapon Ban Treaty!</a>
-</div>")
+(defvar taingram-css "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>")
+(defvar taingram-header "<div id=\"updated\">Updated: %C</div>
+<nav>
+  <a href=\"/\">&lt; Home</a>
+</nav>")
 
 (defvar taingram-footer "<hr/>
 <footer>
@@ -74,29 +73,54 @@ Nuclear Weapon Ban Treaty!</a>
 
 (setq org-publish-project-alist
       `(("index"
-	:base-directory "~/Documents/blog/org/"
-	:base-extension "org"
-	:publishing-directory "~/Documents/blog/html/"
-	:publishing-function org-html-publish-to-html
-	:recursive nil
+	 :base-directory "./org/"
+	 :included "index.org"
+	 :publishing-directory "./html/"
+	 :publishing-function org-html-publish-to-html
+	 :recursive nil
 
-	; Disable some Org publish defaults
-	:html-head-include-default-style nil
-	:html-head-include-scripts nil
-        :with-toc nil
-	:section-numbers nil
+         ; Disable some Org publish defaults
+	 :html-head-include-default-style nil
+	 :html-head-include-scripts nil
+	 :with-toc nil
+	 :section-numbers nil
 
-        ; Use HTML5 tags
-	:html-html5-fancy t
-	:html-doctype "html5"
+         ; Use HTML5 tags
+	 :html-html5-fancy t
+	 :html-doctype "html5"
 
-	:html-head     ,taingram-head
-	:html-preamble "<div id=\"updated\">Updated: %C</div>"
-	:html-postamble ,taingram-footer)
-	("blog"
-	 :base-directory "~/Documents/blog/org/blog/"
+	 :html-head     ,taingram-css
+	 :html-preamble "<div id=\"updated\">Updated: %C</div>"
+	 :html-postamble ,taingram-footer)
+	("pages"
+	 :base-directory "./org/"
+	 :base-directory "./org/"
 	 :base-extension "org"
-	 :publishing-directory "~/Documents/blog/html/blog/"
+	 :exclude "index.org"
+	 :publishing-directory "./html/"
+	 :publishing-function org-html-publish-to-html
+	 :auto-sitemap t
+	 :sitemap-filename "sitemap.org"
+	 :recursive nil
+
+         ; Disable some Org publish defaults
+	 :html-head-include-default-style nil
+	 :html-head-include-scripts nil
+	 :with-toc nil
+	 :section-numbers nil
+
+         ; Use HTML5 tags
+	 :html-html5-fancy t
+	 :html-doctype "html5"
+
+	 :html-head     ,taingram-css
+	 :html-preamble ,taingram-header
+	 :html-postamble ,taingram-footer)
+	("blog"
+	 :base-directory "./org/blog/"
+	 :base-extension "org"
+	 :exclude "blog.org"
+	 :publishing-directory "./html/blog/"
 	 :publishing-function org-html-publish-to-html
 	 :auto-sitemap t
 	 :sitemap-filename "blog.org"
@@ -112,26 +136,19 @@ Nuclear Weapon Ban Treaty!</a>
 	 ; Use HTML5 tags
 	 :html-html5-fancy t
 	 :html-doctype "html5"
-	 :html-head ,taingram-head
-	 :html-preamble "<div id=\"updated\">Updated: %C</div>
-<nav>
-  <a href=\"/\">&lt; Home</a>
-</nav>"
+	 :html-head ,taingram-css
+	 :html-preamble ,taingram-header
 	 :html-postamble ,taingram-footer)
 	("static"
-	 :base-directory "~/Documents/blog/org/"
-	 :base-extension "css\\|txt\\|pdf"
+	 :base-directory "./org/"
+	 :base-extension "css\\|jpg\\|gif\\|png\\|txt\\|pdf"
 	 :recursive t
-	 :publishing-directory "~/Documents/blog/html/"
+	 :publishing-directory "./html/"
 	 :publishing-function org-publish-attachment)
-	("images"
-	 :base-directory "~/Documents/blog/org/img/"
-	 :base-extension "jpg\\|gif\\|png"
-	 :publishing-directory "~/Documents/blog/html/img/"
-	 :publishing-function org-publish-attachment)
-	("taingram.org" :components ("index" "blog" "static" "images"))))
+	("taingram.org" :components ("index" "pages" "blog" "static"))))
 
 ;; Uncomment to force full site regeneration
-;; (org-publish "taingram.org" t)
+(org-publish "taingram.org" t)
+;; (org-publish "taingram.org")
 
 ;;; publish.el ends here
