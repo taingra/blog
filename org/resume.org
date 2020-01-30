@@ -2,8 +2,6 @@
 
 [[file:files/resume-public.pdf][PDF Download]]
 
-{{{cc-by-nd}}}
-
 * Education
 ** Michigan Technological University /{{{right(Expected: Spring 2020)}}}/
 - B.S. In Computer Science
@@ -67,3 +65,5 @@
 
 ** Co-curricular Involvement
 - Member of MTU’s Linux Users Group (LUG)
+
+{{{cc-by-nd}}}
