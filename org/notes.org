@@ -1,0 +1,42 @@
+#+TITLE: Useful Tips and Tricks
+#+OPTIONS: toc:t tasks:nil
+
+This page is a collection of random information that I have found useful,
+perhaps you may find something useful too.
+
+* Emacs
+** Convert between binary and decimal in calc
+Source: [[http://ergoemacs.org/emacs/elisp_converting_hex_decimal.html][Xah Lee's page on converting decimal to hexadecimal numbers]]
+
+- type 'd2' to binary
+- type 'd6' to hexadecimal
+- type 'd0' to decimal
+
+These only change how numbers are displayed, input numbers are still read in
+decimal.
+
+To input numbers in the current base type '#'.
+
+* Internet
+** Recursively sync directory with FTP
+Source: [[https://serverfault.com/questions/220988/how-to-upload-a-directory-recursively-to-an-ftp-server-by-just-using-ftp-or-lftp][Server Fault: How to upload a directory recursively to an FTP server by
+just using ftp or lftp?]]
+
+#+BEGIN_SRC
+lftp -e "mirror -R [source [target]]" -u [username],[password] [host]
+#+END_SRC
+
+The =-R= means reverse, because the mirror command normally works from server to
+local.
+
+lftp's mirror command has a wide breadth of options that can be used to fit your
+needs. In my case I was trying to replicate rsync style syncing for a system
+that I only had FTP access to.
+
+** TODO Connect to TLS/SSL secured FTP server
+Source: [[https://www.versatilewebsolutions.com/blog/2014/04/lftp-ftps-and-certificate-verification.html][Versatile Web Solutions: LFTP FTPS and Certificate Verification]]
+
+Get the certificate with
+#+BEGIN_SRC
+openssl s_client -showcerts -connect example.com:21 -starttls ftp
+#+END_SRC
