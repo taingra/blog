@@ -31,7 +31,7 @@
     </a>.
   </div>
 </div>@@")
-	("right" . "@@html:<span class=\"right-justify\">$1</span>@@")))
+	("right-justify" . "@@html:<span class=\"right-justify\">$1</span>@@")))
 
 (defun org-sitemap-custom-entry-format (entry style project)
   "Sitemap ENTRY format that includes date."
