@@ -87,6 +87,9 @@
 	    (file-name-directory load-file-name)
 	  default-directory)
 	path))
+;; Don't show section numbers or table of contents by default
+(setq org-export-with-section-numbers nil
+      org-export-with-toc             nil)
 (require 'ox-html)
 
 ;; Enable HTML5
@@ -126,8 +129,6 @@
 	 :sitemap-filename "sitemap.org"
 	 :recursive nil
 
-	 :with-toc nil
-	 :section-numbers nil
 
 
 	 :html-head     ,taingram-css
@@ -143,9 +144,6 @@
 	 :sitemap-filename "blog.org"
 	 :sitemap-sort-files anti-chronologically
          :sitemap-format-entry org-sitemap-custom-entry-format
-
-	 :with-toc nil
-	 :section-numbers nil
 
 	 :html-head ,taingram-css
 	 :html-preamble ,taingram-header
