@@ -1,8 +1,12 @@
 ;;; publish.el --- generate and publish my blog -*- lexical-binding: t -*-
 
-;; Copyright (C) 2018 Thomas Ingram
+;; Copyright (C) 2018-2020 Thomas Ingram
 
 ;;; Commentary:
+
+;; This file is cobbled togther from following many different blog posts and
+;; examples for building an Org mode blog.  This setup works for me, and I
+;; expect it may be helpful for others attempting the same.
 
 ;; https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html
 
