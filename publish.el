@@ -80,6 +80,13 @@
   </div>
 </footer>")
 
+     (defun my/relative-path-to-full (path)
+       "Expand relative PATH from current buffer or file to a full path."
+       (concat
+	(if load-file-name
+	    (file-name-directory load-file-name)
+	  default-directory)
+	path))
 (setq org-publish-project-alist
       `(("index"
 	 :base-directory "./org/"
