@@ -1,4 +1,7 @@
 
+/* Code block theme  */
+@import 'modus-operandi-theme.css';
+
 :root {
     --color-scheme-background: white;
     --color-scheme-text: black;

@@ -14,8 +14,6 @@
 
 (require 'ox-publish)
 
-(setq org-html-htmlize-output-type `nil)
-
 (setq org-export-global-macros
       '(("timestamp" . "@@html:<span class=\"timestamp\">[$1]</span>@@")
 	("cc-by-nd" . "@@html:<div class=\"license-notice-container\">
@@ -124,6 +122,12 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
 
 ;; Render ~verbatim~ as kbd tag in HTML
 (add-to-list 'org-html-text-markup-alist '(verbatim . "<kbd>%s</kbd>"))
+;; Enable code syntax highlighting if available
+(require 'package)
+(if (package-installed-p 'htmlize)
+    (setq org-html-htmlize-output-type 'css)
+  (setq org-html-htmlize-output-type 'nil))
+
 (setq org-publish-project-alist
       `(("index"
 	 :base-directory ,taingram-base-directory
