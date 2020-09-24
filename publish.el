@@ -87,6 +87,23 @@
 	    (file-name-directory load-file-name)
 	  default-directory)
 	path))
+(require 'ox-html)
+
+;; Enable HTML5
+(setq org-html-html5-fancy t
+      org-html-doctype     "html5")
+
+;; Disable ox-html's default CSS and JavaScript
+(setq org-html-head-include-default-style nil
+      org-html-head-include-scripts       nil)
+
+;; TODO: tweak headline id format. I dislike the randomly generated ones.
+;; Look into customizing: :html-format-headline-function and
+;; org-html-format-headline-function
+;; (setq org-html-self-link-headlines 'nil)
+
+;; Render ~verbatim~ as kbd tag in HTML
+(add-to-list 'org-html-text-markup-alist '(verbatim . "<kbd>%s</kbd>"))
 (setq org-publish-project-alist
       `(("index"
 	 :base-directory "./org/"
