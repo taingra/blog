@@ -54,43 +54,52 @@
 (defvar taingram-css "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>")
 (defvar taingram-header "<div id=\"updated\">Updated: %C</div>
 <nav>
-  <a href=\"/\">&lt; Home</a>
+<a href=\"/\">&lt; Home</a>
 </nav>")
 
 (defvar taingram-footer "<hr/>
 <footer>
-  <div class=\"copyright-container\">
-    <div class=\"copyright\">
-      Copyright &copy; 2019 Thomas Ingram some rights reserved<br/>
-      Content is available under
-      <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
-      CC-BY-SA 4.0
-      </a> unless otherwise noted
-    </div>
-    <div class=\"cc-badge\">
-      <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
-        <img alt=\"Creative Commons License\"
-             src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" />
-       </a>
-    </div>
-  </div>
+<div class=\"copyright-container\">
+<div class=\"copyright\">
+Copyright &copy; 2019 Thomas Ingram some rights reserved<br/>
+Content is available under
+<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
+CC-BY-SA 4.0</a> unless otherwise noted
+</div>
+<div class=\"cc-badge\">
+<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
+<img alt=\"Creative Commons License\"
+     src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" />
+</a>
+</div>
+</div>
 
-  <div class=\"generated\">
-    Created with %c; powered by  <a href=\"https://httpd.apache.org/\">Apache</a> and <a href=\"https://getfedora.org/\">Fedora</a> <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
-  </div>
+<div class=\"banner\">
+<a href=\"https://www.controlmywebsite.com/aff.php?aff=313\">
+<img src=\"https://cdn.aiso.net/affiliate/banners/aiso-banner2c.jpg\"
+     alt=\"AISO.net solar powered web hosting provider\">
+</a>
+</div>
+
+<div class=\"generated\">
+Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
+</div>
 </footer>")
 
-     (defun my/relative-path-to-full (path)
-       "Expand relative PATH from current buffer or file to a full path."
-       (concat
-	(if load-file-name
-	    (file-name-directory load-file-name)
-	  default-directory)
-	path))
+(defun my/relative-path-expand (path)
+  "Expand relative PATH from current buffer or file to a full path."
+  (concat
+   (if load-file-name
+       (file-name-directory load-file-name)
+     default-directory)
+   path))
+
+
+(require 'ox-html)
+
 ;; Don't show section numbers or table of contents by default
 (setq org-export-with-section-numbers nil
       org-export-with-toc             nil)
-(require 'ox-html)
 
 ;; Enable HTML5
 (setq org-html-html5-fancy t
