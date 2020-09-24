@@ -149,11 +149,12 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
 	("blog"
 	 :base-directory ,(concat taingram-base-directory "blog/")
 	 :base-extension "org"
-	 :exclude "blog.org"
 	 :publishing-directory ,(concat taingram-publish-directory "blog/")
 	 :publishing-function org-html-publish-to-html
+
 	 :auto-sitemap t
-	 :sitemap-filename "blog.org"
+	 :sitemap-title "Blog Posts"
+	 :sitemap-filename "index.org"
 	 :sitemap-sort-files anti-chronologically
          :sitemap-format-entry org-sitemap-custom-entry-format
 
