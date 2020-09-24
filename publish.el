@@ -112,16 +112,6 @@
 	 :publishing-function org-html-publish-to-html
 	 :recursive nil
 
-         ; Disable some Org publish defaults
-	 :html-head-include-default-style nil
-	 :html-head-include-scripts nil
-	 :with-toc nil
-	 :section-numbers nil
-
-         ; Use HTML5 tags
-	 :html-html5-fancy t
-	 :html-doctype "html5"
-
 	 :html-head     ,taingram-css
 	 :html-preamble "<div id=\"updated\">Updated: %C</div>"
 	 :html-postamble ,taingram-footer)
@@ -136,15 +126,9 @@
 	 :sitemap-filename "sitemap.org"
 	 :recursive nil
 
-         ; Disable some Org publish defaults
-	 :html-head-include-default-style nil
-	 :html-head-include-scripts nil
 	 :with-toc nil
 	 :section-numbers nil
 
-         ; Use HTML5 tags
-	 :html-html5-fancy t
-	 :html-doctype "html5"
 
 	 :html-head     ,taingram-css
 	 :html-preamble ,taingram-header
@@ -160,15 +144,9 @@
 	 :sitemap-sort-files anti-chronologically
          :sitemap-format-entry org-sitemap-custom-entry-format
 
-	 ; Disable some Org publish defaults
-	 :html-head-include-default-style nil
-	 :html-head-include-scripts nil
 	 :with-toc nil
 	 :section-numbers nil
 
-	 ; Use HTML5 tags
-	 :html-html5-fancy t
-	 :html-doctype "html5"
 	 :html-head ,taingram-css
 	 :html-preamble ,taingram-header
 	 :html-postamble ,taingram-footer)
