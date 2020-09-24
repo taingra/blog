@@ -126,11 +126,12 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
 (add-to-list 'org-html-text-markup-alist '(verbatim . "<kbd>%s</kbd>"))
 (setq org-publish-project-alist
       `(("index"
-	 :included "index.org"
 	 :base-directory ,taingram-base-directory
+	 :base-extension "org"
+	 :exclude ".*"
+	 :include ("index.org")
 	 :publishing-directory ,taingram-publish-directory
 	 :publishing-function org-html-publish-to-html
-	 :recursive nil
 
 	 :html-head     ,taingram-css
 	 :html-preamble "<div id=\"updated\">Updated: %C</div>"
@@ -141,11 +142,6 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
 	 :exclude "index.org"
 	 :publishing-directory ,taingram-publish-directory
 	 :publishing-function org-html-publish-to-html
-	 :auto-sitemap t
-	 :sitemap-filename "sitemap.org"
-	 :recursive nil
-
-
 
 	 :html-head     ,taingram-css
 	 :html-preamble ,taingram-header
