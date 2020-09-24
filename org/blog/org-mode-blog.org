@@ -1,157 +1,367 @@
-#+TITLE: Building a Blog with Emacs Org-Mode
+#+TITLE: Building a Emacs Org-Mode Blog
 
-As my WordPress subscription neared its expiration I decided I would finally
-take the time to build my own website using a pure [[https://gnu.org/s/emacs][Emacs]] and [[https://orgmode.org][Org mode]] setup.
-WordPress, while a fine CMS, is overkill as I have no need for a built-in
-editor, themes, or plug-ins. I just need a powerful markup language and static
-HTML page generation.
-
-While using WordPress I already composed my posts in Org mode and I imported
-them using the [[https://github.com/org2blog/org2blog][org2blog]] package. This was an okay solution, but I was never
-happy with how clunky of an experience it was and felt redundant when Org mode
-has built in HTML exporting. Add to that a cheap WordPress.com plans offer few
-customization options.
+As my WordPress website nears the end of its subscription, I've decided this
+would be a perfect opportunity to build my own website using a pure [[https://gnu.org/s/emacs][Emacs]] and
+[[https://orgmode.org][Org mode]] setup. While using WordPress I already composed my posts in Org mode
+and published them using the [[https://github.com/org2blog/org2blog][org2blog]] package. This works fine, but WordPress is
+overkill as I don't the editor, themes, or plugins. A simpler solution would be
+to utilize the HTML exporter built into Org mode. The result is a simple, fast
+website, built entirely with Emacs.
 
 * Goals
-1. Have a lightweight, consistent layout and mobile scaling website
-2. Be able to easily rebuild my website from source and sync it to any web server
-3. Do so without adding any new software dependencies (just Emacs, git, make, ssh, rsync)
+  1. A lightweight website with mobile scaling
+  2. Easily rebuild my website and sync it to any web server
+  3. Do so without adding any new software dependencies (just Emacs and ssh)
 
 ** Tools
-| *Editor*          | Emacs         |
-| *Markup Language* | Org mode      |
-| *Site Generator*  | Emacs         |
-| *Syncing*         | ssh & rsync   |
+   | *Editor*          | GNU Emacs           |
+   | *Markup Language* | Org mode            |
+   | *Site Generator*  | Org mode ox-publish |
+   | *Syncing*         | tramp and ssh       |
 
-* Setup
-Org mode's built-in [[https://orgmode.org/org.html#Publishing][publishing]] functionality handles converting the Org files
-into HTML pages and linking them all together. We need to specify the
-=org-publish-project-alist= where our files are, how to export them, and where to
-put them.
+* Initial Setup
+  Out of the box Org mode provides many of different exporters for HTML, LaTeX,
+  even plain text. In addition to standard HTML exporting Org provides
+  *ox-publish* specifically for publishing Org projects to websites.
 
-#+BEGIN_SRC emacs-lisp
+  For my website, I use the following project structure:
+  #+begin_src
+  ~/taingram.org/
+  ├── org/            # content to be exported
+  │   ├── blog/
+  │   │   └── example-post.org
+  │   ├── img/
+  │   ├── index.org
+  │   ├── robots.txt
+  │   └── style.css
+  ├── html/            # temporary export directory
+  ├── publish.el       # site sepecifc publishing config
+  └── Makefile         # for building the site outside of emacs
+  #+end_src
+
+  We need to tell Org Publish about our project layout by defining the
+  =org-publish-project-alist=
+
+  #+begin_src emacs-lisp
+  (require 'ox-publish)
+
   (setq org-publish-project-alist
-	`(("home"
-	   :base-directory "~/Documents/blog/org/"
+	`(("pages"
+	   :base-directory "~/taingram.org/org/"
 	   :base-extension "org"
-	   :publishing-directory "~/Documents/blog/html/"
-	   :publishing-function org-html-publish-to-html
-	   :recursive nil
-	   :html-head     ,taingram-head
-	   :html-preamble "<div id=\"updated\">Updated: %C</div>"
-	   :html-postamble ,taingram-footer)
-	  ("blog"
-	   :base-directory "~/Documents/blog/org/blog/"
-	   :base-extension "org"
-	   :publishing-directory "~/Documents/blog/html/blog/"
-	   :publishing-function org-html-publish-to-html
-	   :auto-sitemap t
-	   :sitemap-filename "blog.org"
-	   :sitemap-sort-files anti-chronologically
-	   :sitemap-format-entry org-sitemap-custom-entry-format
-	   :html-head ,taingram-head
-	   :html-preamble "<div id=\"updated\">Updated: %C</div><nav><a href=\"/\">&lt; Home</a></nav>"
-	   :html-postamble ,taingram-footer)
-	  ("static"
-	   :base-directory "~/Documents/blog/org/"
-	   :base-extension "css\\|jpg\\|gif\\|png\\|pdf"
 	   :recursive t
-	   :publishing-directory "~/Documents/blog/html/"
+	   :publishing-directory "~/taingram.or/html/"
+	   :publishing-function org-html-publish-to-html)
+
+	  ("static"
+	   :base-directory "~/taingram.org/org/"
+	   :base-extension "css\\|txt\\|jpg\\|gif\\|png"
+	   :recursive t
+	   :publishing-directory  "~/taingram.org/html/"
 	   :publishing-function org-publish-attachment)
-	  ("taingram.org" :components ("home" "blog" "static"))))
-#+END_SRC
 
-One interesting thing to note is that I've separated "home" from "blog". I did
-this because while I am interested in having a sitemap generated listing my blog
-posts, of which I will keep adding many pages to, I see less value having one
-for the root directory of my website. Where I will rarely add pages and when I
-do it is easier to just add links manually than have a large and confusing
-sitemap.
+	  ("taingram.org" :components ("pages" "static"))))
+  #+end_src
 
-In order to have my blog sitemap shown on the home page I included just part
-of generated sitemap. Here's the snippet from =index.org=:
+  From the last line we can see "taingram.org" is broken down into the
+  components "pages" and "static". Each component handles a different part of
+  the website and has its own settings. The "pages" component handles org filesfff
+  as specified by the =:base-extension= and exports the files to html as per the
+  =:publishing-function=. The "static" component handles other files like images
+  and style sheets.
 
-: * Blog
-: #+HTML: <div class="blog-entries">
-: #+INCLUDE: blog/blog.org :lines "2-"
-: #+HTML: </div>
+  For each project component the following options should be set:
 
+  - =:base-directory= --- where the source files are
+  - =:base-extension= --- what type of file (e.g. org) is being exported
+  - =:publishing-directory= --- where the exported files are going
+  - =:publishing-function= --- how the files are exported. Some options are:
+    - =org-html-publish-to-html= --- converts org files to HTML
+    - =org-publish-attachment= --- copies the files verbatim
 
-The surrounding div class is used for additional CSS styling.
+** Exporting
+   Evaluating above code is enough to enable publishing. Open an org file within
+   your project and type ~C~-~c~ ~C~-~e~ to bring up the "Org Export
+   Dispatcher", type ~P~ for Publishing, and ~a~ to publish all. The site will
+   be generated and placed in the =html/= directory.
 
+   You can also publish the site from elisp with:
 
-Another thing of note is the variables =html-(head|preamble|postamble)= this is
-where I insert my stylesheet, and extra HTML for navigation and footer. The
-variables I set them to are shown below.
+   #+begin_src emacs-lisp
+   (org-publish "taingram.org" t)
+   #+end_src
 
-#+BEGIN_SRC emacs-lisp
-(defvar taingram-head "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>")
+   The =t= argument is optional and will force every file to be re-export, even
+   if that file has not changed. Useful if you are experimenting with project
+   settings without changing org files.
 
-(defvar taingram-footer "<hr/>
-<footer>
-  <div class=\"copyright-container\">
-    <div class=\"copyright\">
-      Copyright &copy; 2019 Thomas Ingram some rights reserved<br/>
-      Content is available under
-      <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
-      CC-BY-SA 4.0
-      </a> unless otherwise noted
-    </div>
-    <div class=\"cc-badge\">
-      <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
-        <img alt=\"Creative Commons License\"
-             src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" />
-       </a>
-    </div>
-  </div>
+*** Testing your Website
+    To test out your website with working links you will need a web
+    server. Python includes one we can use, from the =html/= directory run
 
-  <div class=\"generated\">
-    Created with %c; powered by  <a href=\"https://httpd.apache.org/\">Apache</a> and <a href=\"https://getfedora.org/\">Fedora</a> <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
-  </div>
-</footer>")
-#+END_SRC
+    #+begin_src bash
+    python3 -m http.server
+    #+end_src
 
-** HTML5
-I preferred to write my own CSS stylesheet from scratch so I disabled
+    Open http://localhost:8000 in a browser to see your new website.
 
-#+BEGIN_SRC emacs-lisp
-        ; Disable some Org publish defaults
-	:html-head-include-scripts nil
-	:html-head-include-default-style nil
-        :with-toc nil
-	:section-numbers nil
+* Additional Options
+  Now that we have a basic website exporting we can start experimenting with
+  more advanced settings within Org publish.
 
-	; Use HTML5 tags
-	:html-html5-fancy t
-	:html-doctype "html5"
-#+END_SRC
+** Customize the <Head>
+   We can tweak the way HTML is exported with a number of =:html-*= options. I
+   prefer to use HTML5 and disable Org's default style sheet and scripts:
+   #+begin_src emacs-lisp
+   ; HTML5
+   :html-doctype "html5"
+   :html-html5-fancy t
 
-** Tramp
+   ; Disable some Org's HTML defaults
+   :html-head-include-scripts nil
+   :html-head-include-default-style nil
+   #+end_src
 
-In this config I do not make use of Emacs' tramp features which would allow for
-directly exporting these files to the remote server by changing
-=:publishing-directory= to something like
-="//ssh:username@website.com:~/public_html//"=.  In my (limited) testing I have
-found this to be far to slow in comparison with syncing the files after export.
+*** CSS
+    Org's HTML exporter makes it easy to create your own style sheet. The
+    exported HTML makes sensible use of standard tags as well as specifying
+    number of classes documented under [[https://orgmode.org/manual/CSS-support.html][CSS Support in the Org manual]]. For my
+    site I wrote my own style sheet and linked it with:
 
-** TODO RSS Feed
-#+BEGIN_SRC
-(require 'ox-rss)
-#+END_SRC
+    #+begin_src emacs-lisp
+    :html-head "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>"
+    #+end_src
 
-* Building
-There are two ways to build this blog, one within Emacs and one outside of
-Emacs.
+    The =:html-head= option lets you add any arbitrary HTML to the head tag.
 
-For those unfamiliar with Emacs I have provided a makefile that will generate
-the HTML files (only GNU Emacs and make are required dependencies).
+** Preamble and Postamble
+   Like =:html-head= Org Publish options for inserting extra HTML before and
+   after your post content using =:html-preamble= and =:html-postamble=.
 
-#+INCLUDE: "../../makefile" src make
+   You can add as much (or little) additional HTML as you would like. I used the
+   preamble to insert some navigation and when the page was updated. The
+   postamble has a footer with copyright information and site creation info.
 
-* Writing New Blog Posts :noexport:
-Originally, to write a new post I was simply navigating to the blog's git repo
-and adding a new file as you usually would. I am curious if this can be
-streamlined using Org mode's capture features.
+   #+begin_src emacs-lisp
+   :html-preamble "<nav>
+     <a href=\"/\">&lt; Home</a>
+   </nav>
+   <div id=\"updated\">Updated: %C</div>"
+
+   :html-postamble "<hr/>
+   <footer>
+     <div class=\"copyright-container\">
+       <div class=\"copyright\">
+         Copyright &copy; 2017-2020 Thomas Ingram some rights reserved<br/>
+	 Content is available under
+	 <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
+	   CC-BY-SA 4.0
+	 </a> unless otherwise noted
+       </div>
+       <div class=\"cc-badge\">
+         <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
+           <img alt=\"Creative Commons License\"
+                src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" />
+         </a>
+       </div>
+     </div>
+
+     <div class=\"generated\">
+       Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
+     </div>
+   </footer>"
+   #+end_src
+
+   Note the use of '%c' and '%C', these symbols will be expanded by Org's html
+   exporter. Their meaning is documented in the =org-html-preamble-format=
+   variable. Here is the complete list:
+   | %t     | stands for the title.                           |
+   | %s     | stands for the subtitle.                        |
+   | %a     | stands for the author’s name.                   |
+   | %e     | stands for the author’s email.                  |
+   | %d     | stands for the date.                            |
+   | %c     | will be replaced by ‘org-html-creator-string’.  |
+   | %v     | will be replaced by ‘org-html-validation-link’. |
+   | %T     | will be replaced by the export time.            |
+   | %C     | will be replaced by the last modification time. |
+
+** Sitemap
+   Org publish can generate a [[https://orgmode.org/manual/Site-map.html#Site-map][sitemap]] for projects, essentially a site wide
+   table of contents with links and directory structure. For a global sitemap in
+   your website add the following to the "pages" project component:
+
+   #+begin_src emacs-lisp
+   :auto-sitemap t
+   :sitemap-filename "sitemap.org"
+   #+end_src
+
+   For example, a global sitemap for taingram.org would appear as follows:
+
+   - [[file:../fun-links.org][Interesting Links From Around the Web]]
+   - [[file:../resume.org][Résumé]]
+   - [[file:../notes.org][Useful Tips and Tricks]]
+   - blog
+     - [[file:org-mode-blog.org][Building a Blog with Emacs Org-Mode]]
+     - [[file:emacs-client.org][Emacsclient Setup with Desktop Integration]]
+     - [[file:fix-xps-audio.org][Fixing Dell XPS 13 Audio]]
+
+   Once the sitemap.org is generated you can include it from any other page with
+
+   : #+INCLUDE: sitemap.org :lines "3-"
+
+   The =:lines 3-= will only include the 3rd line on, skipping the =#+TITLE= tag
+   set in sitemap.org and grabbing the list of pages as shown above.
+
+*** Creating a List of Blog Posts
+    While a global sitemap can be useful, I want a greater distinction made
+    between blog posts and regular pages. This can be accomplish by separating
+    "pages" into two components: "pages" in the base directory and "blog" posts
+    under =org/blog/=
+
+    #+begin_src emacs-lisp
+      ("pages"
+       :base-directory "~/taingram.org/org/"
+       :base-extension "org"
+       :recursive nil	                              ; avoid exporting blog twice
+       :publishing-directory "~/taingram.org/html/"
+       :publishing-function org-html-publish-to-html)
+      ("blog"
+       :base-directory "~/taingram.org/org/org/blog/"
+       :base-extension "org"
+       :publishing-directory "~/taingram.org/org/html/blog/"
+       :publishing-function org-html-publish-to-html
+
+       :auto-sitemap t
+       :sitemap-title "Blog Posts"
+       :sitemap-filename "index.org"
+       :sitemap-sort-files anti-chronologically)
+      ("taingram.org" :components ("pages" "blog" "static"))))
+    #+end_src
+
+    With these settings "blog" will have a sitemap in =blog/index.org= that
+    contains a list of *only* blog posts. The option =:sitemap-sort-files
+    anti-chronologically= will sort the posts from newest to oldest.
+
+    Now say you have written a homepage in =index.org= and would like to have
+    your list of recent blog posts, again include with
+
+    : * Blog Posts
+    : #+INCLUDE: blog/blog.org :lines "3-8"
+    : [[file:blog/index.org][See more...]]
+
+*** Custom sitemap entries
+    To take this one step further, we can customize the entry format with a
+    =sitemap-format-entry= function. In my case I wanted to show the date inline
+    with the blog post listings:
+
+    #+begin_src emacs-lisp
+	(defun my/org-sitemap-date-entry-format (entry style project)
+	  "Format ENTRY in org-publish PROJECT Sitemap format ENTRY ENTRY STYLE format that includes date."
+	  (let ((filename (org-publish-find-title entry project)))
+	    (if (= (length filename) 0)
+		(format "*%s*" entry)
+	      (format "{{{timestamp(%s)}}} [[file:%s][%s]]"
+		      (format-time-string "%Y-%m-%d"
+					  (org-publish-find-date entry project))
+		      entry
+		      filename))))
+    #+end_src
+
+    Notice =(format "{{{timestamp(%s)}}} [[file:%s][%s]]"= inserts an [[https://orgmode.org/manual/Macro-Replacement.html][Org macro]]
+    called timestamp, it is defined as follows:
+
+    #+begin_src emacs-lisp
+      (setq org-export-global-macros
+	    '(("timestamp" . "@@html:<span class=\"timestamp\">[$1]</span>@@")))
+    #+end_src
+
+    This macro adds some HTML around the timestamp for CSS styling, it has to be
+    done as a macro as otherwise Org escapes the HTML tags. The results are:
+
+    - {{{timestamp(2020-09-11)}}} [[file:org-mode-blog.org][Building a Blog with Emacs Org-Mode]]
+    - {{{timestamp(2017-05-09)}}} [[file:emacs-client.org][Emacsclient Setup with Desktop Integration]]
+    - {{{timestamp(2017-04-01)}}} [[file:fix-xps-audio.org][Fixing Dell XPS 13 Audio Popping]]
+
+    Further styling is added on the homepage by wrapping the list in an
+    additional div class:
+
+    : #+HTML: <div class="blog-entries">
+    : #+INCLUDE: "blog/index.org" :lines "3-"
+    : #+HTML: </div>
+
+* Building and Publishing
+  Now that we have our website looking more professional we need to publish it
+  to the web server. A fast and simple way is to copy the =html/= directory with
+  rsync:
+
+  #+begin_src bash
+  rsync -e ssh -uvr html/ thomas@taingram.org:/var/www/taingram.org/html/
+  #+end_src
+
+** Publish Over Tramp
+   Another option is to publish directly to your web server using [[HTTPS://www.gnu.org/software/tramp/][TRAMP]]. TRAMP
+   (Transparent Remote (file) Access, Multiple Protocol) is a tool built into
+   Emacs for accessing files on remote servers. The format for accessing a file
+   over TRAMP is =/method:user@host:/path/to/file= and can be used directly in
+   Emacs find file dialog.
+
+   We can simply replace our =:publishing-directory= with the tramp format:
+   #+begin_src emacs-lisp
+   :publishing-directory "/ssh:thomas@taingram.org:/var/www/taingram.org/html/"
+   #+end_src
+
+   Just like that when we publish our file they will be sent directly to our
+   server. Convenient for publishing individual files, but will be much slower
+   than the rsync solution.
+
+** Relative Directory Paths
+   If you do not intent to distribute the source code of your website or move
+   the directory around frequently. The simplest way to configure Org publish is
+   to place settings directly in your [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Init-File.html][Emacs init]] with hard coded directory
+   paths.
+
+   However, I've released the source of my website and therefore hard coded
+   paths will break when project folder moves around. For that reason I keep all
+   of my Org publish configuration in =publish.el=. From =publish.el= we can get
+   the complete project path:
+
+   #+begin_src emacs-lisp
+     (defun my/relative-path-expand (path)
+       "Expand relative PATH from current buffer or file to a full path."
+       (concat
+	(if load-file-name
+	    (file-name-directory load-file-name)
+	  default-directory)
+	path))
+   #+end_src
+
+   Now we can dynamically set our base directory to the full path:
+
+   #+begin_src emacs-lisp
+   :base-directory  ,(my/relative-path-expand "org/")
+   #+end_src
+
+   *Note* for this to work your =org-publish-project-alist= should be started
+   with a ` (backquote) which enables code after a comma to be evaluated. See
+   [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html][backquote in the Emacs Lisp Manual]].
+
 * Thanks
-Thanks to Thibault Marin for his help with make a custom sitemap function using
-an Org mode macro.
+  I have always found the Emacs community to be full of extremely knowledgeable
+  and helpful individuals. I would like to thank Thibault Marin on the
+  [[https://orgmode.org/community.html][emacs-orgmode mailing list]] for his [[https://lists.gnu.org/archive/html/emacs-orgmode/2019-07/msg00053.html][help fixing my custom sitemap function]] with
+  the suggestion of using an Org mode macro.
+
+  Thanks to [[https://stackoverflow.com/a/26991675][Lindydancer on Stack Overflow]] for the solution for determining the
+  path of an Emacs Lisp file.
+
+  Finally, thank you to all developers of Org mode for producing the best text
+  based organization system in existence. Specifically thanks to David O’Toole
+  who originally contributed Org Publish.
+
+* See Also
+  - [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing Org-mode files to HTML --- Worg]]
+
+** Other Org mode blogs
+   - https://nicolas.petton.fr/
+   - https://ogbe.net/
+   - https://bastibe.de/
