@@ -38,11 +38,11 @@
 	("right-justify" . "@@html:<span class=\"right-justify\">$1</span>@@")))
 
 (defun org-sitemap-custom-entry-format (entry style project)
-  "Sitemap ENTRY format that includes date."
+  "Sitemap PROJECT ENTRY STYLE format that includes date."
   (let ((filename (org-publish-find-title entry project)))
     (if (= (length filename) 0)
         (format "*%s*" entry)
-      (format "{{{timestamp(%s)}}} [[file:blog/%s][%s]]"
+      (format "{{{timestamp(%s)}}} [[file:%s][%s]]"
               (format-time-string "%Y-%m-%d"
 				  (org-publish-find-date entry project))
               entry
