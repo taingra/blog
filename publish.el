@@ -94,6 +94,14 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
      default-directory)
    path))
 
+(defvar taingram-base-directory
+  (my/relative-path-expand "org/")
+  "The `base-directory' for taingram.org project.")
+
+(defvar taingram-publish-directory
+  (my/relative-path-expand "html/")
+  ;; "/ssh:thomas@taingram.org:/var/www/taingram.org/html/"
+  "The `publishing-directory' for taingram.org project.")
 
 (require 'ox-html)
 
@@ -118,9 +126,9 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
 (add-to-list 'org-html-text-markup-alist '(verbatim . "<kbd>%s</kbd>"))
 (setq org-publish-project-alist
       `(("index"
-	 :base-directory "./org/"
 	 :included "index.org"
-	 :publishing-directory "./html/"
+	 :base-directory ,taingram-base-directory
+	 :publishing-directory ,taingram-publish-directory
 	 :publishing-function org-html-publish-to-html
 	 :recursive nil
 
@@ -128,11 +136,10 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
 	 :html-preamble "<div id=\"updated\">Updated: %C</div>"
 	 :html-postamble ,taingram-footer)
 	("pages"
-	 :base-directory "./org/"
-	 :base-directory "./org/"
+	 :base-directory ,taingram-base-directory
 	 :base-extension "org"
 	 :exclude "index.org"
-	 :publishing-directory "./html/"
+	 :publishing-directory ,taingram-publish-directory
 	 :publishing-function org-html-publish-to-html
 	 :auto-sitemap t
 	 :sitemap-filename "sitemap.org"
@@ -144,10 +151,10 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
 	 :html-preamble ,taingram-header
 	 :html-postamble ,taingram-footer)
 	("blog"
-	 :base-directory "./org/blog/"
+	 :base-directory ,(concat taingram-base-directory "blog/")
 	 :base-extension "org"
 	 :exclude "blog.org"
-	 :publishing-directory "./html/blog/"
+	 :publishing-directory ,(concat taingram-publish-directory "blog/")
 	 :publishing-function org-html-publish-to-html
 	 :auto-sitemap t
 	 :sitemap-filename "blog.org"
@@ -158,10 +165,10 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
 	 :html-preamble ,taingram-header
 	 :html-postamble ,taingram-footer)
 	("static"
-	 :base-directory "./org/"
+	 :base-directory ,taingram-base-directory
 	 :base-extension "css\\|jpg\\|gif\\|png\\|txt\\|pdf"
 	 :recursive t
-	 :publishing-directory "./html/"
+	 :publishing-directory ,taingram-publish-directory
 	 :publishing-function org-publish-attachment)
 	("taingram.org" :components ("index" "pages" "blog" "static"))))
 
