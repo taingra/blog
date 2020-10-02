@@ -59,7 +59,7 @@
 <footer>
 <div class=\"copyright-container\">
 <div class=\"copyright\">
-Copyright &copy; 2019 Thomas Ingram some rights reserved<br/>
+Copyright &copy; 2017-2020 Thomas Ingram some rights reserved<br/>
 Content is available under
 <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
 CC-BY-SA 4.0</a> unless otherwise noted
