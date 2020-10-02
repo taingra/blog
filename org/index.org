@@ -6,32 +6,33 @@
 [[./img/dithered-casual.gif]]
 #+HTML: </div>
 
-#+INCLUDE: sitemap.org :lines "2-"
+#+HTML: <nav>
+- [[file:resume.org][Résumé]]
+- [[file:notes.org][Useful Tips and Tricks]]
+- [[file:fun-links.org][Interesting Links from Around the Web]]
 - Git([[https://github.com/taingra][Hub]]|[[https://gitlab.com/taingram][Lab]])
-- [[https://paypal.me/taingra][PayPal.me/taingra]]
+- [[https://paypal.me/taingra][PayPal]]
+#+HTML: </nav>
 
-# #+HTML: <div class="urgent">
 # [[https://www.icrc.org/en/nuclear-ban-treaty-no-to-nukes][Stop the construction of Nuclear Weapons, encourage your country to sign the
 # Nuclear Weapon Ban Treaty!]]
-# #+HTML: </div>
 
-Welcome to my personal website. I am a computer science student studying at
-Michigan Tech, interested in GNU/Linux, computer privacy, security, distributed
-systems, and open source software solutions.
+Welcome to my personal website. I am a recent computer science graduate from
+Michigan Technological University. I'm interested in GNU/Linux, computer
+privacy, security, and [[https://www.gnu.org/philosophy/free-sw.html][free/libre software]] solutions.
 
-This site is intentionally minimal to show that websites can be pleasant and
-functional without a huge footprint. You can [[file:blog/org-mode-blog.org][read about how I built this site]]
-and view the source code on [[https://gitlab.com/taingram/blog][GitLab]].
+This site, like most I design, is intentionally minimal to show that websites
+can be pleasant and functional without a huge footprint. You can [[file:blog/org-mode-blog.org][read about how
+I built this site]] and view the source code on [[https://gitlab.com/taingram/blog][GitLab]].
 
-Whenever possible I release my writing and source code under [[https://creativecommons.org/][Creative Commons]]
-or [[http://www.gnu.org/philosophy/free-sw.html][Free Software]] licenses respectively. Majority of the content of this blog is
+Whenever possible I release my writing and source code under [[https://creativecommons.org/][Creative Commons]] or
+[[http://www.gnu.org/philosophy/free-sw.html][Free Software]] licenses respectively. Majority of the content of this blog is
 released under the terms of the [[https://creativecommons.org/licenses/by-sa/4.0/][Creative Commons Attribution-ShareAlike 4.0
 International (CC BY-SA 4.0)]]. That means you can adapt my posts into new content
 if you so wish! So long as I am credited as the original author and you agree
 share your adapted content as well, under the terms of the same license.
 
 * Blog
-
 #+HTML: <div class="blog-entries">
-#+INCLUDE: blog/blog.org :lines "2-"
+#+INCLUDE: "blog/index.org" :lines "3-"
 #+HTML: </div>
