@@ -5,6 +5,23 @@ This page is a collection of random information that I have found useful,
 perhaps you may find something useful too.
 
 * Emacs
+** Lookup C Documentation
+Recently discovered there is a way to jump to the libc manual (if installed) for
+a given function. Could potentially work with other languages with info
+reference manuals, if there are any.
+
+- 'C-h S' info-lookup-symbol
+
+#+BEGIN_QUOTE
+Display the definition of SYMBOL, as found in the relevant manual.
+When this command is called interactively, it reads SYMBOL from the
+minibuffer.  In the minibuffer, use M-n to yank the default argument
+value into the minibuffer so you can edit it.  The default symbol is the
+one found at point.
+#+END_QUOTE
+
+Nice in conjunction with 'M-x man' which I have bound to 'C-x m'.
+
 ** Convert between binary and decimal in calc
 Source: [[http://ergoemacs.org/emacs/elisp_converting_hex_decimal.html][Xah Lee's page on converting decimal to hexadecimal numbers]]
 
