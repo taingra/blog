@@ -7,6 +7,7 @@
     --color-scheme-text: black;
     --color-scheme-secondary: #333;
     --color-scheme-shadow: #eee;
+
 }
 
 /* Light Theme */
@@ -40,28 +41,20 @@ body {
     margin-right: auto;
     padding-left: 1em;
     padding-right: 1em;
-    max-width: 52em;
+    max-width: 48rem;
     color: var(--color-scheme-text);
     background: var(--color-scheme-background);
 }
 
 #content {
-    max-width: 50em;
+    max-width: 46rem;
     margin-left: auto;
     margin-right: auto;
 }
 
-
-@media  (width >= 43em) {
+@media  (min-width: 43em) {
     #profile {
 	float: right;
-    }
-}
-
-@media (width < 43em) {
-    #profile {
-	float: inline;
-	/* max-width: 292px; */
     }
 }
 
@@ -112,11 +105,17 @@ figure {
 
 img {
     padding: 0.9em;
+    vertical-align: center;
 }
 
 figcaption {
     padding-left: 0.9em;
     padding-bottom: 0.9em;
+}
+
+blockquote {
+    border-left-style: solid;
+    padding-left: 1em;
 }
 
 .todo   { font-family: monospace; color: red; }
@@ -217,46 +216,15 @@ pre {
     content: "";
 }
 
-.license-notice-container {
-    height: 10em;
-    position: relative;
-}
-
 .license-notice {
-    text-align: center;
-    padding: 1em;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
     background: lightyellow;
+    padding: 0 1em;
     border: 1px dotted var(--color-scheme-secondary);
     border-radius: 1em;
-}
-
-.license-notice img {
-    margin: 0;
-    padding: 0;
-}
-
-.notice {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.urgent a:link {
-    color: red;
-}
-
-.urgent a:visited {
-    color: red;
-}
-
-.urgent a:hover {
-    color: darkred;
 }
 
 .blog-entries ul {
@@ -288,7 +256,6 @@ pre {
 }
 
 footer {
-    font-family: "fira sans", sans;
     font-size: 80%;
     line-height: 1.5em;
 }
@@ -298,6 +265,10 @@ footer {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.banner {
+    text-align: center;
 }
 
 .generated {
