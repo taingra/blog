@@ -1,3 +1,4 @@
+#+DATE: [2017-05-02 Tue]
 #+TITLE: Emacsclient Setup with Desktop Integration
 #+KEYWORDS: emacs
 
@@ -14,7 +15,7 @@ Emacs once and connect to it using the fast and lightweight =emacsclient=.
 emacs --daemon
 #+END_SRC
 This can be added to startup files that are sourced at login like your bash
-profile (=~/.profile= or =~/.bash_profile)= to automatically start the daemon at
+profile (=~/.profile= or =~/.bash_profile=) to automatically start the daemon at
 login.
 
 ** Using a systemd service
