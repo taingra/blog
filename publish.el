@@ -1,6 +1,6 @@
 ;;; publish.el --- generate and publish my blog -*- lexical-binding: t -*-
 
-;; Copyright (C) 2018-2020 Thomas Ingram
+;; Copyright (C) 2018-2021 Thomas Ingram
 
 ;;; Commentary:
 
