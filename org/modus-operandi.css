@@ -1,0 +1,78 @@
+/* -*- tab-width: 4 -*- */
+/* Code theme taken from Modus Operandi Emacs theme created by Protesilaos Stavrou.
+ * Released under the GNU GPLv3 the source code can be retrieved from:
+ * https://gitlab.com/protesilaos/modus-themes
+ *
+ * CSS generated using `org-html-htmlize-generate-css'
+ */
+
+.src pre {
+	color: #00000;
+	background-color: #ffffff;
+}
+.org-builtin {
+	color: #8f0075;
+}
+.org-comment {
+	color: #505050;
+}
+.org-comment-delimiter {
+	color: #505050;
+}
+.org-constant {
+	color: #0000bb;
+}
+.org-c-annotation {
+	color: #0000bb;
+}
+.org-doc {
+	color: #093060;
+}
+.org-error {
+	color: #a60000;
+	font-weight: bold;
+}
+.org-function-name {
+	color: #721045;
+}
+.org-keyword {
+	color: #5317ac;
+}
+.org-preprocessor {
+	color: #a0132f;
+}
+.org-string {
+	color: #223fbf;
+}
+.org-type {
+	color: #8f0075;
+}
+.org-variable-name {
+	color: #00538b;
+}
+.org-warning {
+	color: #813e00;
+	font-weight: bold;
+}
+.org-warning-1 {
+	color: #703700;
+}
+
+.org-css-property {
+	color: #5317ac;
+}
+.org-css-selector {
+	color: #721045;
+}
+.org-sgml-namespace {
+	color: #8f0075;
+}
+.org-sh-escaped-newline {
+	color: #223fbf;
+}
+.org-sh-heredoc {
+	color: #223fbf;
+}
+.org-sh-quoted-exec {
+	color: #8f0075;
+}

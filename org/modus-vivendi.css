@@ -1,0 +1,79 @@
+/* -*- tab-width: 4 -*- */
+/* Modus Vivendi Emacs theme created by Protesilaos Stavrou.
+ * Released under the GNU GPLv3 the source code can be retrieved from:
+ * https://gitlab.com/protesilaos/modus-themes
+ *
+ * CSS generated using `org-html-htmlize-generate-css'
+ */
+
+.src pre {
+	color: #ffffff;
+	background-color: #000000;
+}
+
+.org-builtin {
+	color: #f78fe7;
+}
+.org-c-annotation {
+	color: #00bcff;
+}
+.org-comment {
+	color: #a8a8a8;
+}
+.org-comment-delimiter {
+	color: #a8a8a8;
+}
+.org-constant {
+	color: #00bcff;
+}
+.org-doc {
+	color: #c6eaff;
+}
+.org-error {
+	color: #ff8059;
+	font-weight: bold;
+}
+.org-function-name {
+	color: #feacd0;
+}
+.org-keyword {
+	color: #b6a0ff;
+}
+.org-preprocessor {
+	color: #ff9977;
+}
+.org-string {
+	color: #79a8ff;
+}
+.org-type {
+	color: #f78fe7;
+}
+.org-variable-name {
+	color: #00d3d0;
+}
+.org-warning {
+	color: #eecc00;
+	font-weight: bold;
+}
+.org-warning-1 {
+	color: #dbbe5f;
+}
+
+.org-css-property {
+	color: #b6a0ff;
+}
+.org-css-selector {
+	color: #feacd0;
+}
+.org-sgml-namespace {
+	color: #f78fe7;
+}
+.org-sh-escaped-newline {
+	color: #79a8ff;
+}
+.org-sh-heredoc {
+	color: #79a8ff;
+}
+.org-sh-quoted-exec {
+	color: #f78fe7;
+}
