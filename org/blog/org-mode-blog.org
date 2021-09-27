@@ -1,3 +1,4 @@
+#+DATE: [2019-06-13 Thu]
 #+TITLE: Building a Emacs Org-Mode Blog
 
 As my WordPress website nears the end of its subscription, I've decided this
@@ -9,9 +10,9 @@ to utilize the HTML exporter built into Org mode. The result is a simple, fast
 website, built entirely with Emacs.
 
 * Goals
-  1. A lightweight website with mobile scaling
-  2. Easily rebuild my website and sync it to any web server
-  3. Do so without adding any new software dependencies (just Emacs and ssh)
+  1. A lightweight website with mobile scaling.
+  2. Easily rebuild my website and sync it to any web server.
+  3. Without adding any new software dependencies.
 
 ** Tools
    | *Editor*          | GNU Emacs           |
@@ -22,7 +23,7 @@ website, built entirely with Emacs.
 * Initial Setup
   Out of the box Org mode provides many of different exporters for HTML, LaTeX,
   even plain text. In addition to standard HTML exporting Org provides
-  *ox-publish* specifically for publishing Org projects to websites.
+  *ox-publish* specifically for publishing Org projects as websites.
 
   For my website, I use the following project structure:
   #+begin_src
@@ -36,11 +37,11 @@ website, built entirely with Emacs.
   │   └── style.css
   ├── html/            # temporary export directory
   ├── publish.el       # site sepecifc publishing config
-  └── Makefile         # for building the site outside of emacs
+  └── Makefile         # for building the site outside of Emacs
   #+end_src
 
-  We need to tell Org Publish about our project layout by defining the
-  =org-publish-project-alist=
+  To explain this structure to Org publish we need to set the
+  =org-publish-project-alist= as follows
 
   #+begin_src emacs-lisp
   (require 'ox-publish)
@@ -65,12 +66,12 @@ website, built entirely with Emacs.
 
   From the last line we can see "taingram.org" is broken down into the
   components "pages" and "static". Each component handles a different part of
-  the website and has its own settings. The "pages" component handles org filesfff
+  the website and has its own settings. The "pages" component handles org files
   as specified by the =:base-extension= and exports the files to html as per the
-  =:publishing-function=. The "static" component handles other files like images
-  and style sheets.
+  =:publishing-function=. The "static" component handles copying over other
+  files like images and style sheets.
 
-  For each project component the following options should be set:
+  For each project component the following options should always be set:
 
   - =:base-directory= --- where the source files are
   - =:base-extension= --- what type of file (e.g. org) is being exported
@@ -85,7 +86,7 @@ website, built entirely with Emacs.
    Dispatcher", type ~P~ for Publishing, and ~a~ to publish all. The site will
    be generated and placed in the =html/= directory.
 
-   You can also publish the site from elisp with:
+   You can also publish the site from elisp by evaluating:
 
    #+begin_src emacs-lisp
    (org-publish "taingram.org" t)
@@ -105,7 +106,7 @@ website, built entirely with Emacs.
 
     Open http://localhost:8000 in a browser to see your new website.
 
-* Additional Options
+* Further Customization
   Now that we have a basic website exporting we can start experimenting with
   more advanced settings within Org publish.
 
@@ -198,7 +199,6 @@ website, built entirely with Emacs.
    For example, a global sitemap for taingram.org would appear as follows:
 
    - [[file:../fun-links.org][Interesting Links From Around the Web]]
-   - [[file:../resume.org][Résumé]]
    - [[file:../notes.org][Useful Tips and Tricks]]
    - blog
      - [[file:org-mode-blog.org][Building a Blog with Emacs Org-Mode]]
@@ -210,7 +210,7 @@ website, built entirely with Emacs.
    : #+INCLUDE: sitemap.org :lines "3-"
 
    The =:lines 3-= will only include the 3rd line on, skipping the =#+TITLE= tag
-   set in sitemap.org and grabbing the list of pages as shown above.
+   set in sitemap.org and grabbing only the list of pages as shown above.
 
 *** Creating a List of Blog Posts
     While a global sitemap can be useful, I want a greater distinction made
@@ -267,7 +267,7 @@ website, built entirely with Emacs.
 		      filename))))
     #+end_src
 
-    Notice =(format "{{{timestamp(%s)}}} [[file:%s][%s]]"= inserts an [[https://orgmode.org/manual/Macro-Replacement.html][Org macro]]
+    Notice =(format "{{{timestamp(%s)}}} [[file:%s][%s]]")= inserts an [[https://orgmode.org/manual/Macro-Replacement.html][Org macro]]
     called timestamp, it is defined as follows:
 
     #+begin_src emacs-lisp
@@ -362,6 +362,7 @@ website, built entirely with Emacs.
   - [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing Org-mode files to HTML --- Worg]]
 
 ** Other Org mode blogs
-   - https://nicolas.petton.fr/
+   - https://nicolas.petton.fr/blog/blogging-with-org-mode.html
    - https://ogbe.net/
    - https://bastibe.de/
+   - https://writepermission.com/
