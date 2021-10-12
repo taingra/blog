@@ -55,37 +55,12 @@ body {
 }
 
 #content {
-	max-width: 52rem;
+	max-width: 54rem;
 	margin: auto;
 }
 
 #postamble {
-	max-width: 52rem;
-	margin: auto;
-}
-
-.outline-2, #footnotes, #comments {
-	max-width: 52rem;
-	margin: auto;
-}
-
-.outline-3 {
-	max-width: 51rem;
-	margin: auto;
-}
-
-.outline-4 {
-	max-width: 50rem;
-	margin: auto;
-}
-
-.outline-5, .outline-6, .outline-7, .outline-8, .outline-9 {
-	max-width: 49rem;
-	margin: auto;
-}
-
-.outline-text-2, .outline-text-3, .outline-text-4, .outline-text-5, .outline-text-6, .outline-text-7, .outline-text-8, .outline-text-9, #text-footnotes, #text-comments {
-	max-width: 48rem;
+	max-width: 54rem;
 	margin: auto;
 }
 
@@ -251,7 +226,6 @@ h2 .timestamp, h3 .timestamp, h4 .timestamp, h5 .timestamp, h6 .timestamp {
 
 footer {
 	margin: auto;
-	max-width: 50rem;
 	font-size: 80%;
 	line-height: 1.5em;
 }
