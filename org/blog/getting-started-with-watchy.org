@@ -1,0 +1,125 @@
+#+TITLE: Getting Started with Watchy
+#+OPTIONS: tasks:nil
+
+I've recently received my [[https://www.crowdsupply.com/sqfmi/watchy][Watchy]], an open source E-Ink watch, and have
+just started to crack the surface of what can be done with the
+device. This post outlines how to get going with Watchy from the
+perspective of someone who has done very little with Arduino and
+hardware programming.
+
+Tested on Debian Sid, steps should be similar across
+distributions. Recently moved to Fedora and will be testing shortly.
+
+* Setup
+
+On Debian install the following:
+
+#+begin_src bash
+  sudo apt install arduino python3-pyserial
+#+end_src
+
+To access the serial connection necessary for uploading to your device
+you'll need to add yourself to the =dialout= group.
+
+#+begin_src sh
+  sudo adduser $USER dialout
+#+end_src
+
+You will need to log out and back in for the change to take full
+effect. You can check whether you are in the =dialout= group with:
+#+begin_src sh
+  groups $USER
+#+end_src
+
+#+RESULTS:
+: thomas : thomas dialout cdrom floppy sudo audio dip video plugdev netdev bluetooth lpadmin scanner
+
+** Arduino Setup
+
+With Arduino IDE open there is some hardware setup and libraries that
+still need to be setup.  The following steps are outlined in the
+[[https://github.com/sqfmi/Watchy][Watchy README.md]].
+
+1. Add [[https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md][ESP32 Boards]]
+   1) *File* >> *Preferences*
+   2) In *Additional Boards Manager URLs* paste in
+      https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+
+2. Import the Watchy Library
+   1) *Tools* >> *Manage Libraries*
+   2) Search Watchy click install
+         [[../img/arduino-watchy-library.png]]
+
+3. Hardware Settings
+   1) Set Board to "ESP32 Dev Module"
+      *Tools* >> *Board* >> *ESP32 Arduino* >> *ESP32 Dev Module*
+
+   2) Set Partition Scheme to "Minimal SPIFFS"
+      *Tools* >> *Partition Scheme* >> *Minimal SPIFFS*
+
+* Getting Started
+
+With the setup complete you should be all set to get started working
+on a watch face. The Watchy library provides a number of example faces
+from which you can use as a basis for your own.  Open an example watch
+face *File* >> *Watchy* >> *WatchFaces*.  So far I've found =7_SEG= to be a
+good starter for learning, but you should feel free to try out all
+options.
+
+A basic change you can make to see if things are working is to swap
+the =7_SEG= color scheme by changing line 3 of =Watchy_7_SEG.cpp= to
+false.
+
+#+begin_src C
+  #define DARKMODE false
+#+end_src
+
+Then verify your project with the Check ✓ icon.  If it succeeds plug
+in your Watchy to your computer via USB and click Upload.  You'll
+likely need to confirm your device (something like =/dev/ttyUSB0= on
+Linux), then after a few seconds you should see your watchface invert
+colors.
+
+* TODO Emacs Setup
+
+Now that I had things working before I started tweaking too hard I'd
+like to get out of the Arduino IDE and back to Emacs. The
+
+https://github.com/sudar/Arduino-Makefile
+
+#+begin_src sh
+  sudo apt install arduino-mk
+#+end_src
+
+#+begin_src makefile
+  BOARD_TAG = uno
+  ARDUINO_LIBS = Watchy
+  MONITOR_PORT = /dev/ttyUSB0
+  include /usr/share/arduino/Arduino.mk
+#+end_src
+
+* Issues
+
+I had an issue while building the watchface in Arduino where =python=
+could not be found because Debian testing does not currently have a
+=python= symlink. I had python3 installed so I added one as follows:
+
+#+begin_src bash
+  ln -s /bin/python3 ~/bin/python
+#+end_src
+
+~/bin= the default location for user scripts in Debian's bash
+=.profile=. It will automatically add this directory to the path if it
+exists so no additional configuration is needed.  However, if you had
+to create this directory you may need to log out and back in for it to
+take full effect.
+
+For other distros you may need to add =~/bin= to your =.profile= or
+=.bash_profile=
+
+#+begin_src bash
+  # set PATH so it includes user's private bin if it exists
+  if [ -d "$HOME/bin" ] ; then
+      PATH="$HOME/bin:$PATH"
+  fi
+#+end_src
