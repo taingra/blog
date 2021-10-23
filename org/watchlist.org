@@ -1,0 +1,252 @@
+#+Title: My Watchlist
+#+OPTIONS: tags:nil
+#+PROPERTY: Rating_All 1 2 3 4 5
+#+COLUMNS: %ITEM(Title) %YEAR %RATING %GENRE
+
+
+#+BEGIN: columnview :id global :indent t :maxlevel 2 :exclude-tags ("notable" "noexport")
+| Title                   | YEAR | RATING | GENRE                  |
+|-------------------------+------+--------+------------------------|
+| Movies                  |      |        |                        |
+| \_  Creep 2             | 2017 |      3 | Horror Indie           |
+| \_  Prometheus          | 2012 |      2 | Sci-Fi Space Aliens    |
+| \_  Hostel: Part III    | 2011 |      2 | Horror                 |
+| \_  Vivarium            | 2019 |      3 | Horror                 |
+| \_  Killing them Softly | 2012 |      4 | Crime                  |
+| \_  The Holy Mountain   | 1973 |      5 | Surreal                |
+| \_  Children of Men     | 2006 |      5 | Sci-Fi Apocalyptic     |
+| \_  Blade Runner        | 1982 |      5 | Sci-Fi                 |
+| \_  Battle Royale       |      |      4 | Sci-Fi Murder Gameshow |
+| TV Shows                |      |        |                        |
+| \_  Squid Game          | 2021 |      3 | Sci-Fi Murder Gameshow |
+| Games                   |      |        |                        |
+| \_  Resident Evil 2     | 2019 |      4 | Survivial Horror       |
+| \_  Ghost of Tsushima   | 2020 |      3 | Historical Fiction     |
+| \_  Dark Souls          | 2011 |      5 | Fantasy                |
+#+END
+
+* Rating System                                                     :notable:
+
+The basis for my rankings are primarily based off how much I would
+like to rewatch something.
+
+|---+------------------------------------------------------------------------------|
+| 1 | *Terrible* --- would not want to rewatch ever                                  |
+| 2 | *Bad* --- but had some entertainment value                                     |
+| 3 | *Alright/Good* --- would recommend to some or rewatch on occasion              |
+| 4 | *Very Good* --- would recommend and rewatch anytime, but not perfect           |
+| 5 | *Perfect* --- recommend everyone see for entertainment value or artistic merit |
+|---+------------------------------------------------------------------------------|
+
+* TODO Tracking System and exporting                               :noexport:
+
+Ideally I'd like the following features out of my media tracking system.
+
+1. [ ] Easily add entries without much work
+2. [X] Locally viewable and maintained offline
+3. [ ] Can automatically pull in data about a film/TV show from the title
+   (e.g. year, director, etc.)
+4. [ ]Can search or query data
+5. [X] Export data into a list and table
+
+* Movies
+:PROPERTIES:
+:Medium: Film
+:END:
+** Creep 2
+:PROPERTIES:
+:Rating:    3
+:Year:      2017
+:Genre:     Horror
+:Genre+:    Indie
+:Director:  Patrick Brice
+:IMDB:      https://www.imdb.com/title/tt3654796/
+:Wikipedia: https://en.wikipedia.org/wiki/Creep_2
+:END:
+[2021-10-16 Sat]
+
+Good sequel, does things different than the original, but still
+manages to maintain tension throughout the movie.  Still an extremely
+"indie" feeling movie.
+
+** Prometheus
+:PROPERTIES:
+:Rating:   2
+:Year:     2012
+:Genre:    Sci-Fi
+:Genre+:   Space
+:Genre+:   Aliens
+:Director: Ridley Scott
+:IMDB:     https://www.imdb.com/title/tt1446714/
+:Wikipedia: https://en.wikipedia.org/wiki/Prometheus_(2012_film)
+:END:
+
+It's not as bad as some people say.  At time the effects are quite
+interesting to watch like with the anamotric alien head or in the
+fantastic surgery scene.  Michael Fassbender steals the show as the
+android David, and is great in the sequal as well.  Ultimately its the
+inconsistent tone and a plot that feels like it was just written to
+justify disjointed action scenes leaves a lot to be desired.
+
+I'll note while Alien (1971) is one of my favorite movies I am not a
+purist.  I even like Alien Ressurrection.
+
+** Hostel: Part III
+:PROPERTIES:
+:Rating:   2
+:Year:     2011
+:Genre:    Horror
+:Director: Scott Spiegel
+:Country:  United States
+:IMDB:     https://www.imdb.com/title/tt1255916/
+:END:
+[2021-10-10 Sun]
+
+** Vivarium
+:PROPERTIES:
+:Rating:   3
+:Year:     2019
+:Genre:    Horror
+:Director: Lorcan Finnegan
+:Country:  Ireland, Belgium, Denmark, Canada
+:IMDB:     https://www.imdb.com/title/tt8368406/
+:Watch_Date: [2021-10-10 Sun]
+:END:
+
+** Killing them Softly
+:PROPERTIES:
+:Rating:   4
+:Year:     2012
+:Director: Andrew Dominik
+:Genre:    Crime
+:Country:  United States
+:IMDB:     https://www.imdb.com/title/tt1764234/
+:Source:   Netflix
+:END:
+
+Really good simple crime/mob movie.
+
+** The Holy Mountain
+:PROPERTIES:
+:Rating:   5
+:Year:     1973
+:Director: Alejandro Jodorowsky
+:Genre:    Surreal
+:Country:  Mexico
+:Wikipedia: https://en.wikipedia.org/wiki/The_Holy_Mountain_(1973_film)
+:IMDB: https://www.imdb.com/title/tt0071615/
+:Source: Blu-ray
+:END:
+
+A movie that is not for everyone, but everyone should consider watching.
+
+** Children of Men
+:PROPERTIES:
+:Rating:    5
+:Year:      2006
+:Director:  Alfonso Cuarón
+:Genre:     Sci-Fi
+:Genre+:    Apocalyptic
+:Country:   United Kingdom, United States
+:Wikipedia: https://en.wikipedia.org/wiki/Children_of_Men
+:IMDB:      https://www.imdb.com/title/tt0206634/
+:END:
+
+Perhaps my favorite film.  Feels extremely relevant every time I watch it.
+
+Only complaint is that scene when that windshield shatters.
+
+** Blade Runner
+:PROPERTIES:
+:Rating:   5
+:Year:     1982
+:Director: Rid
+:Genre:    Sci-Fi
+:Country:  United States
+:Wikipedia: https://en.wikipedia.org/wiki/Blade_Runner
+:Source: Blu-ray
+:END:
+
+** Battle Royale
+:PROPERTIES:
+:Rating:   4
+:Genre:    Sci-Fi
+:Genre+:   Murder Gameshow
+:Country:  Japan
+:END:
+* TV Shows
+:PROPERTIES:
+:Medium: Television
+:END:
+** Squid Game
+:PROPERTIES:
+:Rating: 3
+:Year: 2021
+:Genre: Sci-Fi
+:Genre+: Murder Gameshow
+:Country: South Korea
+:Source: Netflix
+:Wikipedia: https://en.wikipedia.org/wiki/Squid_Game
+:IMDB: https://www.imdb.com/title/tt10919420/
+:Watch_Date: [2021-09-28 Tue]
+:END:
+
+* Games
+:PROPERTIES:
+:Medium: Game
+:END:
+** Resident Evil 2
+:PROPERTIES:
+:RATING:   4
+:Year:      2019
+:Developer: Capcom
+:Country:   Japan
+:Wikipedia: https://en.wikipedia.org/wiki/Resident_Evil_2_(2019_video_game)
+:Source:    PS4
+:Played:    2021
+:GENRE:    Survivial Horror
+:END:
+
+Really fun quick game.  I've never played the original (or any other
+Resident Evil games) so it was a very fresh and fun experience.  Loved
+the retro puzzle solving and key hunting.  Graphics were superb, gore
+effects were fanatic.
+
+I played through both Claire and Leon's story so I could get the true
+ending.  I'd recommend playing as Claire first then Leon that way you
+can get used to exploring the police station before getting hunted by
+Mr. X.
+
+*** Spoilers
+I was disappointed that in secret evil lab the escalation from huge
+fleshy monsters in the sewers is to lame plant zombies.  Now maybe I
+have too many house plants, but personally I'm not scared of plants.
+
+** Ghost of Tsushima
+:PROPERTIES:
+:Rating:    3
+:Year:      2020
+:Developer: Sucker Punch
+:Wikipedia: https://en.wikipedia.org/wiki/Ghost_of_Tsushima
+:Genre:     Historical Fiction
+:Source:    PS4
+:END:
+
+Beautiful game, pretty good story.  The combat is okay, but starts to
+get stale towards the end of the game, and its difficult to shake up
+as other options like steal are horribly broken.
+
+Lots of cool outfits, but you'll end up only ever wearing the
+traveler's outfit 90% of the time as it vibrates your controller when
+you are near points of interest/collectibles.
+
+** Dark Souls
+:PROPERTIES:
+:Rating:    5
+:Year:      2011
+:Wikipedia: https://en.wikipedia.org/wiki/Dark_Souls
+:Country:   Japan
+:Genre:     Fantasy
+:Developer: From Software
+:Source:    Switch
+:END:

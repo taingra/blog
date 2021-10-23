@@ -1,0 +1,93 @@
+#+TITLE: Interesting Links From Around the Web
+#+OPTIONS: <:nil toc:t
+#+HTML_HEAD_EXTRA: <style>.outline-2 h2 { border-bottom: 2px solid black; }</style>
+
+* Programming
+** [[https://bzg.fr/en/learn-emacs-lisp-in-15-minutes.html/][Learn Emacs Lisp in 15 Minutes (2015)]]                          :Tutorial:
+Written by Bastien Guerry (the current maintainer of Org mode).
+
+** [[https://css-tricks.com/snippets/css/a-guide-to-flexbox/][A Complete Guide to Flexbox]]                                    :Tutorial:
+The best explanation of flexbox online.
+
+** [[https://benchmarksgame-team.pages.debian.net/benchmarksgame/][Computer Language Benchmark Game]]
+A project for comparing the speed of different programming languages
+by implementing a number of algorithms in multiple programming
+languages. Tests are automatically re-run every few days.
+
+** [[https://sites.google.com/view/energy-efficiency-languages/home][Energy Efficiency across Programming Languages (2017)]]
+Built off the Programming Language Benchmark Game. There is no
+correlation between energy efficiency, run time, and memory usage. Top
+5 most energy efficient programming languages are:
+
+1. C
+2. Rust
+3. C++
+4. Ada
+5. Java
+
+** [[http://www.art.net/~hopkins/Don/unix-haters/preface.html][Preface to The Unix-Haters Handbook]]
+[2021-10-20 Wed]
+* Emacs
+** [[https://www.youtube.com/watch?v=GvxZ7wfKj8E][The evolution of TECO and Emacs - Hands on demo]]                   :Video:
+[2021-10-13 Wed]
+
+** [[https://www.gnu.org/software/emacs/emacs-paper.html][EMACS: The Extensible, Customizable Display Editor]] by Richard Stallman (1981)
+[2021-10-20 Wed]
+
+Very interesting to see how far back many key feature go back in
+Emacs.
+
+I was especially inspired by the opening paragraph of "Editing Other
+Things", as this completely articulates why it is valuable to put all
+these features directly into the Emacs editor.
+
+#+begin_quote
+Interactiveness is useful in many activities aside from editing
+text. For example, reading and replying to mail from other users ought
+to be interactive. Many of these activities occasionally involve text
+editing: for example, editing the text of a reply. If a special editor
+is implemented for the purpose, it can easily be much more work to
+write than all the rest of the system. It is easier to write the other
+interactive system within the framework of an extensible editor.
+#+end_quote
+
+** [[https://www.gnu.org/gnu/rms-lisp.html][My Lisp Experiences and the Development of GNU Emacs]] by Richard Stallman (2002)
+[2021-10-21 Thu]
+
+Transcript of Richard Stallman's Speech, 28 Oct 2002, at the International Lisp Conference.
+
+Interesting to hear about the motivation behind Scheme's choice as
+the recommended GNU extension language.  With the extensibility of GNU
+Emacs in mind, it would be amazing to have that level of power in more
+applications.
+
+#+begin_quote
+At the time, TCL was being pushed heavily for this purpose. I had a
+very low opinion of TCL, basically because it wasn't Lisp. It looks a
+tiny bit like Lisp, but semantically it isn't, and it's not as
+clean. Then someone showed me an ad where Sun was trying to hire
+somebody to work on TCL to make it the “de-facto standard extension
+language” of the world. And I thought, “We've got to stop that from
+happening.” So we started to make Scheme the standard extensibility
+language for GNU. Not Common Lisp, because it was too large. The idea
+was that we would have a Scheme interpreter designed to be linked into
+applications in the same way TCL was linked into applications. We
+would then recommend that as the preferred extensibility package for
+all GNU programs.
+#+end_quote
+
+* Free and Open Source Software
+** [[https://man.sr.ht/lists.sr.ht/etiquette.md][Mailing list etiquette - sourcehut]]
+
+** [[https://www.chiark.greenend.org.uk/~sgtatham/bugs.html][How to Report Bugs Effectively]] by Simon Tatham
+[2021-10-19 Tue]
+
+* Interesting Software
+
+Not necessary recommendations, just interesting pieces of software
+that I've found.
+
+** [[http://grafx2.chez.com/index.php][GrafX2 a bitmap paint program]]
+
+* Other
+** [[https://mattbruenig.com/2021/09/20/when-mcdonalds-came-to-denmark/][When McDonalds Came to Denmark]]

@@ -8,7 +8,8 @@
 
 #+begin_nav
 - [[file:tips-and-tricks.org][Useful Tips and Tricks]]
-- [[file:fun-links.org][Interesting Links]]
+- [[file:interesting-links.org][Interesting Links]]
+- [[file:watchlist.org][Watchlist]]
 - [[https://paypal.me/taingra][PayPal]]
 #+end_nav
 
@@ -29,8 +30,8 @@ your adapted content as well by distributing it under the terms of the same
 license.
 
 * Projects
-** [[file:init.org][Emacs init file]]
-My Emacs configuration written in lite [[https://en.wikipedia.org/wiki/Literate_programming][literate programming]] style using [[https://orgmode.org/][Org mode]].
+** [[file:init.org][My Emacs Init]]
+My Emacs configuration written in [[https://en.wikipedia.org/wiki/Literate_programming][literate programming]]-lite style using [[https://orgmode.org/][Org mode]].
 
 * Blog
 

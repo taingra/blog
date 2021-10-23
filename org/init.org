@@ -1,0 +1,746 @@
+# -*- eval: (add-hook 'after-save-hook (lambda nil (org-babel-tangle)))  -*-
+#+TITLE: My Emacs Init
+#+AUTHOR: Thomas Ingram
+#+OPTIONS: toc:t num:t
+#+STARTUP: overview hidestars indent
+#+PROPERTY: header-args :results silent :tangle "~/.config/emacs/init.el"
+
+* Why use Emacs?
+
+As a professional email writer (lol), amateur blogger, and programmer my
+primary input/output to the computer is through text.  Emacs provides me
+with a rock solid text editor that is able to stand out from the competition
+on the following five key points
+
+1. *Clean Interface* --- a distraction free interface for writing and coding.
+
+2. *Extensibility* --- a complete programming interface for enhancing my own
+   user experience and automating repetitive tasks.
+
+3. *Portable* --- a portable environment that works on all major operating
+   systems.  (Not all of us have the luxury of using GNU/Linux at work)
+
+4. *Community* --- Great community developing high quality packages.  ([[https://magit.vc/][magit]],
+   [[https://orgmode.org/][org-mode]], eshell, etc.)
+
+5. *Free Software* --- The ability to access and modify all the source code of
+   Emacs allows for complete customization.  The source code also provides
+   an excellent resource for those wishing to learn Lisp, programming, and
+   programming language development[fn:1].  This factor combined with a rich
+   history and an enthusiastic community ensure that Emacs will not
+   disappear any time soon.
+
+** Emacs Lisp
+
+One aside on Emacs Lisp, which is often disparaged as the worst surviving
+Lisp dialect.  I will not argue that point directly, but I will posit that
+Emacs Lisp is a more than capable Lisp and very pleasant work in.
+
+The surprising strength of Emacs Lisp is well captured in this excerpt from
+the Emacs calculator (calc) manual:
+
+#+begin_quote
+   I chose Emacs Lisp, a) because I had always been curious about it and b)
+because, being only a text editor extension language after all, Emacs Lisp
+would surely reach its limits long before the project got too far out of
+hand.
+
+   To make a long story short, Emacs Lisp turned out to be a distressingly
+solid implementation of Lisp, and the humble task of calculating turned out
+to be more open-ended than one might have expected.
+#+end_quote
+
+** Shortcomings
+
+A minor problem is the limited support for concurrency which causes some
+actions complete slowly or lock-up Emacs.  However, I rarely find this
+causes significant annoyances.  In most situations computationally intensive
+actions can be handed off to a separate Emacs process (see
+[[info:elisp#Processes][info:elisp#Processes]]) or a separate program entirely (e.g. using isync to
+retrieve mail).
+
+Beyond technical limitations my main issue with Emacs is I cannot use it all
+the time.  With the huge investment I've made on my computer it would be
+wonderful to have the power of Emacs in a smartphone type package.  However,
+touchscreen displays do not translate well to the Emacs workflow.  That's
+why I've recently pre-ordered the [[https://pyra-handheld.com/boards/pages/pyra/][Pyra Handheld]] to hopefully use as a Emacs
+PDA.
+
+** Thoughts from other Emacs Users
+
+I've found both these video essays by Protesilaos Stavrou to be a great
+summary of the thought process involved for why someone would want to use
+Emacs:
+- [[https://www.youtube.com/watch?v=FLjbKuoBlXs][Vlog: Switching to Emacs]]
+- [[https://www.youtube.com/watch?v=gwT5PoXrLVs][Vlog: Moral lessons from switching to Emacs]]
+
+* Literate Configuration wih Org Mode
+
+My Emacs configuration file is written in a [[https://en.wikipedia.org/wiki/Literate_programming][literate programming]]-like style
+which allows for prose to be mixed with source code blocks.  From that the
+relevant source blocks are extracted and copied to my Emacs configuration
+file.
+
+I've held out for many years creating a literate config, but seeing other
+users' success has convinced me. The ability to maintain complete notes,
+links, and the configuration code all in one file is extremely
+convenient.  In addition, the hierarchical structure of Org allows for a
+clearer organization of the code.
+
+** Setup
+
+I have one org file =init.org= where I combine all of my Emacs configuration
+code with prose notes about it.  That org file can be placed anywhere on my
+system because it is not the actual initialization file used by Emacs.  From
+the org file my actual =init.el= is exported (tangled) from the elisp source
+blocks.  In literate programming terms, the org file is where coded and
+prose is /woven/ together, then code is /tangled/ out to just elisp that can be
+evaluated by Emacs.  That means using a literate config imposes no startup
+or runtime performance penalty.
+
+Adding the following to your org file will copy (tangle) the code blocks
+into your =init.el= file.
+
+: #+PROPERTY: header-args :results silent :tangle "~/.config/emacs/init.el"
+
+To exclude specific source blocks from being tangled add =:tangle no= to the header.
+
+Adding the following file header will re-tangle the file on save.
+
+: # -*- eval: (add-hook 'after-save-hook (lambda nil (org-babel-tangle)))  -*-
+
+* Emacs Boilerplate Setup
+** Early Init
+Using an =early-init.el= file can speed up Emacs startup, by avoiding loading
+unnecessary UI elements. Below is my complete =early-init.el=:
+
+#+include: ~/.config/emacs/early-init.el src emacs-lisp :tangle no
+
+In my regular config, load =early-init.el= if not loaded already:
+
+#+begin_src emacs-lisp
+  (when (version< emacs-version "27")
+    (load (concat user-emacs-directory "early-init.el")))
+#+end_src
+
+** Optomizations and elisp loading
+
+Prefer newest elisp files
+
+#+begin_src emacs-lisp
+  (setq load-prefer-newer t)
+#+end_src
+
+Increase the max amount allowed to be read from a process into Emacs.
+
+#+begin_src emacs-lisp
+  (setq read-process-output-max (* 1024 1024))
+#+end_src
+
+** Prefer UTF-8
+
+#+begin_src emacs-lisp
+  (prefer-coding-system 'utf-8)
+#+end_src
+
+** Customize
+
+Emacs has its own customization functionality which can be useful for
+experimenting and finding new Emacs options. Normally these settings
+are appended to the end of the user's init file, setting
+=custom-variable= will save it there.
+
+#+begin_src emacs-lisp
+  (setq custom-file (concat user-emacs-directory "customizations.el"))
+#+end_src
+
+Some prefer not to use this functionality as they prefer to code elisp
+themselves, but even if you do not use the customization interface
+loading it is still useful for setting safe file variables and themes.
+
+#+begin_src emacs-lisp
+  (load custom-file 't)
+#+end_src
+
+** Disable bell sound
+
+#+begin_src emacs-lisp
+  (setq ring-bell-function 'ignore)
+#+end_src
+
+* Package setup
+
+Add the new [[https://elpa.nongnu.org/][NonGNU ELPA]] (Emacs Lisp Package Archive). This repository contains
+only Free Software, but unlike [[https://elpa.gnu.org/][GNU ELPA]] these packages have not assigned
+copyright to FSF and cannot be included in mainline Emacs for legal reasons.
+
+#+begin_src emacs-lisp
+  (with-eval-after-load 'package
+    (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+#+end_src
+
+** use-package
+
+There is a good chance that ==use-package= may be included in Emacs 28 and this
+wont be necessary...
+
+#+begin_src emacs-lisp
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+#+end_src
+
+*** Hide minor modes from appearing in the mode-line
+
+[[https://savannah.nongnu.org/projects/delight][Delight]] is very similar to [[https://github.com/myrjola/diminish.el][diminish.el]], both are supported by =use-package=, but
+delight is included in GNU ELPA.
+
+#+begin_src emacs-lisp
+  (use-package delight
+    :ensure t)
+#+end_src
+
+* General usage
+** Global Keybindings
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x m") 'man)
+#+end_src
+
+*** Unbind keys
+
+Don't hide the frame
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-z") nil)
+  (global-set-key (kbd "C-x C-z") nil)
+#+end_src
+
+** Keybinding reminders
+
+When using Emacs there is always the problem of keeping track of the
+many keybindings used across multiple modes.  One solution I recommend
+is keeping consistent bindings across modes as possible (many mode
+already attempt this to varying levels).
+
+When it comes to remembering fringe keybindings that are useful to
+have, but inconsistent
+
+.  I have never quite been happy with which-key as I find
+the pop-ups overwhelming.  Despite that, I do forget keybinding all
+the time.
+
+#+begin_src emacs-lisp
+  (use-package which-key
+    :ensure t
+    :init
+    (setq which-key-idle-delay 5)
+    :config
+    (which-key-mode))
+#+end_src
+
+
+** Managing buffers
+
+ibuffer offers a number of
+
+#+begin_src emacs-lisp
+    (use-package ibuffer
+      :bind (("C-x C-b" . ibuffer))
+      :init
+      (add-hook 'ibuffer-mode-hook #'hl-line-mode))
+#+end_src
+
+** Fuzzy completion                                                  :MELPA:
+
+Currently using helm but have mixed feelings about it.
+
+#+begin_src emacs-lisp
+  (use-package helm
+    :ensure t
+    :bind (("M-x" . helm-M-x)
+           ("C-x C-f" . helm-find-files)
+           ("C-x r b" . helm-filtered-bookmarks)
+           :map helm-map
+           ("<tab>" . helm-execute-persistent-action))
+    :config
+    (helm-mode 1))
+#+end_src
+
+** Dired
+
+#+begin_src emacs-lisp
+  (setq dired-listing-switches "-l --group-directories-first")
+
+  (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+#+end_src
+
+Allow using 'a' key in dired
+
+#+begin_src emacs-lisp
+  (put 'dired-find-alternate-file 'disabled nil)
+#+end_src
+
+** Read only file View
+Enables view mode in all read-only files
+#+begin_src emacs-lisp
+  (setq view-read-only t)
+#+end_src
+
+** Email
+
+#+begin_src emacs-lisp
+  (setq user-full-name "Thomas Ingram"
+        user-mail-address "thomas@taingram.org")
+#+end_src
+
+#+begin_src emacs-lisp
+  (setq smtpmail-smtp-server "mail.gandi.net"
+        smtpmail-smtp-service 587
+        message-send-mail-function 'smtpmail-send-it)
+#+end_src
+
+Currently trying Gnus in the hopes it will make subbing to a large
+number of mailing lists more manageable. Below is the source code of
+my =~/.gnus.el=
+
+#+include: ~/.gnus.el src emacs-lisp :tangle no
+
+See also [[https://gitlab.com/protesilaos/dotfiles/-/blob/master/emacs/.emacs.d/prot-lisp/prot-gnus-deprecated-conf.org][Protesilaos Stavrou's old Gnus setup]].
+
+** Remote file editing
+
+Don't check for version control over tramp, this slows down tramp.
+
+#+begin_src emacs-lisp
+  (setq vc-ignore-dir-regexp
+        (format "\\(%s\\)\\|\\(%s\\)"
+                vc-ignore-dir-regexp
+                tramp-file-name-regexp))
+#+end_src
+
+** Terminal
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x t") 'shell)
+#+end_src
+
+Compilation in shell
+
+#+begin_src emacs-lisp
+  (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
+#+end_src
+
+** Calendar and Diary
+#+begin_src emacs-lisp
+(use-package calendar
+  :config
+  (setq calendar-week-start-date 1)	; Monday
+  (setq calendar-date-style 'iso)
+
+  (setq calendar-view-diary-initially-flag t)
+
+  (setq calendar-mark-holidays-flag t)
+  (setq calendar-mark-diary-entries-flag t)
+
+  (setq calendar-holidays
+        '((holiday-fixed 1 1 "New Year's Day")
+          (holiday-float 1 1 3 "Martin Luther King Day")
+          (holiday-fixed 2 14 "Valentine's Day")
+          (holiday-fixed 3 17 "St. Patrick's Day")
+          (holiday-float 5 0 2 "Mother's Day")
+          (holiday-float 5 1 -1 "Memorial Day")
+          (holiday-float 6 0 3 "Father's Day")
+          (holiday-fixed 7 4 "Independence Day")
+          (holiday-float 9 1 1 "Labor Day")
+          (holiday-fixed 10 31 "Halloween")
+          (holiday-float 11 4 4 "Thanksgiving")
+          (holiday-easter-etc)
+          (holiday-fixed 12 25 "Christmas")
+          (holiday-fixed 1 6 "Epiphany")
+          (holiday-fixed 8 15 "Assumption")
+          (holiday-advent 0 "Advent")
+          (solar-equinoxes-solstices)
+          (holiday-sexp calendar-daylight-savings-starts
+                        (format "Daylight Saving Time Begins %s"
+                                (solar-time-string
+                                 (/ calendar-daylight-savings-starts-time
+                                    (float 60))
+                                 calendar-standard-time-zone-name)))
+          (holiday-sexp calendar-daylight-savings-ends
+                        (format "Daylight Saving Time Ends %s"
+                                (solar-time-string
+                                 (/ calendar-daylight-savings-ends-time
+                                    (float 60))
+                                 calendar-daylight-time-zone-name)))))
+
+  (setq diary-date-forms diary-iso-date-forms)
+  (defalias 'diary-birthday #'diary-anniversary))
+#+end_src
+
+
+#+begin_src emacs-lisp :exports none
+  (require 'solar)
+  (setq calendar-latitude 47.1234)
+  (setq calendar-longitude -88.5740)
+  (setq calendar-location-name "Houghton, MI")
+#+end_src
+
+** Git                                                               :MELPA:
+
+Magit provides an enhanced git interface.
+
+#+begin_src emacs-lisp
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit))
+#+end_src
+
+* Editing Text
+
+Configuration and packages that are useful wherever text is edited inside Emacs.
+
+** Delete trailing whitespace
+#+begin_src emacs-lisp
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
+#+end_src
+
+** Allow overwriting of selected text
+
+#+begin_src emacs-lisp
+  (require 'delsel)
+  (delete-selection-mode 1)
+#+end_src
+
+** Improve handling long lines
+
+=so-long-mode= is a new mode in 27.1 that trys to improve Emacs's longstanding
+issues with handling long lines.
+
+#+begin_src emacs-lisp
+  (when (version< "27" emacs-version)
+    (global-so-long-mode t))
+#+end_src
+
+** Spell Checking
+
+Emacs does not provide internal spellchecking but relies on external
+programs. The two most popular options are:
+
+1. [[http://aspell.net/][GNU Aspell]]
+2. [[https://hunspell.github.io/][Hunspell]]
+
+Aspell is generally [[http://aspell.net/test/cur/][faster and returns more results]] for English.  Hunspell
+provides better spellchecking for other languages and is more widely used in
+other software (e.g. LibreOffice, Firefox, Google Chrome, and MacOS).  On
+GNU/Linux either of these should be available from your distros package manager
+(or likely installed already).
+
+Within Emacs there are two main ways to invoke the spellchecker invoke =ispell=
+manually check a buffer or region for spelling errors, or enable =flyspell-mode=
+to do so automatically like a word processor.
+
+Enable flyspell globally in all text and programming modes:
+#+begin_src emacs-lisp
+  (add-hook 'text-mode-hook #'flyspell-mode)
+  (add-hook 'prog-mode-hook #'flyspell-prog-mode)
+#+end_src
+
+flyspell-prog-mode will only check spelling in comments and strings.
+
+*** MS Windows
+
+Aspell has not released a version for Windows since 2002, and in my experience
+I've found Hunspell to be easier.
+
+1. Download Hunspell from [[https://sourceforge.net/projects/ezwinports/files/][ezwinports]] maintained by Eli Zaretskii
+2. Extract the hunspell folder and put it wherever you'd like.
+3. Add the following to your init file:
+
+   #+begin_src emacs-lisp :tangle no
+     ;; Set to wherever you put the hunspell folder
+     (add-to-list 'exec-path "C:/hunspell/bin/")
+
+     (setq ispell-program-name
+           (locate-file "hunspell" exec-path exec-suffixes 'file-executable-p))
+   #+end_src
+
+After that you should be all set to use spellchecking in Emacs
+
+For further instructions see [[https://lists.gnu.org/archive/html/help-gnu-emacs/2014-04/msg00030.html][this guide by djc on the help-gnu-emacs@gnu.org
+mailing list]]. The guide contains some additional steps on setting up multiple
+dictionaries which is of no use to me as a stereotypical monolingual American.
+
+** Word Wrap
+
+Disable =fill-paragraph= when =visual-line-mode= enabled (I have a habit of using it
+without thinking).
+
+#+begin_src emacs-lisp
+  (define-key visual-line-mode-map [remap fill-paragraph] 'ignore)
+#+end_src
+
+*** Wrap at fill column                                             :MELPA:
+
+Nice on occasion, but not great for writing in Org mode as even src blocks will
+be wrapped to this as well.  Decided I prefer manually wrapping lines.
+
+#+begin_src emacs-lisp
+  (use-package visual-fill-column
+    :ensure t
+    ;; :hook (visual-line-mode . visual-fill-column-mode)
+    )
+#+end_src
+
+** TODO Electric Pair
+
+* Programming
+
+#+begin_src emacs-lisp
+  (use-package prog-mode
+    :hook ((prog-mode . show-paren-mode)))
+#+end_src
+
+** IDE-like features
+
+*** Snippets
+
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :hook ((prog-mode) . yas-minor-mode)
+    :config
+    (yas-reload-all)
+    (setq yas-snippet-dirs (concat user-emacs-directory "snippets/")))
+#+end_src
+
+*** Drop down auto-completion support
+
+#+begin_src emacs-lisp
+  (use-package company
+    :ensure t
+    :delight
+    ;; :hook (emacs-lisp-mode . company-mode)
+    ;; Perhaps I should enable on a per mode basis?
+    :config
+    (global-company-mode 1)
+    :custom
+    (company-idle-delay 0)
+    (company-minimum-prefex-length 1))
+#+end_src
+
+*** Language Server Protocol (LSP)
+
+[[https://microsoft.github.io/language-server-protocol/][LSP]] is a recently developed standard communication protocol that allows
+development tools (code completion, documentation retrieval on hover, lookup
+definition, and linting/diagnostics). The protocol was originally developed by
+Microsoft for their Visual Studio Code editor.
+
+There are two competing Emacs plugins
+
+- [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]]
+- [[https://github.com/joaotavora/eglot][eglot]]
+
+While lsp-mode has a larger development community and is more feature rich,
+eglot is simpler and included in GNU ELPA.
+
+#+begin_src emacs-lisp
+  (use-package eglot
+    :ensure t)
+#+end_src
+
+** Emacs Lisp
+
+#+begin_src emacs-lisp
+  (use-package paredit
+    :ensure t
+    :hook ((emacs-lisp-mode lisp-mode scheme-mode) . paredit-mode))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package emacs-lisp-mode
+    :bind (:map emacs-lisp-mode-map
+                ("C-c C-r" . eval-region)
+                ("C-c C-d" . eval-defun)
+                ("C-c C-b" . eval-buffer))
+    :hook ((emacs-lisp-mode . flymake-mode)))
+#+end_src
+
+** Shell
+
+#+begin_src emacs-lisp
+  (add-hook 'sh-mode-hook 'flymake-shellcheck-load)
+  (add-hook 'sh-mode-hook 'flymake-mode)
+#+end_src
+
+** C
+
+#+begin_src emacs-lisp
+  (use-package c-mode
+    :bind (:map c-mode-map
+                ("C-c c"   . compile)
+                ("C-c C-c" . recompile)
+                ("C-c g"   . gdb)
+                ("C-c C-r" . gdb-run))
+    :hook ((c-mode . electric-pair-mode)
+           (c-mode . flymake-mode))
+    :config
+    (setq c-block-comment-prefix "* "))
+#+end_src
+
+** Python
+
+#+begin_src emacs-lisp
+  (use-package python-mode
+    :hook ((python-mode . electric-pair-mode)))
+#+end_src
+
+** Go                                                                :MELPA:
+
+Note that go-mode is an external package.
+
+#+begin_src emacs-lisp
+  (use-package go-mode
+    :ensure t
+    :bind (:map go-mode-map
+                ("C-c c"   . compile)
+                ("C-c C-c" . recompile)
+                ("C-c d"   . godoc)
+                ("C-c f"   . gofmt)
+                ("C-c g"   . gdb)
+                ("C-c C-g" . gdb-run))
+    :config
+    (defun my/go-mode-set-local ()
+      (set (make-local-variable 'compile-command) "go build -v "))
+
+    (setq-default eglot-workspace-configuration
+                '((:gopls . ((linksInHover . :json-false)))))
+
+    :hook ((go-mode . my/go-mode-set-local)
+           (go-mode . subword-mode)
+           (go-mode . electric-pair-mode)
+           (before-save . gofmt-before-save)))
+#+end_src
+
+* Writing
+** Org mode
+
+#+begin_src emacs-lisp
+  (add-to-list 'load-path (concat user-emacs-directory "org-mode"))
+
+  (use-package org
+    :bind (("C-x a" . org-agenda)
+           ("C-x c" . org-capture))
+    :hook ((org-mode . auto-fill-mode))	; Life is too short to manually wrap lines
+    :config
+
+    ;; Org src evaluation langauges
+    (org-babel-do-load-languages 'org-babel-load-languages
+                                 '((emacs-lisp . t)
+                                   (shell . t)
+                                   (latex . t)))
+
+    ;; Templates (e.g. <s)
+    (require 'org-tempo)
+    (tempo-define-template "my-tempo-template-org-elisp-src"
+                           '("#+begin_src emacs-lisp" n p n "#+end_src" n)
+                           "<el"
+                           "Insert an Emacs Lisp source code block template")
+
+    (set-face-attribute 'org-ellipsis nil
+                        :inherit '(font-lock-comment-face default)
+                        :weight 'normal)
+
+    (set-face-attribute 'org-block-begin-line nil
+                        :extend t)
+
+    (set-face-attribute 'org-block-end-line nil
+                        :extend t)
+
+    :custom
+    (org-ellipsis "⤵")
+    (org-startup-indented t)
+    (org-hide-emphasis-markers t)
+
+    ;; Org agenda setup
+    (org-agenda-files '("~/todo.org"))
+    (org-agenda-include-diary t)
+    (org-agenda-todo-list-sublevels nil)
+
+    ;; If clock is running bug me if I stop working
+    (org-clock-idle-time 10)
+
+    (org-capture-templates
+     `(("t" "Todo" entry (file+headline "~/todo.org")
+        "* TODO %^{Todo}\n %i\n %a\n\n%?")
+       ("j" "Journal" entry (file+headline
+                             "~/Documents/me.org"
+                             ,(substring (current-time-string) -4 nil))
+        "* %u %^{Entry title}\n %?\n")
+       ("l" "Interesting Links" entry
+        (file "~/Documents/taingram.org/org/interesting-links.org")
+        "* %l\n%u"
+        :prepend t)
+       ("w" "Watch List" entry
+        (file "~/Documents/taingram.org/org/watchlist.org")
+        "* %^{Title}
+  :PROPERTIES:
+  :Rating:   %^{Rating}p
+  :Year:     %^{Year}p
+  :Genre:    %^{Genre}p
+  :Director:
+  :IMDB:
+  :Wikipedia:
+  :END:
+  %u
+
+  %i"
+        :prepend t))))
+#+end_src
+
+** Markdown                                                          :MELPA:
+
+I personally am not a huge fan of markdown, org mode's syntax just
+makes much more sense to me, but it's become nearly unavoidable.
+
+#+begin_src emacs-lisp
+  (use-package markdown-mode
+    :ensure t)
+#+end_src
+
+** LaTeX
+
+Old setup, I haven't used LaTeX since I graduated college and its
+unlikely that I'll use it any time soon...
+
+#+begin_src emacs-lisp
+  (use-package tex
+    :ensure auctex
+    :mode ("\\.tex\\'" . latex-mode)
+    :config
+    (defun my/latex-compile ()
+      "My compile latex function"
+      (interactive)
+      (save-buffer)
+      (TeX-command "LaTeX" 'TeX-master-file))
+
+    (setq TeX-command-default 'LaTeX)
+
+    :bind (:map TeX-mode-map
+                ("C-c _" . "\\textunderscore "))
+
+    :hook ((TeX-mode . auto-fill-mode)))
+#+end_src
+
+* See Also
+
+Other interesting literate configuration files that inspired me.
+
+- [[https://protesilaos.com/dotemacs/][Protesilaos Stavrou's ~/.emacs]]
+- [[https://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]]
+
+* Footnotes
+
+[fn:1] [[https://www.slideshare.net/yukihiro_matz/how-emacs-changed-my-life][How Emacs changed my life]] by Matz Yukihori the creator of [[https://www.ruby-lang.org/en/][Ruby]].  The
+talk explains how access to Emacs's source code directly inspired him in the
+development of Ruby.

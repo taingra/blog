@@ -1,4 +1,5 @@
 #+TITLE: Useful Tips and Tricks
+#+HTML_HEAD_EXTRA: <style>.outline-2 h2, .outline-2 h3 { border-bottom: 2px solid black; }</style>
 #+OPTIONS: toc:t tasks:nil
 
 This page is a collection of random information that I have found useful,
@@ -10,7 +11,7 @@ Recently discovered there is a way to jump to the libc manual (if installed) for
 a given function. Could potentially work with other languages with info
 reference manuals, if there are any.
 
-- 'C-h S' info-lookup-symbol
+- ~C~-~h~ ~S~ =info-lookup-symbol=
 
 #+BEGIN_QUOTE
 Display the definition of SYMBOL, as found in the relevant manual.
@@ -20,7 +21,7 @@ value into the minibuffer so you can edit it.  The default symbol is the
 one found at point.
 #+END_QUOTE
 
-Nice in conjunction with 'M-x man' which I have bound to 'C-x m'.
+Nice in conjunction with ~M~-~x~ =man= which I have bound to '~C~-~x~ ~m~'.
 
 ** Convert between binary and decimal in calc
 Source: [[http://ergoemacs.org/emacs/elisp_converting_hex_decimal.html][Xah Lee's page on converting decimal to hexadecimal numbers]]
@@ -33,6 +34,15 @@ These only change how numbers are displayed, input numbers are still read in
 decimal.
 
 To input numbers in the current base type '#'.
+
+** Remove documentation links from gopls in eglot
+
+Very important to use =:json-false= to avoid parsing errors.
+
+   #+begin_src emacs-lisp
+  (setq-default eglot-workspace-configuration
+	      '((:gopls . ((linksInHover . :json-false)))))
+   #+end_src
 
 * Internet
 ** Recursively sync directory with FTP
