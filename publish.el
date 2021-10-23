@@ -12,57 +12,58 @@
 
 ;;; Code:
 
+(require 'org)
 (require 'ox-publish)
+(require 'htmlize)
+
+(setq org-export-with-section-numbers nil
+      org-export-with-toc nil
+
+      ;; ISO8601 Date Format
+      org-export-date-timestamp-format "%Y-%m-%d"
+      org-html-metadata-timestamp-format "%Y-%m-%d"
+
+      ;; Enable HTML5
+      org-html-html5-fancy t
+      org-html-doctype     "html5"
+
+      ;; Disable default stylesheet and Javascript
+      org-html-head-include-default-style nil
+      org-html-head-include-scripts nil
+
+      ;; TODO: tweak headline id format. I dislike the randomly generated ones.
+      ;; Look into customizing: :html-format-headline-function and
+      ;; org-html-format-headline-function
+      ;; org-html-self-link-headlines 'nil
+
+      org-html-htmlize-output-type 'css
+
+      )
 
 (setq org-export-global-macros
-      '(("timestamp" . "@@html:<span class=\"timestamp\">[$1]</span>@@")
-	("cc-by-nd" . "@@html:<div class=\"license-notice-container\">
-  <div class=\"license-notice\">
-    <div class\"notice\">
-      <span><b>Note:</b></span>
-      <span>
-        <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nd/4.0/\">
-          <img alt=\"Creative Commons License\"
-               src=\"https://i.creativecommons.org/l/by-nd/4.0/88x31.png\" />
-        </a>
-      </span>
-    </div>
-    This post is licensed under the
-    <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nd/4.0/\">
-      CC-BY-ND 4.0
-    </a>.
-  </div>
-</div>@@")
-	("right-justify" . "@@html:<span class=\"right-justify\">$1</span>@@")))
+      '(("timestamp" . "@@html:<span class=\"timestamp\">[$1]</span>@@")))
 
-(defun org-sitemap-custom-entry-format (entry style project)
-  "Sitemap PROJECT ENTRY STYLE format that includes date."
-  (let ((filename (org-publish-find-title entry project)))
-    (if (= (length filename) 0)
-        (format "*%s*" entry)
-      (format "{{{timestamp(%s)}}} [[file:%s][%s]]"
-              (format-time-string "%Y-%m-%d"
-				  (org-publish-find-date entry project))
-              entry
-              filename))))
+;; Render ~code~ as kbd tag in HTML
+(add-to-list 'org-html-text-markup-alist '(code . "<kbd>%s</kbd>"))
 
-(setf org-html-metadata-timestamp-format "%Y %b %d")
-(setf org-export-date-timestamp-format "%Y-%m-%d")
+(defvar taingram--head
+  "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>
+<link rel=\"stylesheet\" media=\"(prefers-color-scheme: light)\" href=\"/modus-operandi.css\" type=\"text/css\"/>
+<link rel=\"stylesheet\" media=\"(prefers-color-scheme: dark)\" href=\"/modus-vivendi.css\" type=\"text/css\"/>
+<script data-goatcounter=\"https://taingram.goatcounter.com/count\"
+        async src=\"//gc.zgo.at/count.js\"></script>")
 
-(defvar taingram-css "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>")
-(defvar taingram-header "<div id=\"updated\">Updated: %C</div>
-<nav>
-<a href=\"/\">&lt; Home</a>
-</nav>")
+(defvar taingram--preamble
+  "<div id=\"updated\">Updated: %C</div>")
 
-(defvar taingram-footer "<hr/>
+(defvar taingram--footer "<hr/>
 <footer>
 <div class=\"copyright-container\">
 <div class=\"copyright\">
-Copyright &copy; 2017-2020 Thomas Ingram some rights reserved<br/>
-Content is available under
+Copyright &copy; 2017-2021 Thomas Ingram<br/>
+Content licensed
 <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
-CC-BY-SA 4.0</a> unless otherwise noted
+CC-BY-SA 4.0</a> unless otherwise noted.
 </div>
 <div class=\"cc-badge\">
 <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
@@ -80,96 +81,112 @@ CC-BY-SA 4.0</a> unless otherwise noted
 </div>
 
 <div class=\"generated\">
-Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
+Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
 </div>
 </footer>")
 
-(defun my/relative-path-expand (path)
-  "Expand relative PATH from current buffer or file to a full path."
-  (concat
-   (if load-file-name
-       (file-name-directory load-file-name)
-     default-directory)
-   path))
+(defvar taingram--comment "<div id=\"comments\">
+<h2>Comments:</h2>
+<div id=\"text-comments\">
+<p>Email questions, comments, and corrections to <a href=\"mailto:comment@taingram.org?subject=COMMENT\">comment@taingram.org</a>.</p>
+<p>Submissions may appear publicly on this website, unless requested otherwise in your email.</p>
+</div>
+</div>")
 
-(defvar taingram-base-directory
-  (my/relative-path-expand "org/")
-  "The `base-directory' for taingram.org project.")
-
-(defvar taingram-publish-directory
-  (my/relative-path-expand "html/")
-  ;; "/ssh:thomas@taingram.org:/var/www/taingram.org/html/"
+(defvar taingram--publish-directory
+  ;; (expand-file-name "html/")
+  "/ssh:thomas@taingram.org:/var/www/taingram.org/"
   "The `publishing-directory' for taingram.org project.")
 
-(require 'ox-html)
+(defun taingram--sitemap-dated-entry-format (entry style project)
+  "Sitemap PROJECT ENTRY STYLE format that includes date."
+  (let ((filename (org-publish-find-title entry project)))
+    (if (= (length filename) 0)
+        (format "*%s*" entry)
+      (format "{{{timestamp(%s)}}} [[file:%s][%s]]"
+              (format-time-string "%Y-%m-%d"
+				  (org-publish-find-date entry project))
+              entry
+              filename))))
 
-;; Don't show section numbers or table of contents by default
-(setq org-export-with-section-numbers nil
-      org-export-with-toc             nil)
 
-;; Enable HTML5
-(setq org-html-html5-fancy t
-      org-html-doctype     "html5")
 
-;; Disable ox-html's default CSS and JavaScript
-(setq org-html-head-include-default-style nil
-      org-html-head-include-scripts       nil)
+;; (defun taingram--rss-feed (title list)
+;;   "Generate an RSS feed for a org project using a custom sitemap function.
+;; TITLE is the title of the site map.  LIST is an internal
+;; representation for the files to include, as returned by
+;; ‘org-list-to-lisp’.  PROJECT is the current project."
+;;   (concat "<rss version=\"2.0\">
+;; <channel>
+;;   <title>taingram.org Blog Posts</title>
+;;   <link>https://taingram.org/blog/</link>
+;;   <description>Liftoff to Space Exploration.</description>
+;;   <language>en-us</language>
+;; "))
 
-;; TODO: tweak headline id format. I dislike the randomly generated ones.
-;; Look into customizing: :html-format-headline-function and
-;; org-html-format-headline-function
-;; (setq org-html-self-link-headlines 'nil)
 
-;; Render ~verbatim~ as kbd tag in HTML
-(add-to-list 'org-html-text-markup-alist '(verbatim . "<kbd>%s</kbd>"))
-;; Enable code syntax highlighting if available
-(require 'package)
-(if (package-installed-p 'htmlize)
-    (setq org-html-htmlize-output-type 'css)
-  (setq org-html-htmlize-output-type 'nil))
+(defun taingram--sitemap-and-rss (title list)
+  "Generate sitemap and RSS feed.
+TITLE is the title of the site map.  LIST is an internal
+representation for the files to include, as returned by
+‘org-list-to-lisp’.  PROJECT is the current project."
+  (progn
+    (taingram--rss-feed-sitemap title list)
+    (org-publish-sitemap-default title list)))
 
 (setq org-publish-project-alist
       `(("index"
-	 :base-directory ,taingram-base-directory
+	 :base-directory ,(expand-file-name "org")
 	 :base-extension "org"
 	 :exclude ".*"
 	 :include ("index.org")
-	 :publishing-directory ,taingram-publish-directory
+	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-html-publish-to-html
 
-	 :html-head     ,taingram-css
-	 :html-preamble "<div id=\"updated\">Updated: %C</div>"
-	 :html-postamble ,taingram-footer)
+	 :html-head     ,taingram--head
+	 :html-preamble ,taingram--preamble
+	 :html-postamble ,taingram--footer)
 	("pages"
-	 :base-directory ,taingram-base-directory
+	 :base-directory ,(expand-file-name "org")
 	 :base-extension "org"
-	 :exclude "index.org"
-	 :publishing-directory ,taingram-publish-directory
+	 :exclude ,(regexp-opt '("index.org"  ".*-draft\.org"  "drafts/" "blog/"))
+
+	 :html-link-home "https://taingram.org/"
+	 :html-link-up "https://taingram.org/"
+	 :html-home/up-format "<div id=\"org-div-home-and-up\"><a href=\"%s\">HOME</a></div>"
+
+	 :recursive t
+	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-html-publish-to-html
 
-	 :html-head     ,taingram-css
-	 :html-preamble ,taingram-header
-	 :html-postamble ,taingram-footer)
+	 :html-head     ,taingram--head
+	 :html-preamble ,taingram--preamble
+	 :html-postamble ,(concat taingram--comment taingram--footer))
 	("blog"
-	 :base-directory ,(concat taingram-base-directory "blog/")
+	 :base-directory ,(expand-file-name "org/blog")
 	 :base-extension "org"
-	 :publishing-directory ,(concat taingram-publish-directory "blog/")
+	 :exclude ".*-draft\.org"
+	 :publishing-directory ,(concat taingram--publish-directory "blog/")
 	 :publishing-function org-html-publish-to-html
+
+	 :html-link-home "https://taingram.org/"
+	 :html-link-up "https://taingram.org/blog"
+	 :html-home/up-format "<div id=\"org-div-home-and-up\"><a href=\"%s\">Blog</a> <a href=\"%s\">Home</a> </div>"
 
 	 :auto-sitemap t
 	 :sitemap-title "Blog Posts"
 	 :sitemap-filename "index.org"
 	 :sitemap-sort-files anti-chronologically
-         :sitemap-format-entry org-sitemap-custom-entry-format
+         :sitemap-format-entry taingram--sitemap-dated-entry-format
 
-	 :html-head ,taingram-css
-	 :html-preamble ,taingram-header
-	 :html-postamble ,taingram-footer)
+	 :html-head ,taingram--head
+	 :html-preamble ,taingram--preamble
+	 :html-postamble ,(concat taingram--comment taingram--footer))
 	("static"
-	 :base-directory ,taingram-base-directory
-	 :base-extension "css\\|jpg\\|gif\\|png\\|txt\\|pdf"
+	 :base-directory ,(expand-file-name "org")
+	 :base-extension "css\\|jpg\\|gif\\|png\\|txt\\|pdf\\|webm\\|mp4\\|wmv"
 	 :recursive t
-	 :publishing-directory ,taingram-publish-directory
+	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-publish-attachment)
 	("taingram.org" :components ("index" "pages" "blog" "static"))))
 
