@@ -6,6 +6,11 @@ This page is a collection of random information that I have found useful,
 perhaps you may find something useful too.
 
 * Emacs
+
+** Good Font for Emacs on MS Windows
+I use Consolas which looks pretty sharp, better than Lucida Console
+which is what I used before.
+
 ** Lookup C Documentation
 Recently discovered there is a way to jump to the libc manual (if installed) for
 a given function. Could potentially work with other languages with info
