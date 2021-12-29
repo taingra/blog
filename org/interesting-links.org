@@ -27,7 +27,11 @@ correlation between energy efficiency, run time, and memory usage. Top
 
 ** [[http://www.art.net/~hopkins/Don/unix-haters/preface.html][Preface to The Unix-Haters Handbook]]
 [2021-10-20 Wed]
+
 * Emacs
+** [[https://nullprogram.com/blog/2017/01/30/][How to Write Fast(er) Emacs Lisp]] by Chris Wellons
+[2019-06-01 Sat]
+
 ** [[https://www.youtube.com/watch?v=GvxZ7wfKj8E][The evolution of TECO and Emacs - Hands on demo]]                   :Video:
 [2021-10-13 Wed]
 
@@ -76,11 +80,20 @@ would then recommend that as the preferred extensibility package for
 all GNU programs.
 #+end_quote
 
+** [[https://karthinks.com/software/batteries-included-with-emacs/][Batteries included with Emacs]] by Karthik Chikmagalur
+[2020-11-17 Tue]
+
+** [[https://karthinks.com/software/more-batteries-included-with-emacs/][More batteries included with Emacs]] by Karthik Chikmagalur
+[2020-12-11 Fri]
+
 * Free and Open Source Software
 ** [[https://man.sr.ht/lists.sr.ht/etiquette.md][Mailing list etiquette - sourcehut]]
 
 ** [[https://www.chiark.greenend.org.uk/~sgtatham/bugs.html][How to Report Bugs Effectively]] by Simon Tatham
 [2021-10-19 Tue]
+
+** [[https://useplaintext.email/][Plain Text Email]]
+[2021-12-28 Tue]
 
 * Interesting Software
 
