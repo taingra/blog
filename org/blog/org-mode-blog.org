@@ -323,22 +323,12 @@ website, built entirely with Emacs.
    However, I've released the source of my website and therefore hard coded
    paths will break when project folder moves around. For that reason I keep all
    of my Org publish configuration in =publish.el=. From =publish.el= we can get
-   the complete project path:
-
-   #+begin_src emacs-lisp
-     (defun my/relative-path-expand (path)
-       "Expand relative PATH from current buffer or file to a full path."
-       (concat
-	(if load-file-name
-	    (file-name-directory load-file-name)
-	  default-directory)
-	path))
-   #+end_src
+   the complete project path using =expand-file-name=.
 
    Now we can dynamically set our base directory to the full path:
 
    #+begin_src emacs-lisp
-   :base-directory  ,(my/relative-path-expand "org/")
+   :base-directory  ,(expand-file-name "org")
    #+end_src
 
    *Note* for this to work your =org-publish-project-alist= should be started
