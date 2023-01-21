@@ -1,0 +1,259 @@
+#+TITLE: Lightweight Emacs-like Editors
+#+DATE: [2020-08-18 Tue]
+
+*Note*: this article was originally written and published on
+[2020-08-18 Tue] for technomonastery.com, another website I owned and am
+in the process of retiring.  Some information may be out of date.
+
+GNU Emacs is an excellent editor thanks in large part to the power of lisp as an
+extension language. It is the extensibility of Emacs that allows for total
+customization and excellent packages like [[https://orgmode.org/][org mode]], [[https://magit.vc/][magit]], [[https://emacs-helm.github.io/helm/][helm]], and [[https://melpa.org/][many
+more]]. That power comes at a cost, slow start up times and a reasonable memory
+footprint. You'll rarely find GNU Emacs pre-installed on most Linux distros,
+especially not in low-resource environments.
+
+What is an Emacs user to do, assuming you don't want to use vi, the best
+option is to utilize Emacs editors with a lighter feel. So consider giving one
+of these lightweight Emacs alternatives a try.
+
+| Editor    | Language     | Config | UTF-8 | Syntax | Size  | License          |
+|-----------+--------------+--------+-------+--------+-------+------------------|
+| [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html][GNU Emacs]] | C, elisp     | elisp  | Yes   | Yes    | 130 M | GPLv3            |
+| [[https://www.jedsoft.org/jed/index.html][jed]]       | C, S-Lang    | S-Lang | Yes   | Yes    | 6.5 M | GPLv2+           |
+| [[https://joe-editor.sourceforge.io/][joe]]       | C            | text   | Yes   | Yes    | 2.0 M | GPLv2+           |
+| [[https://www.gnu.org/software/zile/][zile]]      | C, Lua       | zlisp  | No    | No     | 813 K | GPLv3            |
+| [[https://git.kernel.org/pub/scm/editors/uemacs/uemacs.git/][uemacs]]    | C            |        | Yes   | No     | 639 K | Source-available |
+| [[https://github.com/hboetes/mg][mg]]        | C            | text   | No    | No     | 553 K | Permissive       |
+| [[https://sites.google.com/site/e3editor/][e3]]        | x86 assembly |        | Yes   | No     | 121 K | GPLv2            |
+
+* JED
+  #+caption: JED showing off split windows, UTF-8 support, and syntax highlighting
+  [[file:files/jed.png]]
+  - *Website*: https://www.jedsoft.org/jed/index.html
+  - *License*: GPLv2n+
+  - *Depends on*: libc, slang, slsh, and libgpm
+
+  JED is a powerful editor in near competition with GNU Emacs. JED is written in
+  a combination of C and the S-Lang scripting language for which JED is the
+  flagship application. JED ships with *UTF-8 support* and *syntax highlighting*
+  along with language specific modes for many popular programming languages.
+
+  By default JED uses keybindings very similar to Emacs with extra commands
+  available from ~M-x~. There are familiar extras like =compile=, =info=, and a
+  =shell=, there's even a mail reader. JED can be configured *and extended* with
+  S-Lang making it more flexible and Emacs-like than others on this list.
+
+  JED has not had a stable release in over ten years, however, JED is actively
+  developed and the [[https://www.jedsoft.org/snapshots/][latest development snapshot]] is only a few months old.
+
+* JOE --- Joe's Own Editor
+  #+caption: JOE's default jmacs config showing off syntax highlighting
+  [[file:files/joe-jmacs.png]]
+
+  - *Website*: https://joe:editor.sourceforge.io/
+  - *License*: GPLv2
+  - *Depends on*: libc, ncurses, terminfo
+
+  #+begin_quote
+  JOE is a blending of MicroPro's venerable microcomputer word processor
+  WordStar and Richard Stallman's famous LISP based text editor GNU-EMACS [...]:
+  most of the basic editing keys are the same as in WordStar as is the overall
+  feel of the editor. JOE also has some of the key bindings and many of the
+  powerful features of EMACS.
+  #+end_quote
+
+  The defaults of JOE may be closer to WordStar than Emacs, but that's no
+  problem as JOE provides a number of different configurations. One specifically
+  made to emulate the /feel/ of Emacs is aliased to =jmacs=. This scheme matches
+  GNU Emacs keybindings with movement, find and replace, transpose, undo,
+  etc. all in their usual places.
+
+  In addition, JOE provides extra niceties like *syntax highlighting* and *UTF-8
+  support*. You can run a shell with ~F3~, or compile and grep within JOE using
+  familiar ~M-x~ commands.
+
+  Read more about [[https://joe:editor.sourceforge.io/][JOE on its website]] and its extensive [[https://joe-editor.sourceforge.io/4.6/man.html][manual page =joe(1)=]].
+
+* GNU Zile --- Zile Implements Lua Editors
+  #+caption: Zile's default Zemacs editor opening a file in GNOME Terminal
+  [[file:files/zile.png]]
+
+  - *Website*: https://www.gnu.org/software/zile/
+  - *Repository*: https://savannah.gnu.org/projects/zile/
+  - *License*: GPLv3
+  - *Depends on*: libc, libacl, libgc, ncurses, and terminfo
+
+  GNU Zile begin as an attempt to make a lightweight Emacs editor (its original
+  acronym was "Zile Is Lossy Emacs"). It has expanded to be a toolkit for
+  implementing small editors with C and Lua. Regardless of this change of scope
+  its stock editor is still one of the better imitations of GNU Emacs available.
+
+  #+begin_quote
+  [Zile] comes with an example implementation of a lightweight Emacs clone,
+  called Zemacs. Every Emacs user should feel at home with Zemacs. Zemacs is
+  aimed at small footprint systems and quick editing sessions (it starts up and
+  shuts down instantly).
+  #+end_quote
+
+  Zemacs looks and feels very similar to running GNU Emacs from the terminal,
+  even sporting the familiar modeline. The similarities go deeper as Zemacs is
+  self-documenting editor with help pages for commands, variables, and
+  keybindings that can be read with the usual Emacs commands (~C-h f~, ~C-h v~,
+  and ~C-h k~). Zemacs is configured in its own lisp with syntax like a stripped
+  down version of Emacs Lisp. You cannot define new functions, but you can set
+  variables and keybindings.
+
+  #+begin_src emacs-lisp
+  (global-set-key "key" 'func)
+
+  ; Column beyond which automatic line-wrapping should happen.
+  (setq fill-column 80)
+  #+end_src
+
+  Out of the box Zemacs has most of the basic editing commands of GNU Emacs and
+  supports multiple buffers/windows. It lacks richer features like UTF-8, syntax
+  highlighting, or language modes other than fundamental. Zile acknowledges this
+  and recommends using Emacs or JED if you need those powerful features.
+
+  For more information check out [[https://www.gnu.org/software/zile/][Zile's website]] and on your system look at
+  =zile(1)= and =/usr/share/doc/zile/=.
+
+
+* Mg --- Micro GNU/emacs
+  #+caption: Mg opening a file in GNOME Terminal
+  [[file:files/mg.png]]
+
+  - *Repository*:  https://github.com/hboetes/mg
+  - *License*:  Permissive
+  - *Depends on*: libc, libbsd, and terminfo
+
+  Mg is a lightweight Emacs-like editor maintained by OpenBSD developers and
+  included in their base operating system. Mg strives to specifically emulate
+  GNU Emacs, so users should feel particularly at home.
+
+  #+begin_quote
+  This program is intended to be a small, fast, and portable editor for people
+  who can't (or don't want to) run real Emacs for one reason or another.  It is
+  compatible with GNU because there shouldn't be any reason to learn more than
+  one Emacs flavor. --- Mg's README
+  #+end_quote
+
+  Mg is extensively documented, like most OpenBSD tools, within its manual page
+  =mg(1)=. Keybindings with their assigned functions names are all listed and
+  every functions' behavior is documented in detail.  Mg supports a wide breadth
+  of Emacs editing commands, you can compile files within mg, and even view
+  directories with dired (a feature absent from other editors on this
+  list). There is only one specific language mode included, =c-mode=, which adds
+  some indenting help but no syntax highlighting. Mg also supports ctags and
+  cscope to help navigate through large code base.
+
+  Configuration for mg is done with a plain text file that looks like elisp but
+  with all the lispy elements stripped out. From this any key can be rebound and
+  settings can be adjusted (example taken from the mg manual):
+
+  #+begin_src
+  global-set-key ")" self-insert-command
+  global-set-key "\^x\^f" find-file
+  global-set-key "\e[Z" backward-char
+  set-default-mode fill
+  set-fill-column 72
+  auto-execute *.c c-mode
+  #+end_src
+
+  For the most part mg strikes a good balance between minimal and feeling close
+  to GNU Emacs. The most obvious downsides of mg is its lack of UTF-8 support.
+
+* e3
+  #+caption: e3 running from the =e3em= command showing its help screen
+  [[file:files/e3em-help.png]]
+  - *Website*: https://sites.google.com/site/e3editor/
+  - *License*: GPLv2
+  - *Depends on*: (nothing)
+
+  e3 is perhaps the most lightweight editor on this list, it has the smallest
+  install size at 121 kilobytes, is written completely in x86 assembly, and has
+  absolutely has no dependencies (not even libc). Yet somehow e3 manages to pack
+  in an editor with 5 different keybinding schemes (e3em for Emacs), an inline
+  calculator, and even *UTF-8 support*! Each editor has a built in help page and
+  its own manual page containing a list of keybindings for each editor.
+
+  That being said the imitation the of Emacs only supports the basic Emacs
+  editing keybindings. E3 does not support any type of configuration file so you
+  have to work with what you're given unless you want to edit some assembly
+  code. The other downside of assembly means you are mostly limited to x86
+  architecture (e.g. no Raspberry Pi etc.). Still e3's feature set is extremely
+  impressive for its size.
+
+* uEmacs
+  #+caption: uEmacs built from source running in GNOME Terminal
+  [[file:files/uemacs.png]]
+  - *Repository*: https://git.kernel.org/pub/scm/editors/uemacs/uemacs.git/
+  - *License*: Shared source with non-commercial redistribution only
+  - *Depends on*: libc, curses or termcap
+
+  uEmacs is the personal editor of Linus Torvalds, creator of Linux and Git. It
+  is a fork of [[https://en.wikipedia.org/wiki/MicroEMACS][MicroEmacs]] 3.9e that Torvalds has added number of improvements to
+  over the years. Most notably the addition of *UTF-8 support*.
+
+  It's unlikely there are many users outside of Torvalds. Its existence is not
+  well advertised and the license restrictions impede uEmacs from be packaged by
+  most Linux distros. Despite that, uEmacs is actively maintained, very small,
+  and supports UTF-8, so for those who need international language support it
+  could be a viable option.
+
+* GNU Emacs
+
+  #+caption: GNU Emacs (=emacs -nw -q --execute '(menu-bar-mode 0)'=)
+  [[file:files/gnu-emacs-nw.png]]
+
+  Now that you have seen the many options available for lightweight Emacs
+  lookalikes, its time to ask yourself why are you looking for an Emacs
+  replacement? Is it simply because Emacs starts to slow or just /"feels too
+  heavy"/ for a quick edit. If you don't have a hardware constraint then why
+  limit yourself to an inferior editing experience when good ol' GNU Emacs could
+  work for you.
+
+  The following options could help to make Emacs feel snappier for that quick
+  edit:
+
+  - Run Emacs without a config: =emacs -Q=
+  - Run Emacs with a shorter config: =emacs -Q -l ~/.emacs.d/quick.el=
+  - Run Emacs as a background daemon and edit using: =emacsclient=
+  - Run Emacs within the terminal: =emacs -nw= or =emacsclient -nw=
+
+  Using any of these options or a combination can make GNU Emacs /feel/ as fast
+  a lightweight editor. Alias these options to an easy to use command like =qe=:
+
+  #+begin_src bash
+  alias qe='emacs -Q -nw -l ~/.emacs.d/quick.el'
+  alias ec='emacsclient -nw'
+  #+end_src
+
+  If you want to use these options from graphical apps like your file manager
+  you can create a .desktop file with these options.
+
+** Remote Editing
+   Spare yourself from needed to use an editor on a remote system by using [[https://www.gnu.org/software/tramp/][TRAMP]]
+   to edit remote files from within your local Emacs session. You can open a
+   remote file like any other file in Emacs with this special format:
+
+   #+begin_src
+   C-x C-f /ssh:username@example.com:~/Documents/somefile.txt
+   #+end_src
+
+* Honorable Mentions :noexport:
+** Jove --- Jonathan's Own Version of Emacs
+   Jove is intended to be a lightweight Emacs editor similar to Gosling Emacs
+   without a lisp extension language. Jove has not had a new release since 2010,
+   but despite that it is still packaged in some Linux distros. Jove also lacks
+   UTF-8 support.
+
+   - [[https://en.wikipedia.org/wiki/JOVE][Jove - Wikipedia]]
+
+** Vile
+   Vile is an editor intended to bring together the best of both Emacs and
+   Vi. Keybinding wise it is akin to vi editors than Emacs ones.
+
+* See Also
+  - [[https://opensource.com/article/20/3/lightweight-emacs][Getting started with lightweight alternatives to GNU Emacs]]. /OpenSource.com/
+  - [[https://www.w3.org/2001/06/utf-8-test/UTF-8-demo.html][UTF-8 Demo]]. /www.w3.org/
