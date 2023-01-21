@@ -1,84 +1,659 @@
 #+Title: My Watchlist
 #+OPTIONS: tags:nil
 #+PROPERTY: Rating_All 1 2 3 4 5
-#+COLUMNS: %ITEM(Title) %YEAR %RATING %GENRE
+#+TODO: TODO WATCHING PLAYING | DONE
+#+COLUMNS: %ITEM(TITLE) %YEAR %RATING %GENRE
+#+STARTUP: overview
+#+HTML_HEAD_EXTRA: <style>.outline-2 h2, .outline-3 h3 { border-bottom: 2px solid black; }</style>
 
-
-#+BEGIN: columnview :id global :indent t :maxlevel 2 :exclude-tags ("notable" "noexport")
-| Title                   | YEAR | RATING | GENRE                  |
-|-------------------------+------+--------+------------------------|
-| Movies                  |      |        |                        |
-| \_  Creep 2             | 2017 |      3 | Horror Indie           |
-| \_  Prometheus          | 2012 |      2 | Sci-Fi Space Aliens    |
-| \_  Hostel: Part III    | 2011 |      2 | Horror                 |
-| \_  Vivarium            | 2019 |      3 | Horror                 |
-| \_  Killing them Softly | 2012 |      4 | Crime                  |
-| \_  The Holy Mountain   | 1973 |      5 | Surreal                |
-| \_  Children of Men     | 2006 |      5 | Sci-Fi Apocalyptic     |
-| \_  Blade Runner        | 1982 |      5 | Sci-Fi                 |
-| \_  Battle Royale       |      |      4 | Sci-Fi Murder Gameshow |
-| TV Shows                |      |        |                        |
-| \_  Squid Game          | 2021 |      3 | Sci-Fi Murder Gameshow |
-| Games                   |      |        |                        |
-| \_  Resident Evil 2     | 2019 |      4 | Survivial Horror       |
-| \_  Ghost of Tsushima   | 2020 |      3 | Historical Fiction     |
-| \_  Dark Souls          | 2011 |      5 | Fantasy                |
+#+BEGIN: columnview :id global :indent t :maxlevel 2 :exclude-tags ("notable")
+| TITLE                                | YEAR | RATING | GENRE                           |
+|--------------------------------------+------+--------+---------------------------------|
+| Movies                               |      |        |                                 |
+| \_  The Godfather                    | 1972 |      5 | Crime, Drama                    |
+| \_  The Holy Mountain                | 1973 |      5 | Fantasy, Surreal                |
+| \_  Blade Runner                     | 1982 |      5 | Sci-Fi, Cyberpunk, Noir         |
+| \_  Mishima: A Life in Four Chapters | 1985 |      5 | Biography, Drama                |
+| \_  Akira                            | 1988 |      5 | Anime, Sci-Fi, Apocalyptic      |
+| \_  End of Evangelion                | 1997 |      5 | Anime, Mecha, Apocalyptic       |
+| \_  Children of Men                  | 2006 |      5 | Sci-Fi, Apocalyptic             |
+| \_  Thirst                           | 2009 |      5 | Drama, Fantasy, Horror          |
+| \_  Aniara                           | 2018 |      5 | Sci-Fi, Space                   |
+| \_  Burning                          | 2018 |      5 | Drama, Mystery                  |
+| \_  Shoplifters                      | 2018 |      5 | Crime, Drama                    |
+| \_  The Northman                     | 2022 |      5 | Action, Adventure, Drama        |
+| \_  Battle Royale                    | 2000 |      4 | Sci-Fi, Murder Gameshow         |
+| \_  Dancer in the Dark               | 2000 |      4 | Crime, Drama, Musical           |
+| \_  The Host                         | 2006 |      4 | Action, Drama, Horror           |
+| \_  Killing them Softly              | 2012 |      4 | Crime                           |
+| \_  Snowpiercer                      | 2013 |      4 | Sci-Fi, Apocalypse              |
+| \_  VVitch                           | 2015 |      4 | Drama, Horror, Mystery          |
+| \_  Blame!                           | 2017 |      4 | Anime, Sci-fi, Post-Apocalyptic |
+| \_  Mother!                          | 2017 |      4 | Drama, Horror, Mystery          |
+| \_  Tour de Pharmacy                 | 2017 |      4 | Comedy, Sport                   |
+| \_  High Life                        | 2018 |      4 | Sci-Fi, Space, Prison           |
+| \_  His House                        | 2020 |      4 | Drama, Horror, Thriller         |
+| \_  The Last Duel                    | 2021 |      4 | Action, Drama, History          |
+| \_  Decision to Leave                | 2022 |      4 | Crime, Drama, Mystery           |
+| \_  All Quiet on the Western Front   | 2022 |      4 | Action, Drama, War              |
+| \_  Flowers of Shanghai              | 1998 |      3 | Drama                           |
+| \_  Zodiac                           | 2007 |      3 | Crime, Drama, Mystery           |
+| \_  City of Ember                    | 2008 |      3 | Adventure, Family, Fantasy      |
+| \_  Antichrist                       | 2009 |      3 | Drama, Horror, Thriller         |
+| \_  Melancholia                      | 2011 |      3 | Drama, Sci-Fi                   |
+| \_  The Girl with the Dragon Tattoo  | 2011 |      3 | Crime, Drama, Mystery           |
+| \_  Creep 2                          | 2017 |      3 | Horror, Indie                   |
+| \_  The Ritual                       | 2017 |      3 | Horror, Mystery, Thriller       |
+| \_  Prospect                         | 2018 |      3 | Sci-Fi, Space Cowboy            |
+| \_  Come to Daddy                    | 2019 |      3 | Horror, Mystery                 |
+| \_  Vivarium                         | 2019 |      3 | Horror                          |
+| \_  Last Night in Soho               | 2021 |      3 | Drama, Horror, Mystery          |
+| \_  The Menu                         | 2022 |      3 | Comedy, Horror, Thriller        |
+| \_  Hostel: Part III                 | 2011 |      2 | Horror                          |
+| \_  Prometheus                       | 2012 |      2 | Sci-Fi, Space, Aliens           |
+| \_  Hereditary                       | 2018 |      2 | Drama, Horror, Mystery          |
+| \_  Midsommer                        | 2019 |      2 | Drama, Horror, Mystery          |
+| \_  The Last Days on Mars            | 2013 |      1 | Sci-Fi, Space, Horror           |
+| \_  Monster Hunter                   | 2020 |      1 | Action, Adventure, Fantasy      |
+| \_  Memories                         | 1995 |        |                                 |
+| \_  Monsieur Lazhar                  | 2011 |        | Comedy, Drama                   |
+| \_  The House that Jack Built        | 2018 |        | Crime, Drama, Horror            |
+| \_  The Lighthouse                   | 2019 |        | Drama, Fantasy, Horror          |
+| \_  Dune                             | 2021 |        | Action, Adventure, Drama        |
+| \_  In the Earth                     | 2021 |        | Horror                          |
+| Games                                |      |        |                                 |
+| \_  Elden Ring                       |      |        |                                 |
+| \_  Super Mario Odyssey              |      |        |                                 |
+| \_  Resident Evil Village            |      |        |                                 |
+| \_  Resident Evil 2                  |      |        |                                 |
+| \_  Monster Hunter Rise              |      |        |                                 |
+| \_  Ghost of Tsushima                |      |        |                                 |
+| \_  Dark Souls                       |      |        |                                 |
 #+END
 
 * Rating System                                                     :notable:
 
-The basis for my rankings are primarily based off how much I would
-like to rewatch something.
+The basis for my rating system is entirely so I can more easily
+recommend and find films to rewatch.  They are ranked completely based
+on how much I would ever want to rewatch or recommend something.
 
-|---+------------------------------------------------------------------------------|
+|---+--------------------------------------------------------------------------------|
+|   | *Plan to Watch*                                                                |
 | 1 | *Terrible* --- would not want to rewatch ever                                  |
 | 2 | *Bad* --- but had some entertainment value                                     |
-| 3 | *Alright/Good* --- would recommend to some or rewatch on occasion              |
-| 4 | *Very Good* --- would recommend and rewatch anytime, but not perfect           |
+| 3 | *Good* --- would recommend to some or rewatch on occasion                      |
+| 4 | *Great* --- would recommend and rewatch anytime, but not perfect               |
 | 5 | *Perfect* --- recommend everyone see for entertainment value or artistic merit |
-|---+------------------------------------------------------------------------------|
+|---+--------------------------------------------------------------------------------|
 
-* TODO Tracking System and exporting                               :noexport:
+My goal is to document what I've watched and enjoyed so that I can
+more easily look back and provide recommendations.  With that purpose
+in mind it is not a complete list and I may trim entries I deem not
+work remembering.
 
-Ideally I'd like the following features out of my media tracking system.
+* TODO Remaining improvements                               :noexport:notable:
 
-1. [ ] Easily add entries without much work
-2. [X] Locally viewable and maintained offline
-3. [ ] Can automatically pull in data about a film/TV show from the title
-   (e.g. year, director, etc.)
-4. [ ]Can search or query data
-5. [X] Export data into a list and table
+- [ ] Titles are clickable links that got to IMDb. (Should be easy we
+  have the keys)
+- [ ] All data shown in one table, comments can be expanded with a
+  clickable arrow.
 
-* Movies
+
+
+
+** Automatic Sorting
+
+Can sort with org-sort R RATING to short descending by ratings.
+
+- Would be nice to sort by rating then year secondary once this list
+  grows large.
+- Would be nice to automatically run. Could use
+  =org-capture-after-finalize-hook= see
+  https://emacs.stackexchange.com/questions/48533/calling-a-fuction-after-org-capturing/48566#48566
+- Would be nice to automatically fetch metadata
+- Automatically update the table
+
+#+begin_src emacs-lisp
+  (defun my/org-auto-sort ()
+    (let ((key  (plist-get org-capture-plist :key))
+	  (desc (plist-get org-capture-plist :description)))
+      (unless org-note-abort
+	(if (string-equal key "w")
+	    ;; TODO
+	    ;; (org-sort-entries
+	    ;;  nil
+	    ;;  )
+	    (message "GOT: Template with key %s and description “%s” run successfully" key desc)))))
+
+  (add-hook 'org-capture-after-finalize-hook 'my/org-auto-sort)
+#+end_src
+
+
+* Movies :noexport:
 :PROPERTIES:
-:Medium: Film
+:MEDIUM: Film
+:COLUMNS: %ITEM(TITLE) %YEAR %RATING %GENRE
 :END:
+
+
+** The Godfather
+   :PROPERTIES:
+   :RATING:   5
+   :YEAR:     1972
+   :GENRE:    Crime, Drama
+   :DIRECTOR: Francis Ford Coppola
+   :COUNTRY:  United States
+   :IMDB-ID:  tt0068646
+   :END:
+
+** The Holy Mountain
+:PROPERTIES:
+:RATING:   5
+:YEAR:     1973
+:DIRECTOR: Alejandro Jodorowsky
+:GENRE:    Fantasy, Surreal
+:COUNTRY:  Mexico
+:WIKIPEDIA: https://en.wikipedia.org/wiki/The_Holy_Mountain_(1973_film)
+:IMDB-ID:  tt0071615
+:SOURCE:   Blu-ray
+:END:
+
+A movie that is not for everyone, but everyone should consider watching.
+
+** Blade Runner
+:PROPERTIES:
+:RATING:   5
+:YEAR:     1982
+:GENRE:    Sci-Fi, Cyberpunk, Noir
+:COUNTRY:  United States
+:DIRECTOR: Ridley Scott
+:IMDB-ID:  tt0083658
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Blade_Runner
+:SOURCE:   Blu-ray
+:END:
+
+** Mishima: A Life in Four Chapters
+:PROPERTIES:
+:RATING:   5
+:YEAR:     1985
+:GENRE:    Biography, Drama
+:DIRECTOR: Paul Schrader
+:COUNTRY:  United States, Japan
+:IMDB-ID:  tt0089603
+:END:
+[2022-01-19 Wed]
+
+** Akira
+:PROPERTIES:
+:RATING:   5
+:YEAR:     1988
+:GENRE:    Anime, Sci-Fi, Apocalyptic
+:DIRECTOR: Katsuhiro Ôtomo
+:COUNTRY:  Japan
+:IMDB-ID:  tt0094625
+:SOURCE:   Blu-Ray
+:END:
+
+The best animated feature film in my humble opinion.
+
+** End of Evangelion
+:PROPERTIES:
+:RATING:   5
+:YEAR:     1997
+:GENRE:    Anime, Mecha, Apocalyptic
+:DIRECTOR: Hideaki Anno, Kazuya Tsurumaki
+:COUNTRY:  Japan
+:IMDB-ID:  tt0169858
+:SOURCE:   File, Netflix
+:END:
+
+** Children of Men
+:PROPERTIES:
+:RATING:   5
+:YEAR:     2006
+:DIRECTOR: Alfonso Cuarón
+:GENRE:    Sci-Fi, Apocalyptic
+:COUNTRY:  United Kingdom, United States
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Children_of_Men
+:IMDB-ID:   tt0206634
+:END:
+
+Perhaps my favorite film.  Feels extremely relevant every time I watch it.
+
+Only complaint is that scene when that windshield shatters.
+
+** Thirst
+:PROPERTIES:
+:RATING:   5
+:YEAR:     2009
+:GENRE:    Drama, Fantasy, Horror
+:DIRECTOR: Park Chan-Wook
+:COUNTRY:  South Korea, United States
+:IMDB-ID:  tt0762073
+:END:
+
+Best vampire movie I've ever seen.
+
+** Aniara
+:PROPERTIES:
+:RATING:   5
+:YEAR:     2018
+:GENRE:    Sci-Fi, Space
+:DIRECTOR: Pella Kagerman, Hugo Lilja
+:COUNTRY:  Sweden, Denmark
+:IMDB-ID:  tt7589524
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Aniara_%28film%29
+:SOURCE:   Hulu
+:END:
+[2021-11-11 Thu]
+
+Very good slow space science fiction movie.
+
+I really like these new small budget science fiction movies like
+High-Life and Prospect that explore new ideas beyond just showcasing
+special effects.  Not to say the special effects are bad, all these
+films play to their strengths and look great as well.  Of those movies
+this one is definitely the saddest, but also feels like the most real
+and grounded.  It's easy to get swept up into the narrative and
+characters and be really impacted by the story.
+
+The movie is actually a based on a famous Swedish poem of the same
+name by Harry Martinson.  You can read an [[https://gsproject.edublogs.org/gs-texts/texts-used-in-2017/aniara-by-harry-martinson-3/][English translation of the
+poem here]].
+
+** Burning
+:PROPERTIES:
+:RATING:   5
+:YEAR:     2018
+:GENRE:    Drama, Mystery
+:DIRECTOR: Chang-dong Lee
+:COUNTRY:  South Korea, Japan
+:IMDB-ID:  tt7282468
+:END:
+
+** Shoplifters
+:PROPERTIES:
+:RATING:   5
+:YEAR:     2018
+:GENRE:    Crime, Drama
+:DIRECTOR: Hirokazu Koreeda
+:COUNTRY:  Japan
+:IMDB-ID:  tt8075192
+:END:
+[2022-02-11 Fri]
+
+Extremely genuine move that captures the struggle of poverty along
+with the happy moments in between.
+
+** The Northman
+   :PROPERTIES:
+   :RATING:   5
+   :YEAR:     2022
+   :GENRE:    Action, Adventure, Drama
+   :DIRECTOR: Robert Eggers
+   :COUNTRY:  United States, China
+   :IMDB-ID:  tt11138512
+   :END:
+
+** Battle Royale
+:PROPERTIES:
+:RATING:   4
+:GENRE:    Sci-Fi, Murder Gameshow
+:COUNTRY:  Japan
+:YEAR:     2000
+:DIRECTOR: Kinji Fukasaku
+:IMDB-ID:  tt0266308
+:END:
+
+** Dancer in the Dark
+:PROPERTIES:
+:RATING:   4
+:YEAR:     2000
+:GENRE:    Crime, Drama, Musical
+:DIRECTOR: Lars von Trier
+:COUNTRY:  Denmark, Germany, Netherlands, Italy, United States, United Kingdom, France, Sweden, Finland, Iceland, Norway
+:IMDB-ID:  tt0168629
+:END:
+
+** The Host
+:PROPERTIES:
+:RATING:   4
+:YEAR:     2006
+:GENRE:    Action, Drama, Horror
+:DIRECTOR: Bong Joon Ho
+:COUNTRY:  South Korea
+:IMDB-ID:  tt0468492
+:END:
+
+** Killing them Softly
+:PROPERTIES:
+:RATING:   4
+:YEAR:     2012
+:DIRECTOR: Andrew Dominik
+:GENRE:    Crime
+:COUNTRY:  United States
+:IMDB-ID:  tt1764234
+:SOURCE:   Netflix
+:END:
+
+Really good simple crime/mob movie.
+
+** Snowpiercer
+:PROPERTIES:
+:RATING:   4
+:YEAR:     2013
+:GENRE:    Sci-Fi, Apocalypse
+:DIRECTOR: Bong Joon Ho
+:COUNTRY:  South Korea, Czech Republic
+:IMDB-ID:  tt1706620
+:END:
+
+Thought this movie would be terrible when I saw the trailer, boy was I wrong.
+
+** VVitch
+:PROPERTIES:
+:RATING:   4
+:YEAR:     2015
+:GENRE:    Drama, Horror, Mystery
+:DIRECTOR: Robert Eggers
+:COUNTRY:  Canada, United States, United Kingdom
+:IMDB-ID:  tt4263482
+:END:
+
+** Blame!
+:PROPERTIES:
+:RATING:   4
+:YEAR:     2017
+:GENRE:    Anime, Sci-fi, Post-Apocalyptic
+:DIRECTOR: Hiroyuki Seshita
+:COUNTRY:  Japan
+:IMDB-ID:  tt6574146
+:SOURCE:   Netflix
+:END:
+
+Great anime, best CGI anime I've seen. I'm very interested in reading
+the manga at some point as there is some very interesting world
+building.  An AI endlessly building a city that destroys the planet is
+an interesting manifestation of the [[https://en.wikipedia.org/wiki/Instrumental_convergence#Paperclip_maximizer][paperclip maximizer problem]].
+
+** Mother!
+:PROPERTIES:
+:RATING:   4
+:YEAR:     2017
+:GENRE:    Drama, Horror, Mystery
+:DIRECTOR: Darren Aronofsky
+:COUNTRY:  United States
+:IMDB-ID:  tt5109784
+:END:
+
+** Tour de Pharmacy
+:PROPERTIES:
+:RATING:   4
+:YEAR:     2017
+:GENRE:    Comedy, Sport
+:DIRECTOR: Jake Szymanski
+:COUNTRY:  USA
+:IMDB-ID:  tt5886510
+:END:
+
+** High Life
+:PROPERTIES:
+:RATING:   4
+:YEAR:     2018
+:GENRE:    Sci-Fi, Space, Prison
+:DIRECTOR: Claire Denis
+:COUNTRY:  France
+:IMDB-ID:  tt4827558
+:SOURCE:   Amazon Prime
+:END:
+
+** His House
+:PROPERTIES:
+:RATING:   4
+:YEAR:     2020
+:GENRE:    Drama, Horror, Thriller
+:DIRECTOR: Remi Weekes
+:COUNTRY:  United Kingdom
+:IMDB-ID:  tt8508734
+:END:
+
+Really good horror movie.  Initially I thought it was just going to be
+about the horror and alienation immigrants experience, but then it
+gets spooky. Honestly, both sides of that were handled very well.  The
+supernatural elements did not undermine the main themes.
+
+** The Last Duel
+:PROPERTIES:
+:RATING: 4
+:YEAR:     2021
+:GENRE:    Action, Drama, History
+:DIRECTOR: Ridley Scott
+:COUNTRY:  United States, United Kingdom
+:IMDB-ID:  tt4244994
+:END:
+[2022-02-12 Sat]
+
+My favorite recent Ridley Scott movie.  Great sets, great costumes,
+great fights, good drama, and a pretty good story.
+
+** Decision to Leave
+   :PROPERTIES:
+   :RATING:   4
+   :YEAR:     2022
+   :GENRE:    Crime, Drama, Mystery
+   :DIRECTOR: Park Chan-wook
+   :COUNTRY:  South Korea
+   :IMDB-ID:  tt12477480
+   :END:
+
+** All Quiet on the Western Front
+   :PROPERTIES:
+   :RATING:   4
+   :YEAR:     2022
+   :GENRE:    Action, Drama, War
+   :DIRECTOR: Edward Berger
+   :COUNTRY:  Germany, United States, United Kingdom
+   :IMDB-ID:  tt1016150
+   :END:
+
+** Flowers of Shanghai
+:PROPERTIES:
+:RATING:   3
+:YEAR:     1998
+:GENRE:    Drama
+:DIRECTOR: Hsiao-Hsien Hou
+:COUNTRY:  Taiwan, Japan
+:IMDB-ID:  tt0156587
+:END:
+
+** Zodiac
+:PROPERTIES:
+:RATING:   3
+:YEAR:     2007
+:GENRE:    Crime, Drama, Mystery
+:DIRECTOR: David Fincher
+:COUNTRY:  United States
+:IMDB-ID:  tt0443706
+:END:
+
+** City of Ember
+:PROPERTIES:
+:RATING:   3
+:YEAR:     2008
+:GENRE:    Adventure, Family, Fantasy
+:DIRECTOR: Gil Kenan
+:COUNTRY:  United States
+:IMDB-ID:  tt0970411
+:END:
+[2021-11-23 Tue]
+
+Definitely watched this before at some point.  Easy fun, and fun
+sets.  Nice to see a family movie from before there was a ton of CGI
+used.
+
+** Antichrist
+:PROPERTIES:
+:RATING:   3
+:YEAR:     2009
+:GENRE:    Drama, Horror, Thriller
+:DIRECTOR: Lars von Trier
+:COUNTRY:  Denmark, Germany, France, Sweden, Italy, Poland
+:IMDB-ID:  tt0870984
+:END:
+
+*** Spoilers
+Warning, genital gore.
+
+** Melancholia
+:PROPERTIES:
+:RATING:   3
+:YEAR:     2011
+:GENRE:    Drama, Sci-Fi
+:DIRECTOR: Lars von Trier
+:COUNTRY:  Denmark, Sweden, France, Germany
+:IMDB-ID:  tt1527186
+:SOURCE:   Hulu
+:END:
+[2021-11-12 Fri]
+
+Having just watched Aniara this week I was looking for something with
+a similar vibe.  This definitely fit that, but I feel like my
+expectations from Aniara made me enjoy this less.  Where Aniara
+waste's no time Melancholia is constantly stopping for the sake of
+symbolism.  Still overall a very good movie and I might increase my
+rating of it in the future.
+
+One of the most accessible Lars Von Trier movies I've seen.
+
+*** Spoilers
+
+I really liked Justine's portrayal of depression.  It felt extremely
+real and genuine.  However I felt the introduction of her character's
+clairvoyance undermined it in the third act.
+
+** The Girl with the Dragon Tattoo
+:PROPERTIES:
+:RATING:   3
+:YEAR:     2011
+:GENRE:    Crime, Drama, Mystery
+:DIRECTOR: David Fincher
+:COUNTRY:  United States, Sweden, Norway
+:IMDB-ID:  tt1568346
+:END:
+
+I watched the Swedish version a while ago and remember enjoying it but
+feeling like the ending didn't satisfy me.  Then I never watched the
+sequels so that may be on me...
+
 ** Creep 2
 :PROPERTIES:
-:Rating:    3
-:Year:      2017
-:Genre:     Horror
-:Genre+:    Indie
-:Director:  Patrick Brice
-:IMDB:      https://www.imdb.com/title/tt3654796/
-:Wikipedia: https://en.wikipedia.org/wiki/Creep_2
+:RATING:   3
+:YEAR:     2017
+:GENRE:    Horror, Indie
+:DIRECTOR: Patrick Brice
+:IMDB-ID:  tt3654796
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Creep_2
 :END:
 [2021-10-16 Sat]
 
 Good sequel, does things different than the original, but still
 manages to maintain tension throughout the movie.  Still an extremely
-"indie" feeling movie.
+"indie" feeling movie, but really works.
+
+** The Ritual
+:PROPERTIES:
+:RATING:   3
+:YEAR:     2017
+:GENRE:    Horror, Mystery, Thriller
+:DIRECTOR: David Bruckner
+:COUNTRY:  United Kingdom, Canada
+:IMDB-ID:  tt5638642
+:END:
+
+Pretty good horror movie, good aesthetics and situation.  Characters
+kinda get annoying at times.
+
+** Prospect
+:PROPERTIES:
+:RATING:   3
+:YEAR:     2018
+:GENRE:    Sci-Fi, Space Cowboy
+:DIRECTOR: Christopher Caldwell, Zeek Earl
+:COUNTRY:  Canada, United States, Switzerland
+:IMDB-ID:  tt7946422
+:SOURCE:   Netflix
+:END:
+
+** Come to Daddy
+:PROPERTIES:
+:RATING:   3
+:YEAR:     2019
+:GENRE:    Horror, Mystery
+:DIRECTOR: Ant Timpson
+:IMDB-ID:  tt8816194
+:END:
+[2021-11-09 Tue]
+
+Pretty fun good twists through the whole movie.  Overall entertaining.
+
+** Vivarium
+:PROPERTIES:
+:RATING:   3
+:YEAR:     2019
+:GENRE:    Horror
+:DIRECTOR: Lorcan Finnegan
+:COUNTRY:  Ireland, Belgium, Denmark, Canada
+:IMDB-ID:  tt8368406
+:END:
+[2021-10-10 Sun]
+
+** Last Night in Soho
+:PROPERTIES:
+:RATING:   3
+:YEAR:     2021
+:GENRE:    Drama, Horror, Mystery
+:DIRECTOR: Edgar Wright
+:COUNTRY:  United Kingdom
+:IMDB-ID:  tt9639470
+:END:
+
+** The Menu
+   :PROPERTIES:
+   :RATING:   3
+   :YEAR:     2022
+   :GENRE:    Comedy, Horror, Thriller
+   :DIRECTOR: Mark Mylod
+   :COUNTRY:  United States
+   :IMDB-ID:  tt9764362
+   :END:
+
+I had a good time, but I was definitely hoping for a bit more.
+Overall I felt the message and themes were handled well without being
+over the top.  The chief was a flawed villain which I liked.
+
+** Hostel: Part III
+:PROPERTIES:
+:RATING:   2
+:YEAR:     2011
+:GENRE:    Horror
+:DIRECTOR: Scott Spiegel
+:COUNTRY:  United States
+:IMDB-ID:  tt1255916
+:END:
+[2021-10-10 Sun]
+
+Definitely the worst of the Hostel movie.  Lacks any of the comedy or
+charm of the first two movies.  Less gross than the first two, but
+that just adds to the movie being boring.
 
 ** Prometheus
 :PROPERTIES:
-:Rating:   2
-:Year:     2012
-:Genre:    Sci-Fi
-:Genre+:   Space
-:Genre+:   Aliens
-:Director: Ridley Scott
-:IMDB:     https://www.imdb.com/title/tt1446714/
-:Wikipedia: https://en.wikipedia.org/wiki/Prometheus_(2012_film)
+:RATING:   2
+:YEAR:     2012
+:GENRE:    Sci-Fi, Space, Aliens
+:DIRECTOR: Ridley Scott
+:IMDB-ID:  tt1446714
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Prometheus_(2012_film)
 :END:
 
 It's not as bad as some people say.  At time the effects are quite
@@ -89,150 +664,175 @@ inconsistent tone and a plot that feels like it was just written to
 justify disjointed action scenes leaves a lot to be desired.
 
 I'll note while Alien (1971) is one of my favorite movies I am not a
-purist.  I even like Alien Ressurrection.
+purist.  I even like Alien Resurrection.
 
-** Hostel: Part III
+** Hereditary
 :PROPERTIES:
-:Rating:   2
-:Year:     2011
-:Genre:    Horror
-:Director: Scott Spiegel
-:Country:  United States
-:IMDB:     https://www.imdb.com/title/tt1255916/
-:END:
-[2021-10-10 Sun]
-
-** Vivarium
-:PROPERTIES:
-:Rating:   3
-:Year:     2019
-:Genre:    Horror
-:Director: Lorcan Finnegan
-:Country:  Ireland, Belgium, Denmark, Canada
-:IMDB:     https://www.imdb.com/title/tt8368406/
-:Watch_Date: [2021-10-10 Sun]
+:RATING:   2
+:YEAR:     2018
+:GENRE:    Drama, Horror, Mystery
+:DIRECTOR: Ari Aster
+:COUNTRY:  United States
+:IMDB-ID:  tt7784604
 :END:
 
-** Killing them Softly
+See my thoughts on [[Midsommer]] they are basically the same opinions.  I
+felt like the third act really takes off out of nowhere.
+
+** Midsommer
 :PROPERTIES:
-:Rating:   4
-:Year:     2012
-:Director: Andrew Dominik
-:Genre:    Crime
-:Country:  United States
-:IMDB:     https://www.imdb.com/title/tt1764234/
-:Source:   Netflix
+:RATING:   2
+:YEAR:     2019
+:GENRE:    Drama, Horror, Mystery
+:DIRECTOR: Ari Aster
+:COUNTRY:  United States, Sweden
+:IMDB-ID:  tt8772262
 :END:
 
-Really good simple crime/mob movie.
+I know a lot of people really like Ari Aster films, but for me they
+all just miss.  I don't find the symbolism deep or particularly
+interesting.  If anything the messaging at time is too heavy handed.
 
-** The Holy Mountain
+That being said, Ari Aster does know how to create extremely
+interesting and beautiful visuals.  This movie definitely nails that
+aspect.
+
+** The Last Days on Mars
 :PROPERTIES:
-:Rating:   5
-:Year:     1973
-:Director: Alejandro Jodorowsky
-:Genre:    Surreal
-:Country:  Mexico
-:Wikipedia: https://en.wikipedia.org/wiki/The_Holy_Mountain_(1973_film)
-:IMDB: https://www.imdb.com/title/tt0071615/
-:Source: Blu-ray
+:RATING:   1
+:YEAR:     2013
+:GENRE:    Sci-Fi, Space, Horror
+:DIRECTOR: Ruairi Robinson
+:IMDB-ID:  tt1709143
+:SOURCE:   Amazon Prime
 :END:
+[2021-11-08 Mon]
 
-A movie that is not for everyone, but everyone should consider watching.
-
-** Children of Men
-:PROPERTIES:
-:Rating:    5
-:Year:      2006
-:Director:  Alfonso Cuarón
-:Genre:     Sci-Fi
-:Genre+:    Apocalyptic
-:Country:   United Kingdom, United States
-:Wikipedia: https://en.wikipedia.org/wiki/Children_of_Men
-:IMDB:      https://www.imdb.com/title/tt0206634/
-:END:
-
-Perhaps my favorite film.  Feels extremely relevant every time I watch it.
-
-Only complaint is that scene when that windshield shatters.
-
-** Blade Runner
-:PROPERTIES:
-:Rating:   5
-:Year:     1982
-:Director: Rid
-:Genre:    Sci-Fi
-:Country:  United States
-:Wikipedia: https://en.wikipedia.org/wiki/Blade_Runner
-:Source: Blu-ray
-:END:
-
-** Battle Royale
-:PROPERTIES:
-:Rating:   4
-:Genre:    Sci-Fi
-:Genre+:   Murder Gameshow
-:Country:  Japan
-:END:
-* TV Shows
-:PROPERTIES:
-:Medium: Television
-:END:
-** Squid Game
-:PROPERTIES:
-:Rating: 3
-:Year: 2021
-:Genre: Sci-Fi
-:Genre+: Murder Gameshow
-:Country: South Korea
-:Source: Netflix
-:Wikipedia: https://en.wikipedia.org/wiki/Squid_Game
-:IMDB: https://www.imdb.com/title/tt10919420/
-:Watch_Date: [2021-09-28 Tue]
-:END:
-
-* Games
-:PROPERTIES:
-:Medium: Game
-:END:
-** Resident Evil 2
-:PROPERTIES:
-:RATING:   4
-:Year:      2019
-:Developer: Capcom
-:Country:   Japan
-:Wikipedia: https://en.wikipedia.org/wiki/Resident_Evil_2_(2019_video_game)
-:Source:    PS4
-:Played:    2021
-:GENRE:    Survivial Horror
-:END:
-
-Really fun quick game.  I've never played the original (or any other
-Resident Evil games) so it was a very fresh and fun experience.  Loved
-the retro puzzle solving and key hunting.  Graphics were superb, gore
-effects were fanatic.
-
-I played through both Claire and Leon's story so I could get the true
-ending.  I'd recommend playing as Claire first then Leon that way you
-can get used to exploring the police station before getting hunted by
-Mr. X.
+Good set design and effects.  I liked that the buildings felt very
+real and also very reminiscent of the spaceship in Alien.
 
 *** Spoilers
-I was disappointed that in secret evil lab the escalation from huge
-fleshy monsters in the sewers is to lame plant zombies.  Now maybe I
-have too many house plants, but personally I'm not scared of plants.
+I was disappointed the twist turned out to be zombies.  Zombies in
+space is not that interesting.
 
-** Ghost of Tsushima
+** Monster Hunter
 :PROPERTIES:
-:Rating:    3
-:Year:      2020
-:Developer: Sucker Punch
-:Wikipedia: https://en.wikipedia.org/wiki/Ghost_of_Tsushima
-:Genre:     Historical Fiction
-:Source:    PS4
+:RATING:   1
+:YEAR:     2020
+:GENRE:    Action, Adventure, Fantasy
+:DIRECTOR: Paul W.S. Anderson
+:COUNTRY:  Germany, United States, Japan, China, South Africa, Canada
+:IMDB-ID:  tt6475714
+:END:
+[2021-11-23 Tue]
+
+Could have been stupid fun.  Really odd choice making it a movie about
+soldiers that are wormholed into the Monster Hunter world.  Also
+really lame how little in this movie characters actually hit a monster
+with a sword.
+
+** WATCHING Memories [1/3]
+:PROPERTIES:
+:YEAR: 1995
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Memories_(1995_film)
 :END:
 
-Beautiful game, pretty good story.  The combat is okay, but starts to
+I've only watched part 1 Magnetic Rose which was very good.
+
+** TODO Monsieur Lazhar
+:PROPERTIES:
+:YEAR:     2011
+:GENRE:    Comedy, Drama
+:DIRECTOR: Philippe Falardeau
+:COUNTRY:  Canada
+:IMDB-ID:  tt2011971
+:END:
+
+** TODO The House that Jack Built
+:PROPERTIES:
+:YEAR:     2018
+:GENRE:    Crime, Drama, Horror
+:DIRECTOR: Lars von Trier
+:COUNTRY:  Denmark, France, Sweden, Germany, Belgium, Tunisia
+:IMDB-ID:  tt4003440
+:END:
+
+** TODO The Lighthouse
+:PROPERTIES:
+:YEAR:     2019
+:GENRE:    Drama, Fantasy, Horror
+:DIRECTOR: Robert Eggers
+:COUNTRY:  Canada, United States, Brazil
+:IMDB-ID:  tt7984734
+:SOURCE:   Amazon Prime
+:END:
+
+** TODO Dune
+:PROPERTIES:
+:YEAR:     2021
+:GENRE:    Action, Adventure, Drama
+:DIRECTOR: Denis Villeneuve
+:COUNTRY:  United States, Canada
+:IMDB-ID:  tt1160419
+:END:
+
+** TODO In the Earth
+:PROPERTIES:
+:Year:     2021
+:Genre:    Horror
+:Director: Ben Wheatley
+:IMDB-ID:  tt13429362
+:Source:   Hulu
+:END:
+
+
+
+* Games :noexport:
+
+** Elden Ring
+
+Soon.
+
+** Super Mario Odyssey
+[2022-01-15 Sat]
+
+It's good, it's charming, and it's great for listening to audio books.
+
+** Resident Evil Village
+[2021-10-25 Mon]
+
+Pretty good but really peaks at the castle and never quite rises back to that level. Not enough default enemy variety.
+
+** Resident Evil 2
+[2021-09-30 Thu]
+
+Really fun quick game. I've never played the original (or any other Resident Evil games) so it was a very fresh and fun experience. Loved the retro puzzle solving and key hunting. Graphics were superb, gore effects were fanatic.
+
+I played through both Claire and Leon's story so I could get the true ending. I'd recommend playing as Claire first then Leon that way you can get used to exploring the police station before getting hunted by Mr. X.
+
+*** Spoilers
+
+I was disappointed that in secret evil lab the escalation from huge
+fleshy monsters in the sewers is to lame plant zombies. Now maybe I
+have too many house plants, but personally I'm not scared of plants.
+
+** Monster Hunter Rise
+[2021-05-10 Mon]
+
+Great iteration on the Monster Hunter formula. I like how the game is
+more streamlined than Monster Hunter World. World was my first time
+playing the series and I found it a bit overwhelming. Lots of things
+that I never used.
+
+Impressive how the graphical downgrade to put Monster Hunter on the
+Switch is not that noticeable. Monsters still look fantastic. The only
+thing I miss is the insanely confusing maps from World. The maps are
+good, but the labyrinthine design of the maps in World made the feel
+gigantic.
+
+** Ghost of Tsushima
+
+Beautiful game, pretty good story. The combat is okay, but starts to
 get stale towards the end of the game, and its difficult to shake up
 as other options like steal are horribly broken.
 
@@ -241,12 +841,3 @@ traveler's outfit 90% of the time as it vibrates your controller when
 you are near points of interest/collectibles.
 
 ** Dark Souls
-:PROPERTIES:
-:Rating:    5
-:Year:      2011
-:Wikipedia: https://en.wikipedia.org/wiki/Dark_Souls
-:Country:   Japan
-:Genre:     Fantasy
-:Developer: From Software
-:Source:    Switch
-:END:
