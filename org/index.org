@@ -1,37 +1,34 @@
 #+TITLE: Thomas Ingram
+#+HTML_HEAD_EXTRA: <style>.projects dt {font-weight: bold; font-family: monospace; font-size: 1.8em; } .projects dd { padding-top: 0.8em; } .blog-entries ul { list-style: none; padding-left: 0; } .blog-entries li { padding-bottom: 5mm; } .blog-entries a { font-family: monospace; font-size: 1.8em; font-weight: bold; } .blog-entries span { display: block; }</style>
 
 #+begin_profile-pic
-#+CAPTION: A picture of me
+#+CAPTION: File photo
 #+NAME: fig:profile
-[[./img/profile.gif]]
+[[file:profile.gif]]
 #+end_profile-pic
 
 #+begin_nav
+- [[file:contact.org][Contact Me]]
 - [[file:tips-and-tricks.org][Useful Tips and Tricks]]
 - [[file:interesting-links.org][Interesting Links]]
-- [[file:watchlist.org][Watchlist]]
-- [[https://paypal.me/taingra][PayPal]]
+- [[file:watchlist.org][Recommended Movies]]
 #+end_nav
 
-Welcome to my personal website. I am a recent computer science graduate from
-Michigan Technological University. I'm interested in [[https://www.gnu.org/philosophy/free-sw.html][Free Software]], [[https://www.gnu.org/software/emacs/][GNU Emacs]],
-computer security, and privacy.
+Welcome to my personal website.  I'm interested in [[https://www.gnu.org/philosophy/free-sw.html][Free Software]], [[https://www.gnu.org/software/emacs/][GNU
+Emacs]], and analog arts.  Over the past year I've been experimenting
+getting off the computer by learning to draw and other analog hobbies.
 
-This site is intentionally minimal to show that websites can be pleasant and
-functional without a huge footprint. You can [[file:blog/org-mode-blog.org][read about how I built this site
-here]].
-
-Whenever possible I release my writing and source code under [[https://creativecommons.org/][Creative Commons]] or
-[[http://www.gnu.org/philosophy/free-sw.html][Free Software]] licenses respectively. Majority of the content of this blog is
-released under the terms of the [[https://creativecommons.org/licenses/by-sa/4.0/][Creative Commons Attribution-ShareAlike 4.0
-International (CC BY-SA 4.0)]]. That means you can adapt my posts into new content
-if you wish! So long as I am credited as the original author and you agree share
-your adapted content as well by distributing it under the terms of the same
-license.
+When possible I release my writing and source code under [[https://creativecommons.org/][Creative
+Commons]] or [[http://www.gnu.org/philosophy/free-sw.html][Free Software]] licenses respectively.  Please check the
+bottom of each webpage for licensing information.
 
 * Projects
-** [[file:init.org][My Emacs Init]]
-My Emacs configuration written in [[https://en.wikipedia.org/wiki/Literate_programming][literate programming]]-lite style using [[https://orgmode.org/][Org mode]].
+#+begin_projects
+- [[file:init.org][My Emacs Config]] :: My Emacs configuration file written in [[https://en.wikipedia.org/wiki/Literate_programming][literate
+  programming]] style using [[https://orgmode.org/][Org mode]].
+- [[https://git.sr.ht/~taingram/emacs-welcome][Emacs Welcome]] :: Experiments with creating custom Emacs
+  welcome screens.
+#+end_projects
 
 * Blog
 
