@@ -5,20 +5,32 @@
 #+STARTUP: overview hidestars indent
 #+PROPERTY: header-args :results silent :tangle "~/.config/emacs/init.el"
 
-* Why use Emacs?
+*Notice*:  This page is duel licensed [[http://creativecommons.org/licenses/by-sa/4.0/][CC-BY-SA 4.0]] and the [[https://www.gnu.org/licenses/gpl-3.0.en.html][GPLv3]].
+
+[[https://www.gnu.org/software/emacs/][GNU Emacs]] is a free ([[https://www.gnu.org/philosophy/free-sw.html][as in freedom]]) text editor for writing and code.
+You can read more about Emacs and it's history on [[https://en.wikipedia.org/wiki/GNU_Emacs][Wikipedia]].
+
+If you are interested in learning Emacs check out the [[https://www.gnu.org/software/emacs/tour/][guided tour]] and
+the internal Emacs Tutorial (from within Emacs type ~Ctrl~ + ~h~ then type
+~t~).  In addition, if you are interested in using Emacs for general
+writing (not programming) check out [[https://orgmode.org/][Org-mode]], its great!
+
+* Why use GNU Emacs?
 
 As a professional email writer (lol), amateur blogger, and programmer my
 primary input/output to the computer is through text.  Emacs provides me
 with a rock solid text editor that is able to stand out from the competition
 on the following five key points
 
-1. *Clean Interface* --- a distraction free interface for writing and coding.
-
-2. *Extensibility* --- a complete programming interface for enhancing my own
+1. *Extensibility* --- a complete programming interface for enhancing my own
    user experience and automating repetitive tasks.
 
-3. *Portable* --- a portable environment that works on all major operating
+2. *Portable* --- a portable environment that works on all major operating
    systems.  (Not all of us have the luxury of using GNU/Linux at work)
+
+3. *Universal Interface* --- a universal text based interface for all
+   tasks involving text.  In addition, it's a consistent and
+   distraction free interface all tasks.
 
 4. *Community* --- Great community developing high quality packages.  ([[https://magit.vc/][magit]],
    [[https://orgmode.org/][org-mode]], eshell, etc.)
