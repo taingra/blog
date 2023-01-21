@@ -1,0 +1,145 @@
+#+Title: Useful Tips for the Sway Window Manager
+#+Date: [2022-11-30 Wed]
+#+Options: toc:t
+
+For the past several months I've been using [[https://swaywm.org/][Sway window manager]], after
+getting tired of how much GNOME was changing[fn:1].  The switch has
+been a very pleasant experience.  If I find a behavior I don't like
+then a quick search of the [[https://manpages.debian.org/bullseye/sway/sway.5.en.html][manual]] will usually have an option to
+change it.  If there is a missing feature then it's a quick web search
+to find the right tool for the job.  Most are already packaged in
+Debian stable.  Overall whole sway ecosystem has gotten quite mature.
+
+In this post I will summarize some useful settings and tools I've used
+to get sway working the way I like.  Nothing groundbreaking, but
+hopefully it will be useful.
+
+* Set Caps Lock to be Control
+
+As an [[https://taingram.org/init.html][Emacs user]] on a laptop I like to have the ~Caps Lock~ key
+rebound to ~Ctrl~.  In sway this can be done as follows:
+
+#+begin_src
+input "1:1:AT_Translated_Set_2_keyboard" xkb_options ctrl:nocaps
+#+end_src
+
+* Adjust Screen Brightness
+
+I use [[https://github.com/Hummer12007/brightnessctl][brightnessctl]] to control this.
+
+#+begin_src conf
+# Brightness
+bindsym XF86MonBrightnessDown exec "brightnessctl -n set 5%-"
+bindsym XF86MonBrightnessUp   exec "brightnessctl set +5%"
+#+end_src
+
+Years ago I contributed the =-n= flag or =--min-value=.
+This flag will prevent your brightness from falling to zero and
+turning off your display.
+
+* Taking Screenshots
+
+- [[https://sr.ht/~emersion/grim/][grim]] :: Very simple command line screenshot tool.
+- [[https://github.com/swaywm/sway/blob/master/contrib/grimshot][grimshot]] :: A small shell script around grim that provides easy
+  commands to capture a specific windows/regions using your mouse.
+
+#+begin_src conf
+# Screenshot
+bindsym Print       exec "grimshot save screen"
+bindsym Mod1+Print  exec "grimshot save window"
+bindsym Shift+Print exec "grimshot save area"
+bindsym Mod4+Print  exec "grimshot copy area"
+#+end_src
+
+I based these shortcuts off the [[https://help.gnome.org/users/gnome-help/stable/screen-shot-record.html.en][ones used in GNOME]].
+
+By default grim/grimshot will place files in the
+=$XDG_SCREENSHOTS_DIR= (default =~/Pictures=).  This can be overridden
+by setting =$XDG_SCREENSHOTS_DIR= if needed.
+
+* Reduce Blue Light
+
+There is some research that shows blue light in the evening is not
+good for you.  Regardless though it's nice to have the screen a bit
+warmer when viewing in a dark room.
+
+[[https://gitlab.com/chinstrap/gammastep][Gammastep]] handles this in an extremely easy way.  Just set your
+location (latitude:longitude) and add it to your config.  The color
+temperature can be tweaked if needed.
+
+#+begin_src
+exec gammastep -l 45.000:-80.000
+#+end_src
+
+* Hide Borders when Window is /'Maximized'/
+
+When there is only one window on the screen the borders are
+unnecessary.  This is normally how "maximized" windows are handled in
+most floating window desktops.  Smart border hiding does exactly that.
+
+#+begin_src conf
+hide_edge_borders smart
+#+end_src
+
+* Keep Renamed Workspaces in Order
+
+If you rename your workspaces to something other than numbers they may
+not be ordered correctly in the sway bar.  This can be corrected by
+adding a "number:" before the name.  The numbers can be removed by
+adding the following to your sway bar settings:
+
+#+begin_src conf
+strip_workspace_numbers yes
+#+end_src
+
+Example using Japanese Kanji:
+#+begin_src conf
+# switch to workspace
+bindsym $mod+1 workspace 1:一
+bindsym $mod+2 workspace 2:二
+bindsym $mod+3 workspace 3:三
+bindsym $mod+4 workspace 4:四
+bindsym $mod+5 workspace 5:五
+bindsym $mod+6 workspace 6:六
+bindsym $mod+7 workspace 7:七
+bindsym $mod+8 workspace 8:八
+bindsym $mod+9 workspace 9:九
+bindsym $mod+0 workspace 10:十
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1:一
+bindsym $mod+Shift+2 move container to workspace 2:二
+bindsym $mod+Shift+3 move container to workspace 3:三
+bindsym $mod+Shift+4 move container to workspace 4:四
+bindsym $mod+Shift+5 move container to workspace 5:五
+bindsym $mod+Shift+6 move container to workspace 6:六
+bindsym $mod+Shift+7 move container to workspace 7:七
+bindsym $mod+Shift+8 move container to workspace 8:八
+bindsym $mod+Shift+9 move container to workspace 9:九
+bindsym $mod+Shift+0 move container to workspace 10:十
+#+end_src
+
+* Conclusion
+
+I'm pretty happy with sway and I think I'll stick with it for a
+while.  I love how every rough edge I smooth feels like a step towards
+creating my perfect computer experience.
+
+Still there are a few edges I still would like to address further.
+Below are a just a few:
+
+- *Launching Applications* --- I don't like how dmenu by default shows
+  all commands as many I will /never/ need to run.
+- *Audio Controls* --- I currently use amixer because that was already
+  included on Debian.  I've had some situations where it has behaved
+  inconsistently.
+- *Customizing Swaybar* --- I currently use a pretty basic i3status
+  config.  It would be interesting to experiment with something
+  different.
+- *Color Schemes* --- I currently use the default i3 colors,
+  and it would be nice to come up with something more me.
+
+* Footnotes
+
+[fn:1] The GNOME developers mean well and most decisions they make are
+good for the average computer consumer.  However, as a pretty adept
+user having your workflow change gets old.

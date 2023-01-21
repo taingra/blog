@@ -1,0 +1,260 @@
+#+TITLE: Building Your Own Emacs IDE with LSP
+
+When it comes to programming there is a lot of options around how you choose to
+code. None is perhaps as personal as your [[https://en.wikipedia.org/wiki/Comparison_of_text_editors][choice of editor]]. Among editors Emacs
+is one that has stood the test of time and continued to grow in its capabilities
+throughout the over 30 years it has existed. It is a tool that can last with you
+for a [[https://www.youtube.com/watch?v=VADudzQGvU8][lifetime]]. However, Emacs does have limitations when compared to the power
+offered by a language specific integrated development environment (IDE). For
+Emacs to be able to provide such language specific features requires an in-depth
+understanding of every programming language it is working with. That means that
+each programming language needs its own set of plugins, duplicating effort
+across languages and also editors.
+
+* Enter the Language Protocol Server
+  The [[https://microsoft.github.io/language-server-protocol/][Language Server Protocol (LSP)]] is an open standard that strives to solve
+  this redundancy. Developed by Microsoft for Visual Studio Code editor, it
+  works by creating a standard communication method for your editor to talk
+  directly with programming tools. Allowing for features like auto complete,
+  jump to definition, find all references, lookup documentation, and error
+  warnings. This reduces wasted work as an editor needs only to implement an LSP
+  plugin to support all programming languages.
+
+** LSP and Emacs
+   With Emacs being the [[https://www.gnu.org/software/emacs/]["extensible, customizable, free/libre text editor,"]]
+   there have always been ways to get IDE-like features in Emacs. LSP
+   differentiates itself by requiring less heavy lifting from Emacs, and current
+   Emacs LSP implementation take advantage of many built-in features and well
+   established Emacs packages[fn:1].
+
+   | Feature             | Package  | Issues in the past                 |
+   |---------------------+----------+------------------------------------|
+   | syntax checking     | flymake  | limited language support           |
+   | jump to definition  | xref     | requires generating tags           |
+   | auto completion     | company* | needs back-ends for every language |
+   | argument suggestion | eldoc    | needs packages for other languages |
+
+   \ast{} = must be installed from ELPA (the official Emacs package repository).
+
+   The benefits of this is you can simplify your Emacs configuration and use
+   fewer external packages. In fact the development of the LSP has spurred on
+   development in several existing Emacs features like flymake and the built in
+   json decoder added in Emacs 27.
+
+** Emacs LSP Client Implementations
+   In LSP terms you have a language specific server that runs in the background
+   and a client that connects to it from your chosen editor. For Emacs LSP
+   clients there are two competing packages, both attempt to support as many LSP
+   features as possible.
+
+   - *[[https://github.com/joaotavora/eglot][Eglot]]* has a focus on minimalism, performance, and has the added benefit
+     it /could/ one day be included into Emacs[fn:3]. For that reason it is also
+     already included in the official Emacs package archive ELPA.
+
+   - *[[https://github.com/emacs-lsp/lsp-mode][lsp-mode]]* targets universal support of as many additional features and
+     packages possible. There are a large number of lsp-mode extensions
+     providing additional features. Most packages beginning with "lsp-" are
+     lsp-mode specific and will not work with eglot. lsp-mode also has a
+     dap-mode package allowing it to work with debuggers that support the Debug
+     Adapter Protocol.
+
+   Today we will be using lsp-mode as it is slightly easier setup and is
+   currently has more active development.
+
+* Installation
+  The easiest way to install lsp-mode is through the built in Emacs package
+  manager. First we need to add [[https://melpa.org/][MELPA]], a community maintained Emacs package
+  repository, by adding the following to your [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Init-File.html][init file]]:
+
+  #+begin_src emacs-lisp
+    (require 'package)
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+    (package-initialize)
+  #+end_src
+
+  Then refresh your package list by typing[fn:2]:
+
+  ~M~-~x~ =package-refresh-contents=
+
+  Now we can install with:
+
+  ~M~-~x~ =package-install= ~RET~ =lsp-mode=
+
+  I wanted drop down auto-completion so I installed [[https://company-mode.github.io/][company]] as well:
+
+  ~M~-~x~ =package-install= ~RET~ =company=
+
+** Configuration
+   Here is a very minimal configuration with lsp-mode with company, add it to
+   your init file as well:
+
+   #+begin_src emacs-lisp
+     (require 'lsp-mode)
+
+     ;; Start lsp when you open a file for each langauge
+     (add-hook 'python-mode-hook #'lsp)
+     (add-hook 'go-mode-hook     #'lsp)
+     ;; Add more languages as needed
+   #+end_src
+
+   lsp-mode will handle starting all the other [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Minor-Modes.html][minor modes]] necessary. One tweak
+   to the defaults I made is changing the amount of documentation lsp-mode shows
+   when your cursor rests on a function.
+
+   #+begin_src emacs-lisp
+     ;; Show all documenttion
+     (setq lsp-eldoc-render-all t)
+   #+end_src
+
+*** use-package
+    If you are using [[https://github.com/jwiegley/use-package][use-package]], which can help simplify package configuration,
+    check out the [[https://github.com/emacs-lsp/lsp-mode/blob/master/README.org#use-package][example configuration listed in lsp-mode's readme]].
+
+** Installing Language Servers
+   A language server is the brains behind all of the LSP features we have
+   discussed, your experience will only be as good as the server you use. It is
+   important to highlight that the LSP is a relatively new technology and not
+   every programming language has a robust server implement just yet.
+
+   lsp-mode maintains [[https://github.com/emacs-lsp/lsp-mode#supported-languages][a list of supportted language servers]] that should work
+   automatically. More language servers can be found on [[https://langserver.org/][langserver.org]]. Two I
+   have experimented with are [[https://github.com/golang/tools/tree/master/gopls][gopls]] and [[https://github.com/palantir/python-language-server][pyls]] for GoLang and Python
+   respectively. A nice feature of these particular language servers is they can
+   be installed using their language specific package tools. For example, gopls
+   is installed with:
+
+   #+begin_src bash
+     go get golang.org/x/tools/gopls@latest
+   #+end_src
+
+   and pyls with:
+
+   #+begin_src bash
+     pip install ‘python-language-server[all]’
+   #+end_src
+
+   Make sure that wherever your language server is installed it is reachable
+   from your *$PATH*. You can test this by running the language server command,
+   for most servers it should run and do nothing. Just make sure you don't get
+   =bash: gopls: command not found...=
+
+* Using LSP
+  Once you've got your language server open any file on one of your projects and
+  you will be greeted with the following message:
+
+  #+begin_src
+  foo.py is not part of any project. Select action:
+
+  i==>Import project root /home/name/Projects/FooBar/.
+  I==>Import project by selecting root directory interactively.
+  d==>Do not ask for the current project by adding /home/name/Projects/FooBar/. to lsp-session-folders-blacklist.
+  D==>Do not ask again for current project by selecting ignore path interactively.
+  n==>Do nothing: ask again when opening other files from the current project.
+  #+end_src
+
+  The options should be pretty self explanatory, use *i* if the given root is
+  correct, *I* if the root needs to be adjusted (e.g. you are in a
+  subdirectory). You should only use *d* and *D* for project you do not wish to
+  use lsp-mode's project management features.
+
+  Now you are good to code. lsp-mode will have automatically started the
+  necessary modes:
+
+  - *company* will provide auto complete suggestions,
+  - *flymake* will highlight warnings and errors,
+  - *xref* can find the definition of a function or variable, and
+  - *eldoc* will show function documentation in the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Minibuffer.html][minibuffer]].
+
+  By default ~M~-~.~ will jump to definition of a highlighted
+  function or variable.
+
+** Screenshots
+
+   #+CAPTION: Showing company auto complete suggestions (actually eglot, but lsp-mode would look identical)
+   [[../img/eglot-company.png]]
+
+   #+CAPTION: Showing function documentation with eldoc
+   [[../img/lsp-eldoc.gif]]
+
+   #+CAPTION: Showing function documentation on mouse hover with eldoc
+   [[../img/lsp-eldoc-hover.png]]
+
+* Conclusion
+  Overall with this basic LSP setup and a few other packages ([[https://magit.vc/][magit]], [[https://github.com/joaotavora/yasnippet][yasnippets]],
+  [[https://github.com/Fuco1/smartparens][smartparens]], and [[https://emacs-helm.github.io/helm/][helm]]) is enough for me to have a comfortable editing
+  experience with some niceties of an IDE. In the future I'd like to try out
+  Java development using [[https://github.com/eclipse/eclipse.jdt.ls][Eclipse's Java language server]], as well compare pyls
+  with the [[https://github.com/Microsoft/python-language-server][Microsoft Python language server]].
+
+  For someone that would like to take this idea further I would suggest you look
+  into some of the additional lsp-mode packages ([[https://github.com/emacs-lsp/lsp-ui][lsp-ui]], [[https://github.com/tigersoldier/company-lsp][company-lsp]],
+  [[https://github.com/emacs-lsp/lsp-treemacs][lsp-treemacs]], etc.). Also, you could explore making Emacs look more like a
+  modern editor with [[https://emacsthemes.com/][a nice theme]], [[https://github.com/milkypostman/powerline][powerline]], [[https://github.com/jaypei/emacs-neotree][NeoTree]], and [[https://github.com/domtronn/all-the-icons.el][all-the-icons.el]].
+
+* Possible Issues and Solutions
+
+** Performance
+   I have not had any issues with performance on my machine using GNU Emacs 26.3
+   with the default setting, however, if issues occur there are [[https://github.com/emacs-lsp/lsp-mode#performance][several steps
+   you can take to increase performance]].
+
+   Increasing memory limits for Emacs garbage collector and maximum data output
+   read from a process:
+
+   #+begin_src emacs-lisp
+     ;; Increase garbage collector threshold
+     (setq gc-cons-threshold 100000000) ;; 100 MB
+
+     ;; Increase amount of data read from a process
+     (setq read-process-output-max (* 1024 1024)) ;; 1 MB
+   #+end_src
+
+   Using an up-to-date Emacs version can work wonders as Emacs 27 has a native
+   json parser which is reported to be "~15 times" faster than previous
+   versions.
+
+** flymake vs flycheck
+   Another issue you may be facing is with flymake, flymake is currently
+   undergoing a rewrite to better support modern things like the LSP. Some of
+   that rewrite has made it into Emacs 26 and some is still to come in 27. If
+   you are using an older Emacs version, or having other issues you could
+   install flycheck a popular third-party alternative to flymake.
+
+   If you are using flymake on the latest Emacs version consider [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Bugs.html][filing a bug
+   report]] to help with its development.
+
+* Full Configuration Example
+
+  #+begin_src emacs-lisp
+    ;;; A minimal config for using lsp-mode
+
+    ;; Packages
+    (require 'package)
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+    (package-initialize)
+
+    ;; LSP
+    (setq lsp-keymap-prefix "C-c l")
+
+    (require 'lsp-mode)
+    ;; Start lsp-mode with desired languages
+    (add-hook 'python-mode-hook #'lsp)
+    (add-hook 'go-mode-hook     #'lsp)
+    ;; Add more as needed
+
+    (setq lsp-eldoc-render-all t)
+
+    ;; Drop-down auto completion
+    (require 'company)
+    (add-hook 'after-init-hook 'global-company-mode)
+  #+end_src
+
+* Footnotes
+
+[fn:3] Emacs requires contributions to have copyright assignment given to the
+FSF in order to be added, Eglot requires this for contributions
+
+[fn:2] In Emacs ~M~ is ~Alt~ so ~M~-~x~ is ~Alt~ + ~x~, ~C~ is
+~Ctrl~, and ~RET~ is ~Enter~.
+
+[fn:1] In Emacs a package is like a plugin in other editors.

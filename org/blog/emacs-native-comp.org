@@ -1,0 +1,127 @@
+#+Title: Building Emacs 28.1 with Native Compilation on GNU/Linux
+
+The recent release of Emacs version 28 brings the addition of a
+just-in-time (JIT) native compiler for Emacs Lisp.  This will allow
+for Emacs Lisp to seamlessly be compiled to machine code giving
+programs a 2-5times speed increase.
+
+The following guide will walk through how to build Emacs with native
+compilation.  Anyone with a basic understanding of the command line
+should be able to follow the steps.
+
+* Install the Build Dependencies
+
+Since we are only focusing on native compilation we can just install
+the default build dependencies as specified by the distros package
+manager.  This will save us time hunting down all necessary
+dependencies.
+
+** Debian, Trisquel, or Ubuntu
+
+Install the libraries needed for building Emacs (build dependencies):
+
+#+begin_src sh
+  sudo apt-get build-dep emacs
+#+end_src
+
+Verify your gcc version with =gcc --version=, example output:
+
+#+begin_example
+gcc (Debian 10.2.1-6) 10.2.1 20210110
+#+end_example
+
+Install the corresponding libgccjit of the same version.[fn:1]  This is the
+JIT compiler used by Emacs:
+
+#+begin_src sh
+  sudo apt-get install libgccjit0 libgccjit-10-dev
+#+end_src
+
+** Fedora
+
+Install the build dependencies for Emacs:
+
+#+begin_src sh
+  sudo dnf builddep emacs
+#+end_src
+
+Install libgccjit, the native compiler used by Emacs:
+
+#+begin_src sh
+  sudo dnf install libgccjit libgccjit-devel
+#+end_src
+
+* Building Emacs
+
+You can download the official Emacs 28.1 source code from the below link:
+
+- https://ftpmirror.gnu.org/emacs/emacs-28.1.tar.xz
+- https://ftpmirror.gnu.org/emacs/emacs-28.1.tar.gz
+
+You can verify this file by following the instructions in the [[https://lists.gnu.org/archive/html/emacs-devel/2022-04/msg00093.html][official
+release announcement]].  This will protect you from the file being
+corrupt or modified.
+
+Extract the archive:
+#+begin_src sh
+  tar -xvf emacs-28.1.tar.xz
+#+end_src
+
+Move into the extracted directory and run the following build commands:
+
+#+begin_src sh
+  cd emacs-28.1
+  ./autogen.sh
+  ./configure --with-native-compilation
+#+end_src
+
+Verify the commands complete without errors otherwise you may be
+missing a dependencies.  In addition, verify the below is output
+otherwise libgccjit is not properly installed.
+
+: Does Emacs have native lisp compiler?   yes
+
+If the above has completed correctly, then build Emacs by running
+=make=.
+
+#+begin_src sh
+  make
+#+end_src
+
+* Try it out!
+
+Once completed you should have a working Emacs 28 binary.  You can run
+it manually and try it out.
+
+#+begin_src sh
+  ./src/emacs
+#+end_src
+
+Run ~M-x~ =version= to check it is Emacs 28.  Evaluate the following elisp
+to determine if you have native compilation setup correctly:
+
+#+begin_src emacs-lisp
+  (native-comp-available-p)
+#+end_src
+
+That's it!  Emacs should automatically start natively compiling all
+your installed packages in the background.  You may receive some
+compiler warnings occasionally until this process has completed.
+
+* Installing
+You can continue running it from the build directory or fully install
+it using make:
+
+#+begin_src emacs-lisp
+  sudo make install
+#+end_src
+
+If at any point you'd like to remove it you can run:
+
+#+begin_src emacs-lisp
+  sudo make uninstall
+#+end_src
+
+* Footnotes
+
+[fn:1] Thanks to Pascal Jaeger and Răzvan Birișan for this correction.
