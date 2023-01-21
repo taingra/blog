@@ -139,20 +139,6 @@ In my regular config, load =early-init.el= if not loaded already:
     (load (concat user-emacs-directory "early-init.el")))
 #+end_src
 
-** Optomizations and elisp loading
-
-Prefer newest elisp files
-
-#+begin_src emacs-lisp
-  (setq load-prefer-newer t)
-#+end_src
-
-Increase the max amount allowed to be read from a process into Emacs.
-
-#+begin_src emacs-lisp
-  (setq read-process-output-max (* 1024 1024))
-#+end_src
-
 ** Prefer UTF-8
 
 #+begin_src emacs-lisp
@@ -770,8 +756,9 @@ provides a lot of great functionality for writing Japanese (日本語).
 
     :custom
     (org-ellipsis "⤵")
-    (org-startup-indented t)
-    (org-hide-emphasis-markers t)
+    ;; (org-startup-indented t)
+    (org-adapt-indentation 'headline-data)
+    (org-hide-emphasis-markers nil)
 
     ;; Org agenda setup
     (org-agenda-files '("~/todo.org"))
@@ -792,21 +779,55 @@ provides a lot of great functionality for writing Japanese (日本語).
         (file "~/Documents/taingram.org/org/interesting-links.org")
         "* %l\n%u"
         :prepend t)
-       ("w" "Watch List" entry
-        (file "~/Documents/taingram.org/org/watchlist.org")
+       ("w" "Watchlist (defaults to movie)" entry
+        (file+headline "~/Documents/taingram.org/org/watchlist.org" "Movies")
         "* %^{Title}
   :PROPERTIES:
-  :Rating:   %^{Rating}p
-  :Year:     %^{Year}p
-  :Genre:    %^{Genre}p
-  :Director:
-  :IMDB:
-  :Wikipedia:
+  :RATING:   %^{Rating}p
+  :YEAR:     %^{Year}p
   :END:
   %u
 
   %i"
-        :prepend t))))
+        :prepend t
+        :refile-targets (("watchlist.org" :regexp . "Movies\\|TV Shows\\|Games")))))
+
+    :config
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (setq-local electric-pair-inhibit-predicate
+                            (lambda (c) (char-equal c ?\<))))))
+#+end_src
+
+*** Optional Auto Tangle
+
+#+begin_src emacs-lisp
+  (use-package org-auto-tangle
+    :delight
+    :config
+    (add-hook 'org-mode-hook 'org-auto-tangle-mode))
+#+end_src
+
+
+*** Blogging
+Load my blog's configuration file.
+
+#+begin_src emacs-lisp
+  ;; (load "~/Documents/taingram.org/publish")
+#+end_src
+
+*** Org Open Movie Database
+
+I maintain my movie watchlist in an org file and orgmdb.el makes it
+easier to pull in metadata about the movies.
+
+#+begin_src emacs-lisp
+  (add-to-list 'load-path (concat user-emacs-directory "manual-packages/orgmdb"))
+
+  (use-package orgmdb
+    :config
+    (setq orgmdb-omdb-apikey (my/file-to-string "~/.omdb-apikey"))
+    (setq orgmdb-fill-property-list '(year genre director country imdb-id)))
 #+end_src
 
 ** Markdown                                                          :MELPA:
