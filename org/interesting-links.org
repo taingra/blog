@@ -2,6 +2,14 @@
 #+OPTIONS: <:nil toc:t
 #+HTML_HEAD_EXTRA: <style>.outline-2 h2 { border-bottom: 2px solid black; }</style>
 
+* Blogs
+
+** [[https://sachachua.com/blog/][Sacha Chua]]                                                         :emacs:
+
+*** [[https://sachachua.com/blog/category/emacs-news/][Weekly Emacs News]]
+
+** [[https://tilde.town/~ramin_hal9001/index.html][Ramin Honary (/Emacs for Professionals/)]]                     :emacs:linux:
+
 * Programming
 ** [[https://bzg.fr/en/learn-emacs-lisp-in-15-minutes.html/][Learn Emacs Lisp in 15 Minutes (2015)]]                          :Tutorial:
 Written by Bastien Guerry (the current maintainer of Org mode).
@@ -101,6 +109,10 @@ Not necessary recommendations, just interesting pieces of software
 that I've found.
 
 ** [[http://grafx2.chez.com/index.php][GrafX2 a bitmap paint program]]
+
+* Art
+
+** [[https://mokuhankan.com/collection/][Mokuhankan --- Japanese Woodblock Prints]]
 
 * Other
 ** [[https://mattbruenig.com/2021/09/20/when-mcdonalds-came-to-denmark/][When McDonalds Came to Denmark]]
