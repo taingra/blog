@@ -5,7 +5,95 @@
 This page is a collection of random information that I have found useful,
 perhaps you may find something useful too.
 
+
+* Unix / Linux
+
+** Ascii table
+Need to lookup an ASCII character number run =man ascii= and most
+Unix-like systems will have a full ASCII table.
+
 * Emacs
+
+** Get the directory location of an elisp script
+[2023-01-20 Fri]
+
+Sometimes when writing an Emacs Lisp script it is useful to use have
+the script's directory location.  Unfortunately there is not one
+foolproof solution for this.
+
+#+begin_quote
+default-directory is a variable defined in ‘src/buffer.c’.
+
+Name of default directory of current buffer.
+It should be an absolute directory name; on GNU and Unix systems,
+these names start with ‘/’ or ‘~’ and end with ‘/’.
+To interactively change the default directory, use command ‘cd’.
+#+end_quote
+
+At first I used the =default-directory= variable.  However, this only
+works if you are opening the file and evaluating the buffer manually.
+That is because it is the current working directory of Emacs.
+
+For example, if we have a file =/tmp/test.el= containing:
+
+#+begin_src emacs-lisp
+(message default-directory)
+#+end_src
+
+Running the command =emacs --script /tmp/test.el=  from the home
+directory will output =~/=.
+
+So we need another solution for scripts since they could be run from
+anywhere.  [[https://stackoverflow.com/questions/4088681/get-path-to-current-emacs-script-file-when-loaded-with-l-parameter][Trey Jackson's Stack Overflow answer]] provides a good
+alternative =load-file-name=.
+
+#+begin_quote
+load-file-name is a variable defined in ‘src/lread.c’.
+
+Full name of file being loaded by ‘load’.
+#+end_quote
+
+With our last example, changing the file contents to =(message
+load-file-name)= and running =emacs --script /tmp/test2.el= will
+output:
+
+#+begin_src
+/tmp/test2.el
+#+end_src
+
+Now this will only work when evaluating a file as a =--script= or
+by using =load= from elisp.  Using =eval-buffer= it will be =nil=.  So
+we can combine the two solutions:
+
+#+begin_src emacs-lisp
+  (defun my/get-script-directory ()
+    (if (null load-file-name)
+	(expand-file-name default-directory)
+      (file-name-directory load-file-name)))
+#+end_src
+
+I've opened [[https://www.reddit.com/r/emacs/comments/10hiuiz/consistently_find_the_directory_where_an_elisp/][a post on reddit]] to see if anyone has a better solution.
+
+** Concatenate directory names in elisp
+[2022-04-27 Wed]
+
+Use =file-name-concat= or =file-name-as-directory= in conjunction with
+usual string concatenation functions.  These function are portable
+across operating systems.
+
+#+begin_src emacs-lisp
+  (file-name-as-directory "~/Downloads")
+  ;; => "~Downloads/"
+
+  (concat (file-name-as-directory "Downloads") "debian.iso")
+  ;; => "Downloads/debian.iso"
+
+  ;; New in Emacs 28.1
+  (file-name-concat "/home/bob" "Documents" "file.org")
+  ;; => "/home/bob/Documents/file.org"
+#+end_src
+
+For more info see the [[info:elisp#Directory Names][Directory Names]] section in the Elisp Manual.
 
 ** Good Font for Emacs on MS Windows
 I use Consolas which looks pretty sharp, better than Lucida Console
@@ -48,6 +136,8 @@ Very important to use =:json-false= to avoid parsing errors.
   (setq-default eglot-workspace-configuration
 	      '((:gopls . ((linksInHover . :json-false)))))
    #+end_src
+
+
 
 * Internet
 ** Recursively sync directory with FTP
