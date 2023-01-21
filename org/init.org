@@ -170,15 +170,62 @@ loading it is still useful for setting safe file variables and themes.
   (setq ring-bell-function 'ignore)
 #+end_src
 
-* Package setup
+* Emacs Lisp
+** Optimizations and elisp loading
+Prefer newest elisp files
+#+begin_src emacs-lisp
+  (setq load-prefer-newer t)
+#+end_src
+
+Increase the max amount allowed to be read from a process into Emacs.
+#+begin_src emacs-lisp
+  (setq read-process-output-max (* 1024 1024))
+#+end_src
+
+** Useful functions
+
+#+begin_src emacs-lisp
+  (defun my/file-to-string (filename)
+    "Convert contents of file FILENAME to a string."
+    (string-trim
+     (with-temp-buffer
+       (insert-file-contents filename)
+       (buffer-string))))
+#+end_src
+
+#+begin_src emacs-lisp
+  ;; TODO: Could make more flexible with a variable pair for light and
+  ;; dark themes.  Override default pairs with a user defined global
+  ;; light/dark themes.  I'd also like to automate with sunrise/sunset.
+  (defun my/toggle-light-dark-theme ()
+    (interactive)
+    (cond
+     ((custom-theme-enabled-p 'modus-operandi)
+      (progn
+        (disable-theme 'modus-operandi)
+        (load-theme 'modus-vivendi)))
+     ((custom-theme-enabled-p 'modus-vivendi)
+      (progn
+        (disable-theme 'modus-vivendi)
+        (load-theme 'modus-operandi)))
+     ((message "Unknown theme")))
+    (shell-command "change-theme"))
+#+end_src
+
+** Package Repositories
 
 Add the new [[https://elpa.nongnu.org/][NonGNU ELPA]] (Emacs Lisp Package Archive). This repository contains
 only Free Software, but unlike [[https://elpa.gnu.org/][GNU ELPA]] these packages have not assigned
-copyright to FSF and cannot be included in mainline Emacs for legal reasons.
+copyright to FSF and cannot be included in mainline Emacs for legal
+reasons.
+
+Also adding MELPA, a popular third-party repository that contains some
+packages that haven't been added to NonGNU ELPA yet.
 
 #+begin_src emacs-lisp
   (with-eval-after-load 'package
-    (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+    (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/"))
+    (add-to-list 'package-archives '("melpa"  . "https://melpa.org/packages/")))
 #+end_src
 
 ** use-package
@@ -204,6 +251,30 @@ delight is included in GNU ELPA.
 #+end_src
 
 * General usage
+** Startup Screen
+
+#+begin_src emacs-lisp
+  (add-to-list 'load-path (concat user-emacs-directory
+                "manual-packages/emacs-welcome"))
+
+  (require 'recentf)
+  (recentf-mode 1)
+
+  (require 'org-welcome)
+  (setq org-welcome-title nil)
+  (org-welcome)
+#+end_src
+
+** Modeline formatting
+
+Improve buffer naming convention when a buffer with a duplicate named
+buffer is opened.
+
+#+begin_src emacs-lisp
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'forward)
+#+end_src
+
 ** Global Keybindings
 
 #+begin_src emacs-lisp
@@ -236,11 +307,10 @@ the time.
   (use-package which-key
     :ensure t
     :init
-    (setq which-key-idle-delay 5)
+    (setq which-key-idle-delay 3)
     :config
     (which-key-mode))
 #+end_src
-
 
 ** Managing buffers
 
@@ -253,20 +323,101 @@ ibuffer offers a number of
       (add-hook 'ibuffer-mode-hook #'hl-line-mode))
 #+end_src
 
-** Fuzzy completion                                                  :MELPA:
+** Windows Placement                                                   :WIP:
 
-Currently using helm but have mixed feelings about it.
+This is discussed in detail in the Emacs Manual [[info:emacs#Window Choice][Window Choice]] and in
+the Elisp Manual [[info:elisp#Displaying Buffers][Displaying Buffers]].
+
+I don't feel like I fully comprehend how to use this.  Basically I am
+frustrated with how randomly placed some new windows are (Help, Org
+Src, etc.) and I'd like those to appear more consistently.
 
 #+begin_src emacs-lisp
-  (use-package helm
-    :ensure t
-    :bind (("M-x" . helm-M-x)
-           ("C-x C-f" . helm-find-files)
-           ("C-x r b" . helm-filtered-bookmarks)
-           :map helm-map
-           ("<tab>" . helm-execute-persistent-action))
-    :config
-    (helm-mode 1))
+
+  ;; (setq display-buffer-alist
+  ;;       `(("\\`\\*Async Shell Command\\*\\'"
+  ;;          (display-buffer-no-window))
+  ;;         ("\\*Shortdoc .*\\*"
+  ;;          (display-buffer-reuse-window display-buffer-in-side-window))
+
+  ;;         ("\\*Help\\*"
+  ;;          display-buffer-pop-up-window
+  ;;          (inhibit-same-window . t))
+  ;;         ("\\*Org Src .*\\*"
+  ;;          display-buffer-below-selected)))
+
+#+end_src
+
+** Remember history
+
+Track recently opened files.
+
+#+begin_src emacs-lisp
+  (recentf-mode 1)
+#+end_src
+
+Track minibuffer history.
+
+#+begin_src emacs-lisp
+  (savehist-mode 1)
+#+end_src
+
+** Completion
+*** MCT
+
+Trying out [[https://protesilaos.com/emacs/mct][Prot's MCT]] package.
+
+#+begin_src emacs-lisp
+
+  (require 'mct)
+  (mct-minibuffer-mode 1)
+#+end_src
+
+*** iComplete                                                         :OLD:
+Built into Emacs 28.
+
+#+begin_src emacs-lisp
+  ;; (require 'icomplete)
+  ;; (fido-vertical-mode 1)
+#+end_src
+
+*** Marginalia
+
+#+begin_src emacs-lisp
+  (use-package marginalia
+    :init (marginalia-mode))
+#+end_src
+
+*** Helm                                                              :OLD:
+No longer using helm. It's a very powerful package but I've always had
+mixed feelings about it.
+
+#+begin_src emacs-lisp
+  ;; (use-package helm
+  ;;   :ensure t
+  ;;   :delight
+  ;;   :bind (("M-x" . helm-M-x)
+  ;;          ("C-x C-f" . helm-find-files)
+  ;;          ("C-x r b" . helm-filtered-bookmarks)
+  ;;          :map helm-map
+  ;;          ("<tab>" . helm-execute-persistent-action))
+  ;;   :config
+  ;;   (helm-mode 1))
+#+end_src
+
+*** Vertico                                                           :OLD:
+
+Trying out [[https://github.com/minad/vertico][vertico]].
+
+#+begin_src emacs-lisp
+  ;; (use-package vertico
+  ;;   :init (vertico-mode))
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  ;; (when (version<= "28" emacs-version)
+  ;;   (setq read-extended-command-predicate
+  ;;         #'command-completion-default-include-p))
 #+end_src
 
 ** Dired
@@ -283,10 +434,22 @@ Allow using 'a' key in dired
   (put 'dired-find-alternate-file 'disabled nil)
 #+end_src
 
+*** Delete to Trash
+
+#+begin_src emacs-lisp
+  (setq delete-by-moving-to-trash t)
+#+end_src
+
 ** Read only file View
 Enables view mode in all read-only files
 #+begin_src emacs-lisp
   (setq view-read-only t)
+#+end_src
+
+** Passwords
+#+begin_src emacs-lisp
+  ;; Doing this appears to break Gnus.  May need to report a bug...
+  ;; (setq auth-sources '(password-store))
 #+end_src
 
 ** Email
@@ -297,18 +460,49 @@ Enables view mode in all read-only files
 #+end_src
 
 #+begin_src emacs-lisp
-  (setq smtpmail-smtp-server "mail.gandi.net"
-        smtpmail-smtp-service 587
-        message-send-mail-function 'smtpmail-send-it)
+    (setq smtpmail-default-smtp-server "mail.gandi.net"
+          smtpmail-smtp-server "mail.gandi.net"
+          smtpmail-stream-type 'ssl
+          smtpmail-smtp-service 465
+          message-send-mail-function 'smtpmail-send-it)
 #+end_src
 
-Currently trying Gnus in the hopes it will make subbing to a large
-number of mailing lists more manageable. Below is the source code of
-my =~/.gnus.el=
+*** mu4e
+I've struggled to find an email client for Emacs that I really like,
+but I think I've finally settled on mu4e.  It is relatively simple
+and works like a traditional email client (unlike gnus or notmuch).
 
-#+include: ~/.gnus.el src emacs-lisp :tangle no
+#+begin_src emacs-lisp
 
-See also [[https://gitlab.com/protesilaos/dotfiles/-/blob/master/emacs/.emacs.d/prot-lisp/prot-gnus-deprecated-conf.org][Protesilaos Stavrou's old Gnus setup]].
+  (require 'mu4e)
+
+  (setq mu4e-get-mail-command "mbsync thomas@taingram.org")
+
+  (setq mu4e-drafts-folder "/thomas@taingram.org/Drafts")
+  (setq mu4e-sent-folder   "/thomas@taingram.org/Sent")
+  (setq mu4e-trash-folder  "/thomas@taingram.org/Trash")
+
+  (setq mu4e-maildir-shortcuts
+        '((:maildir "/thomas@taingram.org/Inbox" :key ?i)
+          (:maildir "/thomas@taingram.org/Sent"  :key ?s)
+          (:maildir "/thomas@taingram.org/Trash" :key ?t)
+          (:maildir "/thomas@taingram.org/Junk"  :key ?j)
+          (:maildir "/thomas@taingram.org/Archive" :key ?a)
+          (:maildir "/thomas@taingram.org/Important" :key ?I)
+          (:maildir "/thomas@taingram.org/Receipts" :key ?r)))
+
+  ;; See: https://sourceforge.net/p/isync/mailman/message/34955844/
+  (setq mu4e-change-filenames-when-moving t)
+
+  ;; Copy sent messages to sent.  Useful to review messages on other devices.
+  (setq mu4e-sent-messages-behavior 'sent)
+
+  ;;; Prefer plain text if possible
+  (with-eval-after-load "mm-decode"
+    (add-to-list 'mm-discouraged-alternatives "text/html")
+    (add-to-list 'mm-discouraged-alternatives "text/richtext"))
+
+#+end_src
 
 ** Remote file editing
 
@@ -380,7 +574,6 @@ Compilation in shell
   (defalias 'diary-birthday #'diary-anniversary))
 #+end_src
 
-
 #+begin_src emacs-lisp :exports none
   (require 'solar)
   (setq calendar-latitude 47.1234)
@@ -390,7 +583,7 @@ Compilation in shell
 
 ** Git                                                               :MELPA:
 
-Magit provides an enhanced git interface.
+Magit provides an enhanced git interface over the built in vc-mode.
 
 #+begin_src emacs-lisp
 (use-package magit
@@ -503,7 +696,37 @@ be wrapped to this as well.  Decided I prefer manually wrapping lines.
     :hook ((prog-mode . show-paren-mode)))
 #+end_src
 
+
+New feature Emacs 28.
+
+#+begin_src emacs-lisp
+  (setq next-error-message-highlight 't)
+#+end_src
+
+
 ** IDE-like features
+*** Expand and collapse functions
+
+Disabling this for now I do not currently use it and there are other
+options in Emacs to explore.
+
+[[info:emacs#Hideshow][Hideshow]] is a minor mode for hiding and showing contents of functions
+and comment blocks.
+
+#+begin_src emacs-lisp
+  ;; (setq hs-hide-comments-when-hiding-all nil)
+  ;; (setq hs-isearch-open t)
+
+  ;; Backtab is equivalent to shift+tab
+  ;; (define-key hs-minor-mode-map (kbd "<backtab>") 'hs-toggle-hiding)
+
+  ;; (add-hook 'prog-mode-hook #'hs-minor-mode)
+#+end_src
+
+**** TODO Replace with outline-mode
+
+[[https://emacsconf.org/2021/talks/janitor/][Stefan Monnier's talk at Emacs Conf]] convinced me to try using
+outline-mode instead of hideshow.
 
 *** Snippets
 
@@ -522,8 +745,6 @@ be wrapped to this as well.  Decided I prefer manually wrapping lines.
   (use-package company
     :ensure t
     :delight
-    ;; :hook (emacs-lisp-mode . company-mode)
-    ;; Perhaps I should enable on a per mode basis?
     :config
     (global-company-mode 1)
     :custom
@@ -556,7 +777,7 @@ eglot is simpler and included in GNU ELPA.
 #+begin_src emacs-lisp
   (use-package paredit
     :ensure t
-    :hook ((emacs-lisp-mode lisp-mode scheme-mode) . paredit-mode))
+    :hook ((emacs-lisp-mode lisp-mode scheme-mode clojure-mode) . paredit-mode))
 #+end_src
 
 #+begin_src emacs-lisp
@@ -566,6 +787,19 @@ eglot is simpler and included in GNU ELPA.
                 ("C-c C-d" . eval-defun)
                 ("C-c C-b" . eval-buffer))
     :hook ((emacs-lisp-mode . flymake-mode)))
+#+end_src
+
+** Clojure
+Recently started toying with Clojure in the hopes it will motivate me
+to program more.
+
+#+begin_src emacs-lisp
+  (use-package clojure-mode
+    :ensure t)
+
+  (use-package cider
+    :ensure t
+    :after clojure-mode)
 #+end_src
 
 ** Shell
@@ -605,6 +839,7 @@ Note that go-mode is an external package.
   (use-package go-mode
     :ensure t
     :bind (:map go-mode-map
+                ("C-c RET" . compile)
                 ("C-c c"   . compile)
                 ("C-c C-c" . recompile)
                 ("C-c d"   . godoc)
@@ -615,6 +850,7 @@ Note that go-mode is an external package.
     (defun my/go-mode-set-local ()
       (set (make-local-variable 'compile-command) "go build -v "))
 
+    ;; Disables links to the web documentation
     (setq-default eglot-workspace-configuration
                 '((:gopls . ((linksInHover . :json-false)))))
 
@@ -864,12 +1100,20 @@ unlikely that I'll use it any time soon...
     :hook ((TeX-mode . auto-fill-mode)))
 #+end_src
 
+** HTML
+
+#+begin_src emacs-lisp
+  (use-package web-mode
+    )
+#+end_src
+
 * See Also
 
 Other interesting literate configuration files that inspired me.
 
 - [[https://protesilaos.com/dotemacs/][Protesilaos Stavrou's ~/.emacs]]
 - [[https://pages.sachachua.com/.emacs.d/Sacha.html][Sacha Chua's Emacs configuration]]
+- [[https://github.com/munen/emacs.d/][Alain M. Lafon's Emacs config]]
 
 * Footnotes
 
