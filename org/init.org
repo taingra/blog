@@ -639,13 +639,108 @@ Note that go-mode is an external package.
 #+end_src
 
 * Writing
+** Abbreviations
+
+[[info:emacs#Abbrevs][abbrev-mode]] is a built in minor mode that provides a convent way to
+expand abbreviations as you are writing.  Abbreviations are expanded
+when a space or punctuation is typed after completing a word.  For
+example you could have gv expand into government.
+
+gv → government
+
+Abbreviations can also preserve capitalization in useful ways:
+
+Gv → Government
+
+GV → GOVERNMENT
+
+Capitalization works differently if your abbreviation expands to
+multiple words:
+
+Gdp → Gross domestic product
+
+GDP → Gross Domestic Product
+
+By default abbrev commands can be accessed through ~C-x a~
+
+- ~C-x a g~ take a word and define a /global/ abbreviation for it.
+- ~C-x a l~ take a word and define a /local/ (mode specific) abbreviation.
+- ~C-x a i g~ define the word at point as a global abbreviation and
+  then expand it.
+- ~C-x a i l~ sames as above for a mode specific abbreviation.
+
+Additional useful functions:
+
+- =define-global-abbrev= :: define both the abbreviation and expansion
+  without pulling from the buffer.
+- =define-mode-abbrev= :: same as above for mode specific abbrev.
+- =list-abbrevs= :: List all defined abbrevs.  Can edit these directly
+  and reload with ~C-c C-c~.
+- =edit-abbrevs= :: Functionally same as =list-abbrevs= but jumps you to mode
+  specific definitions.
+
+Abbreviations are automatically expanded when adding a space or
+punctuation.  They can be manually expanded with ~C-x a e~ (this works
+even in buffers without abbrev-mode enabled).
+
+Expansions can be escaped by typing ~C-q~ before typing your
+space/punctuation.  Typing "G D P C-q ," would result in: GDP,
+
+Alternatively if you need to prefix or suffix an abbrev you can note
+the end of the prefix and the start off the suffix with ~M-'~
+
+anit ~(M-'~) gv (~M-'~) ental → antigovernmentental
+
+Abbrev can automatically remind you when you forget to use
+abbreviations by enabling =abbrev-suggest=.  You can get a summary of
+how often =abbrev-suggest= is showing with the
+=abbrev-suggest-show-report= command.
+
+#+begin_src emacs-lisp
+  (setq abbrev-suggest 't)
+  (setq abbrev-suggest-hint-threshold 1)
+#+end_src
+
+By default Emacs prompts you to save the abbrev file before closing,
+this can be done automatically in the background by setting
+=save-abbrevs=
+
+#+begin_src emacs-lisp
+  (setq save-abbrevs 'silently)
+#+end_src
+
+Enable abbrev-mode in the modes you wish to use it:
+
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook #'abbrev-mode)
+#+end_src
+
+*** TODO Look into [[info:emacs#Dynamic Abbrevs][Dynamic Abbreviation]]
+
+** Japanese
+
+I'm currently learning Japanese as I'm interested in Japanese wood
+block printing, Japanese stationary, and [[https://en.wikipedia.org/wiki/Japanese_carpentry][Japanese carpentry]].  Emacs
+provides a lot of great functionality for writing Japanese (日本語).
+
+*** Kanji-mode
+
+[[https://github.com/wsgac/kanji-mode][Kanji-mode]] is a really cool little package that gives you.
+
+- Stroke order (~M-s M-o~)
+- Kanji to hiragana (~M-s M-h~) or romanji (~M-s M-h~)
+
+*** See Also
+
+- [[http://members.optusnet.com.au/~charles57/GTD/emacs_japanese.html][Using Emacs and org-mode with Japanese Text]]
+
 ** Org mode
 
 #+begin_src emacs-lisp
   (add-to-list 'load-path (concat user-emacs-directory "org-mode"))
 
   (use-package org
-    :bind (("C-x a" . org-agenda)
+    :bind (("C-x C-a" . org-agenda)
            ("C-x c" . org-capture))
     :hook ((org-mode . auto-fill-mode))	; Life is too short to manually wrap lines
     :config
