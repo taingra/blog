@@ -1,9 +1,9 @@
-# -*- eval: (add-hook 'after-save-hook (lambda nil (org-babel-tangle)))  -*-
 #+TITLE: My Emacs Init
 #+AUTHOR: Thomas Ingram
 #+OPTIONS: toc:t num:t
 #+STARTUP: overview hidestars indent
 #+PROPERTY: header-args :results silent :tangle "~/.config/emacs/init.el"
+#+AUTO_TANGLE: t
 
 *Notice*:  This page is duel licensed [[http://creativecommons.org/licenses/by-sa/4.0/][CC-BY-SA 4.0]] and the [[https://www.gnu.org/licenses/gpl-3.0.en.html][GPLv3]].
 
@@ -110,16 +110,20 @@ prose is /woven/ together, then code is /tangled/ out to just elisp that can be
 evaluated by Emacs.  That means using a literate config imposes no startup
 or runtime performance penalty.
 
-Adding the following to your org file will copy (tangle) the code blocks
-into your =init.el= file.
+Adding the following to your org file will copy (tangle) the code
+blocks into your =init.el= file when you run =org-babel-tangle= (C-c
+C-v t).
 
 : #+PROPERTY: header-args :results silent :tangle "~/.config/emacs/init.el"
 
-To exclude specific source blocks from being tangled add =:tangle no= to the header.
+To exclude specific source blocks from being tangled add =:tangle no=
+to the header.
 
-Adding the following file header will re-tangle the file on save.
+I use the package [[https://github.com/yilkalargaw/org-auto-tangle][org-auto-tangle]] (available on [[https://elpa.nongnu.org/nongnu/org-auto-tangle.html][NonGNU ELPA]]) to
+automatically tangle the file on save.  This can be enabled by adding
+the following to the org file.
 
-: # -*- eval: (add-hook 'after-save-hook (lambda nil (org-babel-tangle)))  -*-
+: #+AUTO_TANGLE: t
 
 * Emacs Boilerplate Setup
 ** Early Init
