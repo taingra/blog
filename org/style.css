@@ -10,7 +10,7 @@
 	--border-width: 2px;
 }
 
-@media (prefers-color: light) {
+@media (prefers-color-scheme: light) {
 	:root {
 		--color-background: #ffffff;
 		--color-text: #000000;
@@ -21,7 +21,7 @@
 	}
 }
 
-@media (prefers-color: dark) {
+@media (prefers-color-scheme: dark) {
 	:root {
 		--color-background: #000000;
 		--color-text: #ffffff;
@@ -36,18 +36,14 @@ body {
 	font-size: 110%;
 	margin: 0 auto;
 	padding: 0 1em;
-	max-width: 100rem;
+	max-width: 59rem;
 	color: var(--color-text);
 	background: var(--color-background);
 }
 
-#preamble {
-	max-width: 54rem;
-	margin: auto;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: baseline;
+p {
+	font-family: serif;
+	line-height: 150%;
 }
 
 #content > * {
@@ -57,6 +53,7 @@ body {
 #content {
 	max-width: 54rem;
 	margin: auto;
+	padding-top: 2.8em;
 }
 
 #postamble {
@@ -66,29 +63,34 @@ body {
 
 #org-div-home-and-up {
 	max-width: 56rem;
-	margin: auto;
+	margin: 0 auto;
 	display: flex;
 	flex-direction: row-reverse;
 	justify-content: flex-end;
+	position: sticky;
+	top: 0px;
+	float: left;
 }
 
 #org-div-home-and-up a {
 	font-family: monospace;
 	font-size: 1.4em;
+	margin: 0 0.5ex;
 	padding: 0.2ex 0.4ex;
 	text-decoration: none;
 	text-transform: uppercase;
+	background: var(--color-background);
 	border: var(--border-width) solid var(--color-text);
 	border-top: 0;
 }
 
-
 #updated {
+	font-size: 90%;
 	font-family: monospace;
-	font-size: 80%;
 	color: var(--color-secondary);
-	padding: 2em 1em 0.75em;
+	padding: 1.5em 1em 0.75em;
 	border-bottom: 1px dotted var(--color-secondary);
+	float: right;
 }
 
 nav li {
@@ -198,14 +200,12 @@ kbd {
 }
 
 .timestamp {
-	font-size: 0.8em;
 	font-family: monospace;
 	color: var(--color-secondary);
-	break-after: always;
 }
 
 /* If in heading display above */
-h2 .timestamp, h3 .timestamp, h4 .timestamp, h5 .timestamp, h6 .timestamp {
+h1 .timestamp, h2 .timestamp, h3 .timestamp, h4 .timestamp, h5 .timestamp, h6 .timestamp {
 	display: block;
 }
 
@@ -260,27 +260,4 @@ footer {
 	.profile-pic {
 		float: right;
 	}
-}
-
-#preamble {
-	justify-content: flex-end;
-}
-
-.blog-entries ul {
-	list-style: none;
-	padding-left: 0;
-}
-
-.blog-entries li {
-	padding-bottom: 5mm;
-}
-
-.blog-entries a {
-	font-family: monospace;
-	font-size: 1.8em;
-	font-weight: bold;
-}
-
-.blog-entries span {
-	display: block;
 }
