@@ -1,0 +1,22 @@
+#+Title: Contact Me
+
+Please contact me over email <[[mailto:comment@taingram.org][comment@taingram.org]]>.  I will generally
+respond within a week assuming your message is not spam.
+
+* Social Media
+
+If you use social media I would advise you to please be careful what
+information and pictures you post publicly.  Companies and governments
+data-mine public websites and social media feeds.  That information is
+fed into police/government databases, AI models, and more.  Please
+especially be considerate when posting photos of others and children
+as that content will likely exist online forever.
+
+You can find me on [[https://joinmastodon.org/][Mastodon]] and Twitter.  I post mainly about drawing,
+movies, my dogs, and Emacs.  Important posts will be posted to both
+platforms.
+
+| *Mastodon* | https://mastodon.art/@ti            |
+| *Twitter*  | https://twitter.com/thomas_existing |
+
+* TODO COMMENT Add a secure option (GPG etc.)
