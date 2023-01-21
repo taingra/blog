@@ -1,6 +1,6 @@
 ;;; publish.el --- generate and publish my blog -*- lexical-binding: t -*-
 
-;; Copyright (C) 2018-2021 Thomas Ingram
+;; Copyright (C) 2018-2022 Thomas Ingram
 
 ;;; Commentary:
 
@@ -15,6 +15,11 @@
 (require 'org)
 (require 'ox-publish)
 (require 'htmlize)
+
+(file-name-directory
+ (or load-file-name
+     default-directory))
+
 
 (setq org-export-with-section-numbers nil
       org-export-with-toc nil
@@ -36,9 +41,7 @@
       ;; org-html-format-headline-function
       ;; org-html-self-link-headlines 'nil
 
-      org-html-htmlize-output-type 'css
-
-      )
+      org-html-htmlize-output-type 'css)
 
 (setq org-export-global-macros
       '(("timestamp" . "@@html:<span class=\"timestamp\">[$1]</span>@@")))
@@ -56,12 +59,25 @@
 (defvar taingram--preamble
   "<div id=\"updated\">Updated: %C</div>")
 
-(defvar taingram--footer "<hr/>
+;;; My idea for this
+(defun taingram--gen-footer (&optional license comment)
+  (concat
+   (when comment
+     "<div id=\"comments\">
+<h2>Comments:</h2>
+<div id=\"text-comments\">
+<p>Email questions, comments, and corrections to <a href=\"mailto:comment@taingram.org\">comment@taingram.org</a>.</p>
+<p>Submissions may appear publicly on this website, unless requested otherwise in your email.</p>
+</div>
+</div>")
+   "<hr/>
 <footer>
 <div class=\"copyright-container\">
 <div class=\"copyright\">
-Copyright &copy; 2017-2021 Thomas Ingram<br/>
-Content licensed
+Copyright &copy; 2017-2022 Thomas Ingram"
+   (when license
+       "<br/>
+Content on this page is licensed
 <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
 CC-BY-SA 4.0</a> unless otherwise noted.
 </div>
@@ -71,32 +87,47 @@ CC-BY-SA 4.0</a> unless otherwise noted.
      src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" />
 </a>
 </div>
-</div>
+</div>\n"
+     ". All rights reserved unless noted otherwise.</div></div>\n")
 
-<div class=\"banner\">
+"<div class=\"banner\">
 <a href=\"https://www.controlmywebsite.com/aff.php?aff=313\">
 <img src=\"https://cdn.aiso.net/affiliate/banners/aiso-banner2c.jpg\"
      alt=\"AISO.net solar powered web hosting provider\">
 </a>
 </div>
-
 <div class=\"generated\">
-Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
+Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
 </div>
-</footer>")
+</footer>"))
 
-(defvar taingram--comment "<div id=\"comments\">
-<h2>Comments:</h2>
-<div id=\"text-comments\">
-<p>Email questions, comments, and corrections to <a href=\"mailto:comment@taingram.org?subject=COMMENT\">comment@taingram.org</a>.</p>
-<p>Submissions may appear publicly on this website, unless requested otherwise in your email.</p>
+;; WIP need to get this setup
+(defvar taingram--support "<div id=\"supports\">
+<h2>Support:</h2>
+<div id=\"text-support\">
+<p>If you found the info on my website helpful please consider sending a tip to my librapay</p>
 </div>
 </div>")
 
+(defvar taingram--base-directory
+  (concat
+   (if (null load-file-name)
+       (expand-file-name default-directory)
+     (file-name-directory load-file-name))
+   "org/")
+  "The `:base-directory' for taingram site.")
+
+(defvar taingram--preview-directory
+  (concat
+   (if (null load-file-name)
+       (expand-file-name default-directory)
+     (file-name-directory load-file-name))
+   "html/")
+  "The `:publishing-directory' for taingram-preview.")
+
 (defvar taingram--publish-directory
-  ;; (expand-file-name "html/")
   "/ssh:thomas@taingram.org:/var/www/taingram.org/"
-  "The `publishing-directory' for taingram.org project.")
+  "The `:publishing-directory' for taingram.org project.")
 
 (defun taingram--sitemap-dated-entry-format (entry style project)
   "Sitemap PROJECT ENTRY STYLE format that includes date."
@@ -111,18 +142,23 @@ Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"http
 
 
 
-;; (defun taingram--rss-feed (title list)
-;;   "Generate an RSS feed for a org project using a custom sitemap function.
-;; TITLE is the title of the site map.  LIST is an internal
-;; representation for the files to include, as returned by
-;; ‘org-list-to-lisp’.  PROJECT is the current project."
-;;   (concat "<rss version=\"2.0\">
+(defun taingram--sitemap-rss (title list)
+  "Generate an RSS feed for a org project using a custom sitemap function.
+TITLE is the title of the site map.  LIST is an internal
+representation for the files to include, as returned by
+‘org-list-to-lisp’.  PROJECT is the current project."
+
+
+  ;; (concat "<rss version=\"2.0\">
 ;; <channel>
 ;;   <title>taingram.org Blog Posts</title>
 ;;   <link>https://taingram.org/blog/</link>
 ;;   <description>Liftoff to Space Exploration.</description>
 ;;   <language>en-us</language>
-;; "))
+;; ")
+  )
+
+
 
 
 (defun taingram--sitemap-and-rss (title list)
@@ -131,12 +167,12 @@ TITLE is the title of the site map.  LIST is an internal
 representation for the files to include, as returned by
 ‘org-list-to-lisp’.  PROJECT is the current project."
   (progn
-    (taingram--rss-feed-sitemap title list)
+    (taingram--sitemap-rss title list)
     (org-publish-sitemap-default title list)))
 
 (setq org-publish-project-alist
       `(("index"
-	 :base-directory ,(expand-file-name "org")
+	 :base-directory ,taingram--base-directory
 	 :base-extension "org"
 	 :exclude ".*"
 	 :include ("index.org")
@@ -145,9 +181,9 @@ representation for the files to include, as returned by
 
 	 :html-head     ,taingram--head
 	 :html-preamble ,taingram--preamble
-	 :html-postamble ,taingram--footer)
+	 :html-postamble ,(taingram--gen-footer))
 	("pages"
-	 :base-directory ,(expand-file-name "org")
+	 :base-directory ,taingram--base-directory
 	 :base-extension "org"
 	 :exclude ,(regexp-opt '("index.org"  ".*-draft\.org"  "drafts/" "blog/"))
 
@@ -161,9 +197,9 @@ representation for the files to include, as returned by
 
 	 :html-head     ,taingram--head
 	 :html-preamble ,taingram--preamble
-	 :html-postamble ,(concat taingram--comment taingram--footer))
+	 :html-postamble ,(taingram--gen-footer nil t)
 	("blog"
-	 :base-directory ,(expand-file-name "org/blog")
+	 :base-directory ,(concat taingram--base-directory "blog/")
 	 :base-extension "org"
 	 :exclude ".*-draft\.org"
 	 :publishing-directory ,(concat taingram--publish-directory "blog/")
@@ -178,19 +214,28 @@ representation for the files to include, as returned by
 	 :sitemap-filename "index.org"
 	 :sitemap-sort-files anti-chronologically
          :sitemap-format-entry taingram--sitemap-dated-entry-format
+	 :sitemap-function taingram--sitemap-and-rss
 
 	 :html-head ,taingram--head
 	 :html-preamble ,taingram--preamble
-	 :html-postamble ,(concat taingram--comment taingram--footer))
+	 :html-postamble ,(taingram--gen-footer t t)
+	("blog-files"
+	 :base-directory ,(concat taingram--base-directory "blog/files/")
+	 :base-extension "png\\|jpg\\|jpeg\\|gif"
+	 :recursive nil
+	 :publishing-directory ,(concat taingram--publish-directory "blog/files/")
+	 :publishing-function org-publish-attachment)
 	("static"
-	 :base-directory ,(expand-file-name "org")
-	 :base-extension "css\\|jpg\\|gif\\|png\\|txt\\|pdf\\|webm\\|mp4\\|wmv"
-	 :recursive t
+	 :base-directory ,taingram--base-directory
+	 :base-extension "css"
+	 :include ("robots.txt" "profile.gif")
+	 :recursive nil
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-publish-attachment)
-	("taingram.org" :components ("index" "pages" "blog" "static"))))
+	("taingram.org" :components ("index" "static" "pages" "blog" "blog-files"))))
 
 ;; Uncomment to force full site regeneration
 ;; (org-publish "taingram.org" t)
+
 
 ;;; publish.el ends here
