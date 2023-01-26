@@ -13,12 +13,13 @@ generate all the files necessary in the HTML directory.
 
 This is a convenient solution as it does not required publish.el to be loaded
 before running, and will not conflict with or override existing Emacs settings.
+
 * License
 taingram.org (c) by Thomas Ingram
 
 All content of taingram.org is licensed under a Creative Commons
 Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)
-unless otherwise stated in the file.
+*unless otherwise stated in the file*.
 
 You should have received a copy of the license along with this
 work. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>.
