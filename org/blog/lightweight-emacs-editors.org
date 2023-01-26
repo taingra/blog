@@ -30,7 +30,7 @@ of these lightweight Emacs alternatives a try.
   #+caption: JED showing off split windows, UTF-8 support, and syntax highlighting
   [[file:files/jed.png]]
   - *Website*: https://www.jedsoft.org/jed/index.html
-  - *License*: GPLv2n+
+  - *License*: GPLv2+
   - *Depends on*: libc, slang, slsh, and libgpm
 
   JED is a powerful editor in near competition with GNU Emacs. JED is written in
