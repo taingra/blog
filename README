@@ -1,0 +1,25 @@
+#+TITLE: taingram.org Org Source
+
+This is is the Emacs Org mode source that is used to generate the
+posts for my blog [[https://taingram.org][taingram.org]].
+
+The goal of this setup was to be able to generate my blog with GNU Emacs and no
+additional dependencies. Luckily Org mode provides wonderful exporting and
+publishing functionality.
+
+* Building HTML pages
+I've provided a makefile for those not experienced with Emacs, running =make= will
+generate all the files necessary in the HTML directory.
+
+This is a convenient solution as it does not required publish.el to be loaded
+before running, and will not conflict with or override existing Emacs settings.
+
+* License
+taingram.org (c) by Thomas Ingram
+
+All content of taingram.org is licensed under a Creative Commons
+Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)
+*unless otherwise stated in the file*.
+
+You should have received a copy of the license along with this
+work. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>.
