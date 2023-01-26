@@ -122,21 +122,20 @@ a:hover, a:active {
 }
 
 figure {
-	padding: 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 #content img {
-	border: var(--border-width) solid var(--color-text);
+	/* border: var(--border-width) solid var(--color-text);  */
 	max-width: 95vw;
     max-height: auto;
 }
 
 figcaption {
 	font-family: monospace;
-	padding: 1ex;
+	padding-top: 1ex;
 }
 
 blockquote {
