@@ -1,7 +1,7 @@
 #+TITLE: taingram.org Org Source
 
 This is is the Emacs Org mode source that is used to generate the
-posts for my blog [[https://taingram.org][taingram.org]].
+posts for my blog [[https://taingram.org]].
 
 The goal of this setup was to be able to generate my blog with GNU Emacs and no
 additional dependencies. Luckily Org mode provides wonderful exporting and
@@ -22,4 +22,4 @@ Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)
 *unless otherwise stated in the file*.
 
 You should have received a copy of the license along with this
-work. If not, see <https://creativecommons.org/licenses/by-sa/4.0/>.
+work. If not, see [[https://creativecommons.org/licenses/by-sa/4.0/]].
