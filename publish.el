@@ -192,7 +192,7 @@ representation for the files to include, as returned by
 
 	 :html-head     ,taingram--head
 	 :html-preamble ,taingram--preamble
-	 :html-postamble ,(taingram--gen-footer nil t)
+	 :html-postamble ,(taingram--gen-footer nil t))
 	("blog"
 	 :base-directory ,(concat taingram--base-directory "blog/")
 	 :base-extension "org"
@@ -213,7 +213,7 @@ representation for the files to include, as returned by
 
 	 :html-head ,taingram--head
 	 :html-preamble ,taingram--preamble
-	 :html-postamble ,(taingram--gen-footer t t)
+	 :html-postamble ,(taingram--gen-footer t t))
 	("blog-files"
 	 :base-directory ,(concat taingram--base-directory "blog/files/")
 	 :base-extension "png\\|jpg\\|jpeg\\|gif"
