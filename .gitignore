@@ -2,3 +2,4 @@
 .dir-locals.el
 /org/blog/index.org
 /html/
+*-draft.org
