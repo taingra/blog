@@ -16,9 +16,6 @@
 (require 'ox-publish)
 (require 'htmlize)
 
-(file-name-directory
- (or load-file-name
-     default-directory))
 
 
 (setq org-export-with-section-numbers nil
@@ -64,7 +61,7 @@
   (concat
    (when comment
      "<div id=\"comments\">
-<h2>Comments:</h2>
+<h2>Comments</h2>
 <div id=\"text-comments\">
 <p>Email questions, comments, and corrections to <a href=\"mailto:comment@taingram.org\">comment@taingram.org</a>.</p>
 <p>Submissions may appear publicly on this website, unless requested otherwise in your email.</p>
@@ -111,9 +108,7 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
 
 (defvar taingram--base-directory
   (concat
-   (if (null load-file-name)
-       (expand-file-name default-directory)
-     (file-name-directory load-file-name))
+   (file-name-directory (or load-file-name (buffer-file-name)))
    "org/")
   "The `:base-directory' for taingram site.")
 
