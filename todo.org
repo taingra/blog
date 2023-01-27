@@ -1,0 +1,22 @@
+
+* Site Admin
+** TODO Add RSS feed
+** TODO Webfont
+
+This would be good to make things consistent across browsers.
+
+PT Serif?
+
+** TODO Code font
+
+Increase size or find alternate font.
+** TODO Tweak KBD style
+** TODO Adjust indentation
+** DONE Fix image scaling and centering
+
+ This has been corrected with code from Techno Monastery.
+
+
+
+* Writing
+** TODO Org mode README Sourcehut
