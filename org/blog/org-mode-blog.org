@@ -315,20 +315,22 @@ website, built entirely with Emacs.
    than the rsync solution.
 
 ** Relative Directory Paths
-   If you do not intent to distribute the source code of your website or move
-   the directory around frequently. The simplest way to configure Org publish is
-   to place settings directly in your [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Init-File.html][Emacs init]] with hard coded directory
-   paths.
+   If you intend to distribute the source code of your website (or
+   otherwise move the project directory) then you'll run into the
+   issue of breaking paths.  To get around this I keep my publishing
+   config in a file =publish.el= with the rest of my website's source
+   code.  From =publish.el= we can determine the complete project path
+   using:
 
-   However, I've released the source of my website and therefore hard coded
-   paths will break when project folder moves around. For that reason I keep all
-   of my Org publish configuration in =publish.el=. From =publish.el= we can get
-   the complete project path using =expand-file-name=.
+   #+begin_src emacs-lisp
+     (defvar taingram--project-directory
+       (file-name-directory (or load-file-name (buffer-file-name))))
+   #+end_src
 
    Now we can dynamically set our base directory to the full path:
 
    #+begin_src emacs-lisp
-   :base-directory  ,(expand-file-name "org")
+     :base-directory ,(concat taingram--project-directory "org/")
    #+end_src
 
    *Note* for this to work your =org-publish-project-alist= should be started
