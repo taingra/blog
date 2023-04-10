@@ -123,3 +123,16 @@ For other distros you may need to add =~/bin= to your =.profile= or
       PATH="$HOME/bin:$PATH"
   fi
 #+end_src
+
+* Updates
+
+Watchy is a neat little toy and it's crazy you can pack this much
+stuff in for $50 USD.  Although, I would have preferred something more
+expensive if that meant it was a more polished product.  As someone
+who is not /that/ interested with tinkering with electronics I found
+the overall package too clunky to actually use and wear.
+
+The final nail in the coffin was when, within my first couple weeks of
+use, I accidentally snapped one of the plastic buttons
+([[https://www.lcsc.com/product-detail/Tactile-Switches_Korean-Hroparts-Elec-K2-1114SA-A4SW-06_C136662.html][K2-1114SA-A4SW-06]]).  I just don't have enough enthusiasm about the
+device to go through the hassle of repairing that.
