@@ -16,7 +16,7 @@ You can find me on [[https://joinmastodon.org/][Mastodon]] and Twitter.  I post 
 movies, my dogs, and Emacs.  Important posts will be posted to both
 platforms.
 
-| *Mastodon* | https://mastodon.art/@ti            |
-| *Twitter*  | https://twitter.com/thomas_existing |
+| *Mastodon* | [[https://emacs.ch/@ti][@ti@emacs.ch]]     |
+| *Twitter*  | [[https://twitter.com/thomas_existing][@thomas_existing]] |
 
 * TODO COMMENT Add a secure option (GPG etc.)
