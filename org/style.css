@@ -167,6 +167,7 @@ td {
 }
 
 pre {
+	font-size: 120%;
 	overflow: auto;
 	scrollbar-color: grey lightgrey;
 	scrollbar-width: thin;
