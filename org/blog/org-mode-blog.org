@@ -343,8 +343,9 @@ website, built entirely with Emacs.
   [[https://orgmode.org/community.html][emacs-orgmode mailing list]] for his [[https://lists.gnu.org/archive/html/emacs-orgmode/2019-07/msg00053.html][help fixing my custom sitemap function]] with
   the suggestion of using an Org mode macro.
 
-  Thanks to [[https://stackoverflow.com/a/26991675][Lindydancer on Stack Overflow]] for the solution for determining the
-  path of an Emacs Lisp file.
+  Thanks to [[https://stackoverflow.com/a/26991675][Lindydancer on Stack Overflow]] for the initial solution for
+  determining the path of an Emacs Lisp file, and thanks to u/nv-elisp
+  for their improved solution with their [[https://www.reddit.com/r/emacs/comments/10hiuiz/consistently_find_the_directory_where_an_elisp/][suggestion on reddit]].
 
   Finally, thank you to all developers of Org mode for producing the best text
   based organization system in existence. Specifically thanks to David O’Toole
@@ -358,3 +359,5 @@ website, built entirely with Emacs.
    - https://ogbe.net/
    - https://bastibe.de/
    - https://writepermission.com/
+   - https://staff.fnwi.uva.nl/p.vanormondt/index.html
+   - https://meganrenae21.github.io/Meg-in-Progress/index.html
