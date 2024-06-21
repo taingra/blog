@@ -267,6 +267,19 @@ These are settings that improve overall Emacs usage.
   (org-welcome)
 #+end_src
 
+** Mouse and Scrolling
+
+Emacs 29 with pure GTK added a very smooth pixel scrolling feature
+(what you are used to when scrolling on your touchscreen phone etc.).
+I wasn't sure if I would like this, but when casually using the
+touchpad it makes the scrolling much easier to follow.  Great for
+skimming through large text files.
+
+#+begin_src emacs-lisp
+  (when (version<= "29")
+    (pixel-scroll-precision-mode))
+#+end_src
+
 ** Modeline formatting
 
 Improve buffer naming convention when a buffer with a duplicate named
