@@ -2,8 +2,6 @@
 #+HTML_HEAD_EXTRA: <style>.projects dt {font-weight: bold; font-family: monospace; font-size: 1.8em; } .projects dd { padding-top: 0.8em; } .blog-entries ul { list-style: none; padding-left: 0; } .blog-entries li { padding-bottom: 5mm; } .blog-entries a { font-family: monospace; font-size: 1.8em; font-weight: bold; } .blog-entries span { display: block; }</style>
 
 #+begin_profile-pic
-#+CAPTION: File photo
-#+NAME: fig:profile
 [[file:profile.gif]]
 #+end_profile-pic
 
@@ -11,16 +9,11 @@
 - [[file:contact.org][Contact Me]]
 - [[file:tips-and-tricks.org][Useful Tips and Tricks]]
 - [[file:interesting-links.org][Interesting Links]]
-- [[file:watchlist.org][Recommended Movies]]
 #+end_nav
 
-Welcome to my personal website.  I'm interested in [[https://www.gnu.org/philosophy/free-sw.html][Free Software]], [[https://www.gnu.org/software/emacs/][GNU
-Emacs]], and analog arts.  Over the past year I've been experimenting
-getting off the computer by learning to draw and other analog hobbies.
-
-When possible I release my writing and source code under [[https://creativecommons.org/][Creative
-Commons]] or [[http://www.gnu.org/philosophy/free-sw.html][Free Software]] licenses respectively.  Please check the
-bottom of each webpage for licensing information.
+Welcome to my personal website.  I primarily use this site to blog
+about [[https://www.gnu.org/software/emacs/][GNU Emacs]] and Linux, but I do have other interests that may
+appear here as well.
 
 * Projects
 #+begin_projects
