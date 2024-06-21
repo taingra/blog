@@ -17,10 +17,9 @@ writing (not programming) check out [[https://orgmode.org/][Org-mode]], its grea
 
 * Why use GNU Emacs?
 
-As a professional email writer (lol), amateur blogger, and programmer my
-primary input/output to the computer is through text.  Emacs provides me
-with a rock solid text editor that is able to stand out from the competition
-on the following five key points
+As a professional email writer (lol), amateur blogger, and programmer
+my primary input/output to the computer is through text.  Emacs
+provides me with a solid text editor that has some standout features:
 
 1. *Extensibility* --- a complete programming interface for enhancing my own
    user experience and automating repetitive tasks.
@@ -251,6 +250,9 @@ delight is included in GNU ELPA.
 #+end_src
 
 * General usage
+
+These are settings that improve overall Emacs usage.
+
 ** Startup Screen
 
 #+begin_src emacs-lisp
