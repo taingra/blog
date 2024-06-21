@@ -344,8 +344,8 @@ website, built entirely with Emacs.
   the suggestion of using an Org mode macro.
 
   Thanks to [[https://stackoverflow.com/a/26991675][Lindydancer on Stack Overflow]] for the initial solution for
-  determining the path of an Emacs Lisp file, and thanks to u/nv-elisp
-  for their improved solution with their [[https://www.reddit.com/r/emacs/comments/10hiuiz/consistently_find_the_directory_where_an_elisp/][suggestion on reddit]].
+  determining the path of an Emacs Lisp file, and thanks to [[https://www.reddit.com/r/emacs/comments/10hiuiz/comment/j59vrta/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button][u/nv-elisp
+  on reddit]] for their improved solution.
 
   Finally, thank you to all developers of Org mode for producing the best text
   based organization system in existence. Specifically thanks to David O’Toole
