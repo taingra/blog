@@ -1,6 +1,6 @@
 ;;; publish.el --- generate and publish my blog -*- lexical-binding: t -*-
 
-;; Copyright (C) 2018-2022 Thomas Ingram
+;; Copyright (C) 2018-2025 Thomas Ingram
 
 ;;; Commentary:
 
@@ -15,8 +15,6 @@
 (require 'org)
 (require 'ox-publish)
 (require 'htmlize)
-
-
 
 (setq org-export-with-section-numbers nil
       org-export-with-toc nil
@@ -54,57 +52,39 @@
         async src=\"//gc.zgo.at/count.js\"></script>")
 
 (defvar taingram--preamble
-  "<div id=\"updated\">Updated: %C</div>")
+  "<div id=\"updated\">Updated: %C</div>
+<header>
+<h1 class=\"title\">%t</h1>
+<div class=\"publish-date timestamp\">%d</div>
+</header>")
 
-;;; My idea for this
-(defun taingram--gen-footer (&optional license comment)
+
+(defun taingram--gen-footer (&optional comment)
+  "Automatically generate footer text and optionally show COMMENT section."
   (concat
    (when comment
      "<div id=\"comments\">
 <h2>Comments</h2>
 <div id=\"text-comments\">
-<p>Email questions, comments, and corrections to <a href=\"mailto:comment@taingram.org\">comment@taingram.org</a>.</p>
-<p>Submissions may appear publicly on this website, unless requested otherwise in your email.</p>
+<p>Email comments and corrections to <a href=\"mailto:comment@taingram.org\">comment@taingram.org</a>.</p>
+<p>Submissions may be posted publicly unless requested otherwise in your email.</p>
 </div>
 </div>")
    "<hr/>
 <footer>
 <div class=\"copyright-container\">
 <div class=\"copyright\">
-Copyright &copy; 2017-2022 Thomas Ingram"
-   (when license
-       "<br/>
-Content on this page is licensed
-<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
-CC-BY-SA 4.0</a> unless otherwise noted.
-</div>
-<div class=\"cc-badge\">
-<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">
-<img alt=\"Creative Commons License\"
-     src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" />
-</a>
-</div>
-</div>\n"
-     ". All rights reserved unless noted otherwise.</div></div>\n")
-
-"<div class=\"banner\">
-<a href=\"https://www.controlmywebsite.com/aff.php?aff=313\">
-<img src=\"https://cdn.aiso.net/affiliate/banners/aiso-banner2c.jpg\"
-     alt=\"AISO.net solar powered web hosting provider\">
+Copyright &copy; 2017-2025 Thomas Ingram. All rights reserved unless noted otherwise.</div></div>
+<div class=\"banner\">
+<a href=\"https://www.controlmywebsite.com/aff.php?aff=313\" rel=\"nofollow\" alt=\"Solar Powered Hosting By Viridio\">
+<img src=\"https://cdn.viridio.net/affiliate/imgs/logo-54.png\" height=\"50%%\" width=\"50%%\" border=\"0\">
 </a>
 </div>
 <div class=\"generated\">
-Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
+Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
 </div>
 </footer>"))
 
-;; WIP need to get this setup
-(defvar taingram--support "<div id=\"supports\">
-<h2>Support:</h2>
-<div id=\"text-support\">
-<p>If you found the info on my website helpful please consider sending a tip to my librapay</p>
-</div>
-</div>")
 
 (defvar taingram--base-directory
   (concat
@@ -126,22 +106,18 @@ Created with %c on <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www
 
 (defun taingram--sitemap-dated-entry-format (entry style project)
   "Sitemap PROJECT ENTRY STYLE format that includes date."
-  (let ((filename (org-publish-find-title entry project)))
-    (if (= (length filename) 0)
-        (format "*%s*" entry)
-      (format "{{{timestamp(%s)}}} [[file:%s][%s]]"
-              (format-time-string "%Y-%m-%d"
-				  (org-publish-find-date entry project))
-              entry
-              filename))))
-
-
-
-(defun taingram--sitemap-rss (title list)
-  "Generate an RSS feed for a org project using a custom sitemap function.
-TITLE is the title of the site map.  LIST is an internal
-representation for the files to include, as returned by
-‘org-list-to-lisp’.  PROJECT is the current project."
+  (cond ((not (directory-name-p entry))
+	 (let* ((file (org-publish--expand-file-name entry project))
+		(title (org-publish-find-title entry project))
+		(date (format-time-string "%Y-%m-%d"
+					  (org-publish-find-date entry project)))
+		(link (concat (file-name-sans-extension entry) ".html")))
+	   (with-temp-buffer
+	     (insert (format "{{{timestamp(%s)}}} [[file:%s][%s]]\n" date file title))
+	     (buffer-string))))
+	((eq style 'tree)
+	 (file-name-nondirectory (directory-file-name entry)))
+	(t entry)))
 
 
   ;; (concat "<rss version=\"2.0\">
@@ -174,6 +150,7 @@ representation for the files to include, as returned by
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-html-publish-to-html
 
+	 :with-title nil
 	 :html-head     ,taingram--head
 	 :html-preamble ,taingram--preamble
 	 :html-postamble ,(taingram--gen-footer))
@@ -190,9 +167,10 @@ representation for the files to include, as returned by
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-html-publish-to-html
 
+	 :with-title nil
 	 :html-head     ,taingram--head
 	 :html-preamble ,taingram--preamble
-	 :html-postamble ,(taingram--gen-footer nil t))
+	 :html-postamble ,(taingram--gen-footer t))
 	("blog"
 	 :base-directory ,(concat taingram--base-directory "blog/")
 	 :base-extension "org"
@@ -202,7 +180,7 @@ representation for the files to include, as returned by
 
 	 :html-link-home "https://taingram.org/"
 	 :html-link-up "https://taingram.org/blog"
-	 :html-home/up-format "<div id=\"org-div-home-and-up\"><a href=\"%s\">Blog</a> <a href=\"%s\">Home</a> </div>"
+	 :html-home/up-format "<div id=\"org-div-home-and-up\"><a href=\"%s\">Blog</a> <a href=\"%s\">Home</a></div>"
 
 	 :auto-sitemap t
 	 :sitemap-title "Blog Posts"
@@ -211,9 +189,11 @@ representation for the files to include, as returned by
          :sitemap-format-entry taingram--sitemap-dated-entry-format
 	 :sitemap-function taingram--sitemap-and-rss
 
+
+	 :with-title nil
 	 :html-head ,taingram--head
 	 :html-preamble ,taingram--preamble
-	 :html-postamble ,(taingram--gen-footer t t))
+	 :html-postamble ,(taingram--gen-footer t))
 	("blog-files"
 	 :base-directory ,(concat taingram--base-directory "blog/files/")
 	 :base-extension "png\\|jpg\\|jpeg\\|gif"

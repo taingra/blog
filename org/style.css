@@ -53,7 +53,6 @@ p {
 #content {
 	max-width: 54rem;
 	margin: auto;
-	padding-top: 2.8em;
 }
 
 #postamble {
@@ -104,6 +103,12 @@ nav a {
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: sans-serif;
+}
+
+header {
+	max-width: 60rem;
+	margin: auto 0;
+	padding-top: 2.8em;
 }
 
 .title {
