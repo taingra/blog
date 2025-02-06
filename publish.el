@@ -94,14 +94,15 @@ Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"http
 
 (defvar taingram--preview-directory
   (concat
-   (if (null load-file-name)
-       (expand-file-name default-directory)
-     (file-name-directory load-file-name))
+   (file-name-directory (or load-file-name (buffer-file-name)))
    "html/")
   "The `:publishing-directory' for taingram-preview.")
 
 (defvar taingram--publish-directory
-  "/ssh:thomas@taingram.org:/var/www/taingram.org/"
+  (concat
+   (file-name-directory (or load-file-name (buffer-file-name)))
+   "html/")
+  ;; OLD: "/ssh:thomas@taingram.org:/var/www/taingram.org/"
   "The `:publishing-directory' for taingram.org project.")
 
 (defun taingram--sitemap-dated-entry-format (entry style project)
