@@ -6,9 +6,10 @@
 #+end_profile-pic
 
 #+begin_nav
-- [[file:contact.org][Contact Me]]
-- [[file:tips-and-tricks.org][Useful Tips and Tricks]]
+- [[file:contact.org][Contact]]
+- [[file:tips-and-tricks.org][Tips and Tricks]]
 - [[file:interesting-links.org][Interesting Links]]
+- [[file:blog/index.org][Blog]]
 #+end_nav
 
 Welcome to my personal website.  I primarily use this site to blog
