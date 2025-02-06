@@ -361,3 +361,5 @@ website, built entirely with Emacs.
    - https://writepermission.com/
    - https://staff.fnwi.uva.nl/p.vanormondt/index.html
    - https://meganrenae21.github.io/Meg-in-Progress/index.html
+   - http://professor.ufabc.edu.br/~m.sambinelli/
+   - https://ochicken.net/
