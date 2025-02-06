@@ -158,13 +158,11 @@ representation for the files to include, as returned by
 	("pages"
 	 :base-directory ,taingram--base-directory
 	 :base-extension "org"
-	 :exclude ,(regexp-opt '("index.org"  ".*-draft\.org"  "drafts/" "blog/"))
-
+	 :exclude "\\(?:\\.*-draft\\.org\\|blog/\\|drafts/\\|index\\.org\\)"
 	 :html-link-home "https://taingram.org/"
 	 :html-link-up "https://taingram.org/"
 	 :html-home/up-format "<div id=\"org-div-home-and-up\"><a href=\"%s\">HOME</a></div>"
 
-	 :recursive t
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-html-publish-to-html
 
@@ -203,8 +201,7 @@ representation for the files to include, as returned by
 	 :publishing-function org-publish-attachment)
 	("static"
 	 :base-directory ,taingram--base-directory
-	 :base-extension "css"
-	 :include ("robots.txt" "profile.gif")
+	 :include ("style.css" "robots.txt" "profile.gif")
 	 :recursive nil
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-publish-attachment)
