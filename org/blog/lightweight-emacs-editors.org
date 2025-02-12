@@ -1,9 +1,7 @@
 #+TITLE: Lightweight Emacs-like Editors
 #+DATE: [2020-08-18 Tue]
 
-*Note*: this article was originally written and published on
-[2020-08-18 Tue] for technomonastery.com, another website I owned and am
-in the process of retiring.  Some information may be out of date.
+*Note*: Some information may be out of date.
 
 GNU Emacs is an excellent editor thanks in large part to the power of lisp as an
 extension language. It is the extensibility of Emacs that allows for total
@@ -83,7 +81,7 @@ of these lightweight Emacs alternatives a try.
   - *License*: GPLv3
   - *Depends on*: libc, libacl, libgc, ncurses, and terminfo
 
-  GNU Zile begin as an attempt to make a lightweight Emacs editor (its original
+  GNU Zile began as an attempt to make a lightweight Emacs editor (its original
   acronym was "Zile Is Lossy Emacs"). It has expanded to be a toolkit for
   implementing small editors with C and Lua. Regardless of this change of scope
   its stock editor is still one of the better imitations of GNU Emacs available.
