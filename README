@@ -15,11 +15,16 @@ This is a convenient solution as it does not required publish.el to be loaded
 before running, and will not conflict with or override existing Emacs settings.
 
 * License
-taingram.org (c) by Thomas Ingram
+taingram.org (c) Copyright Thomas Ingram 2017-2025.  All rights
+reserved unless otherwise noted in the file.
 
-All content of taingram.org is licensed under a Creative Commons
+Some articles are licensed under a Creative Commons
 Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)
-*unless otherwise stated in the file*.
+*and that will be noted in the article file.*.
 
 You should have received a copy of the license along with this
 work. If not, see [[https://creativecommons.org/licenses/by-sa/4.0/]].
+
+** PT Fonts
+PT Fonts are licensed under the SIL OPEN FONT LICENSE Version 1.1.
+See license text in the static/ folder.

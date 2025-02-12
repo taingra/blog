@@ -1,5 +1,5 @@
 #+TITLE: Thomas Ingram
-#+HTML_HEAD_EXTRA: <style>.projects dt {font-weight: bold; font-family: monospace; font-size: 1.8em; } .projects dd { padding-top: 0.8em; } .blog-entries ul { list-style: none; padding-left: 0; } .blog-entries li { padding-bottom: 5mm; } .blog-entries a { font-family: monospace; font-size: 1.8em; font-weight: bold; } .blog-entries span { display: block; }</style>
+#+HTML_HEAD_EXTRA: <style>.projects dt {font-weight: bold; font-family: monospace; font-size: 1.8em; } .projects dd { padding-top: 0.8em; padding-bottom: 0.5em; } .blog-entries ul { list-style: none; padding-left: 0; } .blog-entries li { padding-bottom: 5mm; } .blog-entries a { font-family: monospace; font-size: 1.8em; font-weight: bold; } .blog-entries span { display: block; }</style>
 
 #+begin_profile-pic
 [[file:profile.gif]]

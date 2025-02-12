@@ -46,8 +46,10 @@
 
 (defvar taingram--head
   "<link rel=\"stylesheet\" href=\"/style.css\" type=\"text/css\"/>
-<link rel=\"stylesheet\" media=\"(prefers-color-scheme: light)\" href=\"/modus-operandi.css\" type=\"text/css\"/>
-<link rel=\"stylesheet\" media=\"(prefers-color-scheme: dark)\" href=\"/modus-vivendi.css\" type=\"text/css\"/>
+<link rel=\"stylesheet\" media=\"(prefers-color-scheme: light)\"
+      href=\"/static/modus-operandi.css\" type=\"text/css\"/>
+<link rel=\"stylesheet\" media=\"(prefers-color-scheme: dark)\"
+      href=\"/static/modus-vivendi.css\" type=\"text/css\"/>
 <script data-goatcounter=\"https://taingram.goatcounter.com/count\"
         async src=\"//gc.zgo.at/count.js\"></script>")
 
@@ -55,8 +57,15 @@
   "<div id=\"updated\">Updated: %C</div>
 <header>
 <h1 class=\"title\">%t</h1>
-<div class=\"publish-date timestamp\">%d</div>
 </header>")
+
+(defvar taingram--blog-preamble
+  "<div id=\"updated\">Updated: %C</div>
+<header>
+<h1 class=\"title\">%t</h1>
+<div class=\"publish-date\">Published: <span class=\"timestamp\">%d</span></div>
+</header>")
+
 
 
 (defun taingram--gen-footer (&optional comment)
@@ -74,7 +83,7 @@
 <footer>
 <div class=\"copyright-container\">
 <div class=\"copyright\">
-Copyright &copy; 2017-2025 Thomas Ingram. All rights reserved unless noted otherwise.</div></div>
+Copyright &copy; 2017-2025 Thomas Ingram. All rights reserved unless otherwise noted.</div></div>
 <div class=\"banner\">
 <a href=\"https://www.controlmywebsite.com/aff.php?aff=313\" rel=\"nofollow\" alt=\"Solar Powered Hosting By Viridio\">
 <img src=\"https://cdn.viridio.net/affiliate/imgs/logo-54.png\" height=\"50%%\" width=\"50%%\" border=\"0\">
@@ -186,12 +195,14 @@ representation for the files to include, as returned by
 	 :sitemap-filename "index.org"
 	 :sitemap-sort-files anti-chronologically
          :sitemap-format-entry taingram--sitemap-dated-entry-format
-	 :sitemap-function taingram--sitemap-and-rss
 
+	 :auto-rss t
+	 :rss-title "Thomas Ingram's Blog Posts"
+	 :rss-description "Blog posts on Emacs, Linux, etc."
 
 	 :with-title nil
 	 :html-head ,taingram--head
-	 :html-preamble ,taingram--preamble
+	 :html-preamble ,taingram--blog-preamble
 	 :html-postamble ,(taingram--gen-footer t))
 	("blog-files"
 	 :base-directory ,(concat taingram--base-directory "blog/files/")
@@ -201,8 +212,9 @@ representation for the files to include, as returned by
 	 :publishing-function org-publish-attachment)
 	("static"
 	 :base-directory ,taingram--base-directory
-	 :include ("style.css" "robots.txt" "profile.gif")
-	 :recursive nil
+	 :base-extension "css\\|woff\\|woff2"
+	 :include ("robots.txt" "profile.gif")
+	 :recursive t
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-publish-attachment)
 	("taingram.org" :components ("index" "static" "pages" "blog" "blog-files"))))
