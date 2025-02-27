@@ -201,8 +201,11 @@ representation for the files to include, as returned by
          :sitemap-format-entry taingram--sitemap-dated-entry-format
 
 	 :auto-rss t
+	 :rss-file "blog-rss.xml"
 	 :rss-title "Thomas Ingram's Blog Posts"
 	 :rss-description "Blog posts on Emacs, Linux, etc."
+
+	 :completion-function org-publish-auto-rss
 
 	 :with-title nil
 	 :html-head ,taingram--head
@@ -217,7 +220,7 @@ representation for the files to include, as returned by
 	("static"
 	 :base-directory ,taingram--base-directory
 	 :base-extension "css\\|woff\\|woff2"
-	 :include ("robots.txt" "profile.gif")
+	 :include ("robots.txt" "profile.gif" "blog/blog-rss.xml")
 	 :recursive t
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-publish-attachment)
