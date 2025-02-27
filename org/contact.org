@@ -5,17 +5,16 @@ respond within a week assuming your message is not spam.
 
 * Social Media
 
-You can find me very occasionally on [[https://joinmastodon.org/][Mastodon]] in the emacs.ch instance
-and on BlueSky.  I post mainly about drawing, coding, and Emacs.
+You can find me on BlueSky.  I post mainly about drawing, coding,
+Godot, and Emacs.
 
-| *Mastodon* | [[https://emacs.ch/@ti][@ti@emacs.ch]]      |
 | *BlueSky*  | [[https://bsky.app/profile/tingr.bsky.social][tingr.bsky.social]] |
 
-**
+** Comments on Social Media
 If you use social media I would advise you to please be careful what
 information and pictures you post publicly.  Companies and governments
 data-mine public websites and social media feeds.  That information is
 fed into advertising/police/government databases, facial recognition,
-AI models, and more.  Please especially be considerate when posting
-photos of others and children as that content will likely exist online
-forever.
+AI models, and more.  Please be considerate when posting photos of
+others and especially children as that content will likely exist
+online forever.
