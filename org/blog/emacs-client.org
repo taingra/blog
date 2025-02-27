@@ -89,6 +89,13 @@ else
 fi
 #+END_SRC
 
+#+begin_notice
+*Update [2025-02-20]*:
+
+Neftali Figueroa suggested using the X11 [[https://github.com/mkropat/jumpapp][jumpapp]] tool to improve this
+script.  [[https://gist.github.com/nefigcas/ab6b09b8eb730fcf24ad071167a1df9c][See their modified script here]].
+#+end_notice
+
 Make the script executable:
 #+BEGIN_SRC bash
 chmod +x emacsclient-one-frame.sh
