@@ -1,20 +1,18 @@
 #+TITLE: Interesting Links From Around the Web
 #+OPTIONS: <:nil toc:t
+#+STARTUP: overview hidestars indent
 #+HTML_HEAD_EXTRA: <style>.outline-2 h2 { border-bottom: 2px solid black; }</style>
 
 * Blogs
-
 ** [[https://sachachua.com/blog/][Sacha Chua]]                                                         :emacs:
-
 *** [[https://sachachua.com/blog/category/emacs-news/][Weekly Emacs News]]
 
 ** [[https://tilde.town/~ramin_hal9001/index.html][Ramin Honary (/Emacs for Professionals/)]]                     :emacs:linux:
 
 * Programming
-** [[https://bzg.fr/en/learn-emacs-lisp-in-15-minutes.html/][Learn Emacs Lisp in 15 Minutes (2015)]]                          :Tutorial:
+** [[https://bzg.fr/en/learn-emacs-lisp-in-15-minutes.html/][Learn Emacs Lisp in 15 Minutes (2015)]]                          :tutorial:
 Written by Bastien Guerry (the current maintainer of Org mode).
-
-** [[https://css-tricks.com/snippets/css/a-guide-to-flexbox/][A Complete Guide to Flexbox]]                                    :Tutorial:
+** [[https://css-tricks.com/snippets/css/a-guide-to-flexbox/][A Complete Guide to Flexbox]]                                    :tutorial:
 The best explanation of flexbox online.
 
 ** [[https://benchmarksgame-team.pages.debian.net/benchmarksgame/][Computer Language Benchmark Game]]
@@ -40,7 +38,7 @@ correlation between energy efficiency, run time, and memory usage. Top
 ** [[https://nullprogram.com/blog/2017/01/30/][How to Write Fast(er) Emacs Lisp]] by Chris Wellons
 [2019-06-01 Sat]
 
-** [[https://www.youtube.com/watch?v=GvxZ7wfKj8E][The evolution of TECO and Emacs - Hands on demo]]                   :Video:
+** [[https://www.youtube.com/watch?v=GvxZ7wfKj8E][The evolution of TECO and Emacs - Hands on demo]]                   :video:
 [2021-10-13 Wed]
 
 ** [[https://www.gnu.org/software/emacs/emacs-paper.html][EMACS: The Extensible, Customizable Display Editor]] by Richard Stallman (1981)
@@ -93,6 +91,11 @@ all GNU programs.
 
 ** [[https://karthinks.com/software/more-batteries-included-with-emacs/][More batteries included with Emacs]] by Karthik Chikmagalur
 [2020-12-11 Fri]
+** [[https://emacsconf.org/2021/talks/janitor/][A day in the life of a janitor]] by Stefan Monnier (EmacsConf 2021) :video:
+
+Alt YouTube link: https://www.youtube.com/watch?v=48fECfqVGgA
+
+** [[https://www.youtube.com/watch?v=urcL86UpqZc][Interview with an Emacs Enthusiast [Colorized] (2024)]] :video:comedy:
 
 * Free and Open Source Software
 ** [[https://man.sr.ht/lists.sr.ht/etiquette.md][Mailing list etiquette - sourcehut]]
