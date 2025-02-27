@@ -27,10 +27,6 @@
       org-html-html5-fancy t
       org-html-doctype     "html5"
 
-      ;; Disable default stylesheet and Javascript
-      org-html-head-include-default-style nil
-      org-html-head-include-scripts nil
-
       ;; TODO: tweak headline id format. I dislike the randomly generated ones.
       ;; Look into customizing: :html-format-headline-function and
       ;; org-html-format-headline-function
@@ -160,6 +156,9 @@ representation for the files to include, as returned by
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-html-publish-to-html
 
+	 :html-head-include-default-style nil
+	 :html-head-include-scripts  nil
+
 	 :with-title nil
 	 :html-head     ,taingram--head
 	 :html-preamble ,taingram--preamble
@@ -171,6 +170,8 @@ representation for the files to include, as returned by
 	 :html-link-home "https://taingram.org/"
 	 :html-link-up "https://taingram.org/"
 	 :html-home/up-format "<div id=\"org-div-home-and-up\"><a href=\"%s\">HOME</a></div>"
+	 :html-head-include-default-style nil
+	 :html-head-include-scripts  nil
 
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-html-publish-to-html
@@ -185,6 +186,9 @@ representation for the files to include, as returned by
 	 :exclude ".*-draft\.org"
 	 :publishing-directory ,(concat taingram--publish-directory "blog/")
 	 :publishing-function org-html-publish-to-html
+
+	 :html-head-include-default-style nil
+	 :html-head-include-scripts  nil
 
 	 :html-link-home "https://taingram.org/"
 	 :html-link-up "https://taingram.org/blog"
