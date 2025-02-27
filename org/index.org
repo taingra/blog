@@ -1,25 +1,30 @@
 #+TITLE: Thomas Ingram
-#+HTML_HEAD_EXTRA: <style>.projects dt {font-weight: bold; font-family: monospace; font-size: 1.8em; } .projects dd { padding-top: 0.8em; padding-bottom: 0.5em; } .blog-entries ul { list-style: none; padding-left: 0; } .blog-entries li { padding-bottom: 5mm; } .blog-entries a { font-family: monospace; font-size: 1.8em; font-weight: bold; } .blog-entries span { display: block; }</style>
+#+HTML_HEAD_EXTRA: <style>.projects dt, .blog-entries a {font-weight: bold; font-size: 1.2em; } .projects dd { padding-top: 0.5em; padding-bottom: 0.5em; } .blog-entries ul { list-style: none; padding-left: 0; } .blog-entries li { padding-bottom: 5mm; }  .blog-entries .timestamp { font-size: 90%; display: block; }</style>
 
 #+begin_profile-pic
 [[file:profile.gif]]
 #+end_profile-pic
 
+#+ATTR_HTML: :id home-nav
 #+begin_nav
-- [[file:contact.org][Contact]]
-- [[file:tips-and-tricks.org][Tips and Tricks]]
-- [[file:interesting-links.org][Interesting Links]]
 - [[file:blog/index.org][Blog]]
+- [[https://git.sr.ht/~taingram][Code]]
+- [[file:contact.org][Contact]]
+- [[file:tips-and-tricks.org][Tips & Tricks]]
+- [[file:interesting-links.org][Interesting Links]]
 #+end_nav
 
-Welcome to my personal website.  I primarily use this site to blog
-about [[https://www.gnu.org/software/emacs/][GNU Emacs]] and Linux, but I do have other interests that may
-appear here as well.
+Welcome to my personal website.  I am a [[https://www.gnu.org/philosophy/free-sw.en.html][Free Software]] developer
+interested in [[https://www.gnu.org/software/emacs/][Emacs]], Godot, and GNU/Linux.  I primarily use this site
+to blog technology, but I do have other interests that may appear here
+as well.
+
 
 * Projects
 #+begin_projects
 - [[file:init.org][My Emacs Config]] :: My Emacs configuration file written in [[https://en.wikipedia.org/wiki/Literate_programming][literate
   programming]] style using [[https://orgmode.org/][Org mode]].
+- [[https://git.sr.ht/~taingram/org-publish-auto-rss][org-publish-auto-rss.el]] :: Add RSS feeds to an org publish project.
 - [[https://git.sr.ht/~taingram/emacs-welcome][Emacs Welcome]] :: Experiments with creating custom Emacs
   welcome screens.
 #+end_projects
