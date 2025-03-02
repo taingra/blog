@@ -126,27 +126,6 @@ Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"http
 	(t entry)))
 
 
-  ;; (concat "<rss version=\"2.0\">
-;; <channel>
-;;   <title>taingram.org Blog Posts</title>
-;;   <link>https://taingram.org/blog/</link>
-;;   <description>Liftoff to Space Exploration.</description>
-;;   <language>en-us</language>
-;; ")
-  )
-
-
-
-
-(defun taingram--sitemap-and-rss (title list)
-  "Generate sitemap and RSS feed.
-TITLE is the title of the site map.  LIST is an internal
-representation for the files to include, as returned by
-‘org-list-to-lisp’.  PROJECT is the current project."
-  (progn
-    (taingram--sitemap-rss title list)
-    (org-publish-sitemap-default title list)))
-
 (setq org-publish-project-alist
       `(("index"
 	 :base-directory ,taingram--base-directory
