@@ -103,10 +103,7 @@ Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"http
   "The `:publishing-directory' for taingram-preview.")
 
 (defvar taingram--publish-directory
-  (concat
-   (file-name-directory (or load-file-name (buffer-file-name)))
-   "html/")
-  ;; OLD: "/ssh:thomas@taingram.org:/var/www/taingram.org/"
+  "/ftp:taingram.org:/html/"
   "The `:publishing-directory' for taingram.org project.")
 
 (defun taingram--sitemap-dated-entry-format (entry style project)
