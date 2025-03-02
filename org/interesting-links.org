@@ -2,12 +2,12 @@
 #+OPTIONS: <:nil toc:t
 #+STARTUP: overview hidestars indent
 #+HTML_HEAD_EXTRA: <style>.outline-2 h2 { border-bottom: 2px solid black; }</style>
-
 * Blogs
-** [[https://sachachua.com/blog/][Sacha Chua]]                                                         :emacs:
+** [[https://sachachua.com/blog/][Sacha Chua]]                                                        :emacs:
 *** [[https://sachachua.com/blog/category/emacs-news/][Weekly Emacs News]]
 
-** [[https://tilde.town/~ramin_hal9001/index.html][Ramin Honary (/Emacs for Professionals/)]]                     :emacs:linux:
+** [[https://tilde.town/~ramin_hal9001/index.html][Ramin Honary (/Emacs for Professionals/)]]                    :emacs:linux:
+** [[https://sqrtminusone.xyz/][SqrtMinusOne - Pavel Korytov]]                                      :emacs:
 
 * Programming
 ** [[https://bzg.fr/en/learn-emacs-lisp-in-15-minutes.html/][Learn Emacs Lisp in 15 Minutes (2015)]]                          :tutorial:
@@ -95,7 +95,7 @@ all GNU programs.
 
 Alt YouTube link: https://www.youtube.com/watch?v=48fECfqVGgA
 
-** [[https://www.youtube.com/watch?v=urcL86UpqZc][Interview with an Emacs Enthusiast [Colorized] (2024)]] :video:comedy:
+** [[https://www.youtube.com/watch?v=urcL86UpqZc][Interview with an Emacs Enthusiast [Colorized] (2024)]]      :video:comedy:
 
 * Free and Open Source Software
 ** [[https://man.sr.ht/lists.sr.ht/etiquette.md][Mailing list etiquette - sourcehut]]
