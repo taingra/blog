@@ -155,6 +155,24 @@ Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"http
 	 :html-head     ,taingram--head
 	 :html-preamble ,taingram--preamble
 	 :html-postamble ,(taingram--gen-footer t))
+	("init"
+	 :base-directory ,user-emacs-directory
+	 :base-extension "org"
+	 :exclude ".*"
+	 :include ("init.org")
+	 :html-link-home "https://taingram.org/"
+	 :html-link-up "https://taingram.org/"
+	 :html-home/up-format "<div id=\"org-div-home-and-up\"><a href=\"%s\">HOME</a></div>"
+	 :html-head-include-default-style nil
+	 :html-head-include-scripts  nil
+
+	 :publishing-directory ,taingram--publish-directory
+	 :publishing-function org-html-publish-to-html
+
+	 :with-title nil
+	 :html-head     ,taingram--head
+	 :html-preamble ,taingram--preamble
+	 :html-postamble ,(taingram--gen-footer t))
 	("blog"
 	 :base-directory ,(concat taingram--base-directory "blog/")
 	 :base-extension "org"
