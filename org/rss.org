@@ -1,0 +1,18 @@
+#+TITLE: RSS Feeds
+
+RSS is currently work-in-progress as I am writing my own generator
+[[https://git.sr.ht/~taingram/org-publish-auto-rss][org-publish-auto-rss]].  Right now I have a working feed with links to
+post that should get automatically updated when I have new blog posts.
+
+- [[https://taingram.org/blog/blog-rss.xml][Blog RSS]]
+
+If you have any issues with this feed please let me know as that will
+help fix bugs.
+
+* Project RSS
+
+If you are interested in following along to my projects I would
+recommend using the RSS feeds provided by [[https://sourcehut.org/][sourcehut]] log tab.
+
+- [[https://git.sr.ht/~taingram/emacs-init/log/rss.xml][RSS]] --- [[https://git.sr.ht/~taingram/emacs-init][Emacs Init]]
+- [[https://git.sr.ht/~taingram/org-publish-auto-rss/log/rss.xml][RSS]] --- [[https://git.sr.ht/~taingram/org-publish-auto-rss/][org-publish-auto-rss.el]]
