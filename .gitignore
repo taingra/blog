@@ -1,4 +1,5 @@
 *~
+*.xml
 .dir-locals.el
 /org/blog/index.org
 /html/
