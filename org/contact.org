@@ -5,10 +5,11 @@ respond within a week assuming your message is not spam.
 
 * Social Media
 
-You can find me on BlueSky.  I post mainly about drawing, coding,
-Godot, and Emacs.
+You can find me occasionally on Mastodon and BlueSky.  I post mainly
+about drawing, coding, Godot, and Emacs.
 
-| *BlueSky*  | [[https://bsky.app/profile/tingr.bsky.social][tingr.bsky.social]] |
+| *Mastodon* | [[https://mastodon.social/@tiang][mastodon.social/@tiang]] |
+| *BlueSky*  | [[https://bsky.app/profile/tingr.bsky.social][tingr.bsky.social]]      |
 
 ** Comments on Social Media
 If you use social media I would advise you to please be careful what
