@@ -71,8 +71,7 @@
      "<div id=\"comments\">
 <h2>Comments</h2>
 <div id=\"text-comments\">
-<p>Email comments and corrections to <a href=\"mailto:comment@taingram.org\">comment@taingram.org</a>.</p>
-<p>Submissions may be posted publicly unless requested otherwise in your email.</p>
+<p>Email <a href=\"mailto:comment@taingram.org\">comment@taingram.org</a>.</p>
 </div>
 </div>")
    "<hr/>
