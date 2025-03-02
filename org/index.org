@@ -29,7 +29,7 @@ as well.
   welcome screens.
 #+end_projects
 
-* Blog
+* Blog  ([[file:rss.org][RSS]])
 
 #+begin_blog-entries
 #+INCLUDE: "blog/index.org" :lines "3-"
