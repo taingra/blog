@@ -1,0 +1,155 @@
+#+Title: Using an Org-mode README on SourceHut
+#+Date: [2025-03-12 Wed]
+#+OPTIONS: toc:nil num:t
+
+[[https://sourcehut.org/][Sourcehut]] is a fantastic development platform for free software
+hackers.  It's fun to use and works well with good 'ol tools like git
+and email.  I'm a paying member and I have been very happy with the
+services.  The only rough spot I have with sourcehut is the insistence
+on markdown as the only available markup language.
+
+For some reason I've never really liked markdown.  The syntax never
+clicked with me so I generally avoid it.  When I found Org mode, I
+thought "this just makes sense, this is how I want plain text markup to
+be."  If you are reading this you probably feel similar, so let's look
+at some ways to utilize an Org README on sourcehut.
+
+For a non-markdown README sourcehut gives us three main options:
+
+1. Display your file as plain text.
+2. Export your file to markdown.
+3. Export your file to HTML and set it using the custom README options.
+
+* Display README.org in plain text
+
+1. Rename your Org README.org as README and it will be displayed as
+   plain text on the Summary tab.
+2. To allow programs to detect the file as Org you can
+   - create a symbolic link =ln -s README README.org=,
+   - or for Emacs set a file local variable =-*- mode: org-mode -*-=
+     on the first line.
+
+For most projects this should be sufficient, [[https://git.sr.ht/~taingram/org-readme/blob/master/README.org][Org is extremely readable
+without any special rendering]].  For best readability avoid embedding
+links inside of text paragraphs.
+
+* Export README.org to README.md
+To enable markdown in the export menu you will need to add it to the
+org-export-backends list from the customize menu or with:
+
+#+begin_src emacs-lisp
+(add-to-list 'org-export-backends 'md)
+#+end_src
+
+Now while visiting an Org file we can export it to markdown with C-c
+C-e m m.  This can be done from the commandline with:
+
+#+begin_src emacs-lisp
+  emacs README.org --batch --eval '(org-md-export-to-markdown)'
+#+end_src
+
+Commit the README.md to your repo and you'll get a nicely rendered
+markdown file on the Summary tab.  This gives us the CSS, syntax
+highlighting, and headline linking sourcehut provides by default
+without needing to write markdown.
+
+I recommend using this as a way to write-up a file in Org and then
+upload it once.  Write the readme in Org, export it, commit the
+markdown file, then throw out the Org file.  Trying to maintain two
+separate README formats seems like a hassle.  Even if you automate the
+process it will likely confuse contributors.
+
+* Export README.org to HTML and apply a custom README
+
+Sourcehut provides functionality for [[https://man.sr.ht/git.sr.ht/#setting-a-custom-readme][setting your Summary tab to any
+arbitrary HTML]].  You can do this easily with the [[https://sr.ht/~xenrox/hut/][hut]] command.
+
+#+begin_src
+hut git update --readme readme.html --repo https://git.sr.ht/~foo/bar
+#+end_src
+
+So a simple process for this would be to occasionally export your
+README to HTML (C-c C-e h h) and then manually upload it with hut.
+That would work well for a project where the README is updated only
+occasionally, and keeps the git tree free of extra files.
+
+#+begin_src sh
+  emacs README.org -Q --batch --eval "(require 'ox-html) (org-html-export-to-html nil nil nil t)"
+#+end_src
+
+** Automatically export README to HTML and apply it
+
+This process can be triggered automatically using the sourcehut builds
+service [[https://man.sr.ht/builds.sr.ht/][builds.sr.ht]].[fn:1] The builds are automatically triggered
+after each commit.  If you don't want them to run then push with =git
+push -o skip-ci=.
+
+The build system looks for a =.build.yml= file, or any =.yml= files in
+the =.builds/= folder, and runs the specified tasks after receiving
+new commits.  [[https://git.sr.ht/~taingram/org-readme][This repository]] contains a =.builds/org-readme.yml=
+manifest that can be copied into any other project to render an Org
+README.
+
+#+begin_src yaml
+image: debian/testing
+oauth: git.sr.ht/REPOSITORIES:RW git.sr.ht/PROFILE:RO
+packages:
+  - hut
+  - emacs
+sources:
+  - https://git.sr.ht/~taingram/org-readme
+environment:
+  README: README.org
+tasks:
+  - export-readme: |
+      cd org-readme
+      emacs -Q --batch \
+        --eval='(setq vc-handled-backends nil)' \
+        --eval '(setq org-startup-folded nil)' \
+        --eval '(setq org-element-cache-persistent nil)' \
+        --eval "(require 'ox-html)" \
+        --eval "(find-file \"$README\")" \
+        --eval '(org-html-export-to-html nil nil nil t)'
+      hut git update --readme $(basename "$README" .org).html
+#+end_src
+
+When using this manifest file ensure the following information has
+been updated:
+- sources :: Your repository URL.
+- README ::  Your Org file to be exported if it is not named README.org.
+- cd org-readme :: Your repository's directory name.
+
+Copy the file to your =.builds/= folder and it should work
+automatically.  Note that sourchut will only run [[https://man.sr.ht/builds.sr.ht/#gitsrht][4 build manifests max]]
+per project.  If you have existing builds you can add this as a
+separate task.
+
+** Examples
+- [[https://git.sr.ht/~taingram/org-readme][See this example README on sourcehut]].
+- For a large example Org file see [[https://git.sr.ht/~taingram/emacs-init][my emacs init repository]].
+
+* Conclusion
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+
+The flexibility of the sourcehut build system is really neat.  I
+probably would not have used it this way if Org had been supported
+natively, so that's kind of cool.  I could see this being really neat
+to automatically publish a website or generate a book directly from
+your git repo.  I'm definitely looking forward to experimenting with
+it for other non-code projects.
+
+* See also
+:PROPERTIES:
+:UNNUMBERED: t
+:END:
+
+- [[https://breatheoutbreathe.in/blog/2024-12-10-sourcehut-org-mode-readme.html][Render README.org as HTML on Sourcehut]]
+- [[https://man.sr.ht/git.sr.ht/#setting-a-custom-readme][Setting a custom README - git.sr.ht docs]]
+
+* Footnotes
+
+[fn:1] If you are concerned about wasting build server resources to
+render a readme please note this is the solution [[https://lists.sr.ht/~sircmpwn/sr.ht-discuss/%3C87cyib79ad.fsf@%3E][Drew DeVault has
+actively recommended]].
