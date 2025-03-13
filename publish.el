@@ -203,19 +203,18 @@ Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"http
 	 :with-title nil
 	 :html-head ,taingram--head
 	 :html-preamble ,taingram--blog-preamble
-	 :html-postamble ,(taingram--gen-footer t)
-	 :components ("blog-files"))
+	 :html-postamble ,(taingram--gen-footer t))
 	("blog-files"
 	 :base-directory ,(concat taingram--base-directory "blog/")
 	 :base-extension "png\\|jpg\\|jpeg\\|gif"
-	 :include ("blog/blog-rss.xml")
+	 :include ("blog-rss.xml")
 	 :recursive t
 	 :publishing-directory ,(concat taingram--publish-directory "blog/")
 	 :publishing-function org-publish-attachment)
 	("static"
 	 :base-directory ,taingram--base-directory
-	 :base-extension "css\\|woff\\|woff2"
-	 :include ("robots.txt" "profile.gif")
+	 :base-extension "txt\\|css\\|woff\\|woff2"
+	 :include ("profile.gif")
 	 :exclude "blog/"
 	 :recursive t
 	 :publishing-directory ,taingram--publish-directory
