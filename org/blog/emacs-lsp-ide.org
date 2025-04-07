@@ -171,13 +171,13 @@ across languages and also editors.
 ** Screenshots
 
    #+CAPTION: Showing company auto complete suggestions (actually eglot, but lsp-mode would look identical)
-   [[../img/eglot-company.png]]
+   [[file:files/eglot-company.png]]
 
    #+CAPTION: Showing function documentation with eldoc
-   [[../img/lsp-eldoc.gif]]
+   [[file:files/lsp-eldoc.gif]]
 
    #+CAPTION: Showing function documentation on mouse hover with eldoc
-   [[../img/lsp-eldoc-hover.png]]
+   [[file:files/lsp-eldoc-hover.png]]
 
 * Conclusion
   Overall with this basic LSP setup and a few other packages ([[https://magit.vc/][magit]], [[https://github.com/joaotavora/yasnippet][yasnippets]],

@@ -48,7 +48,7 @@ still need to be setup.  The following steps are outlined in the
 2. Import the Watchy Library
    1) *Tools* >> *Manage Libraries*
    2) Search Watchy click install
-         [[../img/arduino-watchy-library.png]]
+         [[file:files/arduino-watchy-library.png]]
 
 3. Hardware Settings
    1) Set Board to "ESP32 Dev Module"
