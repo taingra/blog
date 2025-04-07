@@ -19,12 +19,11 @@ interested in [[https://www.gnu.org/software/emacs/][Emacs]], Godot, and GNU/Lin
 to blog technology, but I do have other interests that may appear here
 as well.
 
-
 * Projects
 #+begin_projects
 - [[file:init.org][My Emacs Config]] :: My Emacs configuration file written in [[https://en.wikipedia.org/wiki/Literate_programming][literate
   programming]] style using [[https://orgmode.org/][Org mode]].
-- [[https://git.sr.ht/~taingram/org-publish-auto-rss][org-publish-auto-rss.el]] :: Add RSS feeds to an org publish project.
+- [[https://git.sr.ht/~taingram/org-publish-rss][org-publish-rss.el]] :: Add RSS feeds to an Org publish project.
 - [[https://git.sr.ht/~taingram/emacs-welcome][Emacs Welcome]] :: Experiments with creating custom Emacs
   welcome screens.
 #+end_projects
