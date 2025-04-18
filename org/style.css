@@ -38,23 +38,6 @@
 	font-style: normal;
 }
 
-@font-face {
-	font-family: 'PT Mono';
-	src:
-		url('static/pt-mono_bold.woff2') format('woff2'),
-		url('static/pt-mono_bold.woff') format('woff');
-	font-weight: bold;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'PT Mono';
-	src:
-		url('static/pt-mono_regular.woff2') format('woff2'),
-		url('static/pt-mono_regular.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 
 @font-face {
 	font-family: 'PT Sans';
@@ -205,7 +188,7 @@ p {
 }
 
 #org-div-home-and-up a {
-	font-family: "PT Mono", monospace;
+	font-family: monospace;
 	margin: 0 0.5ex;
 	padding: 0.2ex 0.4ex;
 	text-decoration: none;
@@ -217,7 +200,7 @@ p {
 
 #updated {
 	font-size: 85%;
-	font-family: "PT Mono", monospace;
+	font-family: monospace;
 	color: var(--color-secondary);
 	padding: 1.5em 1em 0.75em;
 	border-bottom: 1px dotted var(--color-secondary);
@@ -244,12 +227,12 @@ header {
 }
 
 .title {
-	font-family: "PT Mono", monospace;
+	font-family: monospace;
 	font-size: 2.8em;
 }
 
 .publish-date {
-	font-family: "PT Mono", monospace;
+	font-family: monospace;
 }
 
 a:link, a:visited {
@@ -274,7 +257,7 @@ figure {
 }
 
 figcaption {
-	font-family: "PT Mono", monospace;
+	font-family: monospace;
 	padding-top: 1ex;
 	text-align: center;
 }
@@ -309,7 +292,7 @@ td {
 }
 
 pre {
-	font-family: "PT Mono", monospace;
+	font-family: monospace;
 	overflow: auto;
 	scrollbar-color: grey lightgrey;
 	scrollbar-width: thin;
@@ -331,19 +314,19 @@ kbd {
 	white-space: nowrap;
 }
 
-.todo	{ font-family: "PT Mono", monospace; color: red; }
-.done	{ font-family: "PT Mono",  monospace; color: green; }
+.todo	{ font-family: monospace; color: red; }
+.done	{ font-family: monospace; color: green; }
 
 .tag {
     background-color: #eee;
-    font-family: "PT Mono", monospace;
+    font-family: monospace;
     padding: 2px;
     font-size: 80%;
     font-weight: normal;
 }
 
 .timestamp {
-	font-family: "PT Mono", monospace;
+	font-family: monospace;
 	color: var(--color-secondary);
 }
 
@@ -354,12 +337,11 @@ h1 .timestamp, h2 .timestamp, h3 .timestamp, h4 .timestamp, h5 .timestamp, h6 .t
 
 .published {
 	font-size: 1.3em;
-	font-family: "PT Mono", monospace;
+	font-family: monospace;
 	color: var(--color-secondary);
 }
 
 .footdef {
-	max-width: var(--max-paragraph-width);
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
 }
@@ -394,7 +376,7 @@ footer {
 }
 
 .generated {
-	font-family: "PT Mono", monospace;
+	font-family: monospace;
 	text-align: center;
 }
 
