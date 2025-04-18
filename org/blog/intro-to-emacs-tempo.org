@@ -1,0 +1,130 @@
+#+TITLE:  Introduction to Emacs Tempo Code Templates
+#+DATE: [2025-04-12 Sat]
+
+Recently I removed [[https://github.com/joaotavora/yasnippet][yasnippets]] from my Emacs config as I rarely used
+the most of the snippets.  Probably my own fault, when I started using
+yasnippets I downloaded a large repo of premade snippet definitions
+which meant I suddenly had a ton of keywords.  Over the years I
+deleted many of ones I triggered by accident and found myself only
+using a handful of templates regularly.
+
+When I learned Emacs has a built in template system, tempo, I figured
+this was a good time to try it out.  I've been porting my few snippets
+over to tempo.el.
+
+Since tempo is included with Emacs all you need to do is require it to
+enable it.
+
+#+begin_src emacs-lisp
+  (require 'tempo)
+  (setq tempo-interactive t) ; Enable interactive prompts etc
+#+end_src
+
+The package is really cool, although it is not documented very well by
+Emacs standards.  The explanation in the [[https://www.gnu.org/software/emacs/manual/html_node/autotype/Tempo.html][Emacs manual]] barely gives you
+any idea where to start.  You need to dig around the =tempo.el= source
+file to read the commentary section and docstrings.  From there I
+discovered there is a partially complete info manual available on
+[[https://www.lysator.liu.se/~davidk/elisp/][David Kågedal's website]].
+
+I found the [[https://www.emacswiki.org/emacs/TempoMode][examples on the Emacs Wiki]] the most helpful.  Along with
+that and the =tempo-define-template= docstring I was able to start
+building some templates.  A basic template definition looks like this:
+
+#+begin_src emacs-lisp :tangle no
+  (tempo-define-template "insert-lambda"
+  		       '("(lambda (" (p "Arguments: ") ")" n> p ")" n)
+  		       "lambda"
+  		       "Insert a lambda function.")
+#+end_src
+
+Going line by line this means
+
+1. Template name.
+2. Template definition, tempo defines several default keywords that
+   can be interpreted to do different things.
+   - =p= --- prompt user for input.
+   - =n= --- insert new line
+   - =n>= --- insert new line  and indent
+3. Template keyword.
+4. Template docstring explanation.
+
+For every tempo template defined an interactive function is
+automatically generated named "tempo-template" + "your-template-name".
+So you can run M-x =tempo-template-insert-lambda= and it will insert
+the template into your current buffer.  This is really nice since I
+can use vertico to look-up my templates quickly without remembering a
+keyword.
+
+If you want automatic expansion of the keywords like yasnippets that
+can be enabled by calling the function in an abbrev definition.  Just
+make sure you have abbrev-mode on in the mode you are using.
+
+#+begin_src emacs-lisp :tangle no
+  (define-abbrev emacs-lisp-mode-abbrev-table "lambda" ""
+    'tempo-template-insert-lambda)
+#+end_src
+
+Note the empty string =""= which is required since this is not expanding
+to a normal word.
+
+* Dynamic Example
+
+Anything tempo cannot identify in the template definition it
+interprets as raw elisp code.  It will insert the final expression
+output as a string.  So we can use this to get variables and run
+functions.  For example I created this template to generate a elisp
+file header.
+
+#+begin_src emacs-lisp
+    (tempo-define-template "elisp-header"
+      '(";;; " (file-name-nondirectory (or buffer-file-name "")) " --- "
+        (p "Short Description: ")" -*- lexical-binding: t -*-
+
+  ;; Copyright (C) 2025 Thomas Ingram
+
+  ;; Author: Thomas Ingram <thomas@taingram.org>
+  ;; Version: 0.1
+  ;; Package-Requires: ((emacs \"30.1\"))
+  ;; Homepage: https://git.sr.ht/~taingram/
+  ;; Keywords:
+
+  ;; This file is NOT part of GNU Emacs
+
+  ;; This file is free software; you can redistribute it and/or modify
+  ;; it under the terms of the GNU General Public License as published by
+  ;; the Free Software Foundation; either version 3, or (at your option)
+  ;; any later version.
+
+  ;; This program is distributed in the hope that it will be useful,
+  ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ;; GNU General Public License for more details.
+
+  ;; For a full copy of the GNU General Public License
+  ;; see <http://www.gnu.org/licenses/>.
+
+  ;;; Commentary:
+
+  ;;; Code:
+
+  (provide '" (file-name-base (or buffer-file-name "")) ")
+
+  ;;; " (file-name-with-extension (or buffer-file-name "")) " ends here")
+      nil
+      "Insert documentation skeletion for a Emacs Lisp file.")
+#+end_src
+
+* Conclusion
+
+Once I got my head wrapped around the setup I'm really impressed with
+how easy tempo is to use.  I also like that I can create templates and
+just call them as a function.  The extra setup needed with abbrev does
+not bother me as I rarely want expandable keywords anyways for my
+workflow.
+
+* See Also
+
+- [[https://www.lysator.liu.se/~davidk/elisp/][Tempo Author David Kågedal's website]]
+- [[https://www.emacswiki.org/emacs/TempoMode][Tempo Mode - EmacsWiki]]
+- [[https://github.com/minad/tempel][tempel.el --- Daniel Mendler's modern take on Tempo]]
