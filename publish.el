@@ -116,67 +116,86 @@ Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"http
 (setq org-publish-project-alist
       `(("index"
 	 :base-directory ,taingram--base-directory
-	 :base-extension "org"
+	 :include  ("index.org")
 	 :exclude ".*"
-	 :include ("index.org")
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-html-publish-to-html
 
+	 :with-title nil
+	 :with-toc nil
+	 :section-numbers nil
+	 :html-doctype "html5"
+	 :html-html5-fancy t
 	 :html-head-include-default-style nil
 	 :html-head-include-scripts  nil
-
-	 :with-title nil
 	 :html-head     ,taingram--head
 	 :html-preamble ,taingram--preamble
 	 :html-postamble ,(taingram--gen-footer))
 	("pages"
 	 :base-directory ,taingram--base-directory
 	 :base-extension "org"
-	 :exclude "\\(?:\\.*-draft\\.org\\|blog/\\|drafts/\\|index\\.org\\)"
-	 :html-link-home "https://taingram.org/"
-	 :html-link-up "https://taingram.org/"
-	 :html-home/up-format "<div id=\"org-div-home-and-up\"><a href=\"%s\">HOME</a></div>"
-	 :html-head-include-default-style nil
-	 :html-head-include-scripts  nil
-
+	 :exclude  "\\(index\\.org\\)"
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-html-publish-to-html
 
 	 :with-title nil
+	 :with-toc nil
+	 :section-numbers nil
+
+	 :html-doctype "html5"
+	 :html-html5-fancy t
+	 :html-head-include-default-style nil
+	 :html-head-include-scripts  nil
+	 :html-link-home "https://taingram.org/"
+	 :html-link-up "https://taingram.org/"
+	 :html-home/up-format ,(concat "<div id=\"org-div-home-and-up\">"
+				       "<a href=\"%s\">HOME</a></div>")
 	 :html-head     ,taingram--head
 	 :html-preamble ,taingram--preamble
 	 :html-postamble ,(taingram--gen-footer t))
 	("init"
 	 :base-directory ,user-emacs-directory
-	 :base-extension "org"
-	 :exclude ".*"
 	 :include ("init.org")
-	 :html-link-home "https://taingram.org/"
-	 :html-link-up "https://taingram.org/"
-	 :html-home/up-format "<div id=\"org-div-home-and-up\"><a href=\"%s\">HOME</a></div>"
-	 :html-head-include-default-style nil
-	 :html-head-include-scripts  nil
-
-	 :publishing-directory ,taingram--publish-directory
+	 :exclude ".*"
+	 :publishing-directory
 	 :publishing-function org-html-publish-to-html
 
 	 :with-title nil
+	 :with-toc nil
+	 :section-numbers nil
+	 :html-doctype "html5"
+	 :html-html5-fancy t
+	 :html-head-include-default-style nil
+	 :html-head-include-scripts  nil
+	 :html-link-home "https://taingram.org/"
+	 :html-link-up "https://taingram.org/"
+	 :html-home/up-format (concat "<div id=\"org-div-home-and-up\">"
+				      "<a href=\"%s\">HOME</a></div>")
 	 :html-head     ,taingram--head
 	 :html-preamble ,taingram--preamble
 	 :html-postamble ,(taingram--gen-footer t))
 	("blog"
 	 :base-directory ,(concat taingram--base-directory "blog/")
 	 :base-extension "org"
-	 :exclude ".*-draft\.org"
-	 :publishing-directory ,(concat taingram--publish-directory "blog/")
-	 :publishing-function org-html-publish-to-html
 
+	 :publishing-directory ,(concat taingram--publish-directory "blog/")
+	 :publishing-function  org-html-publish-to-html
+
+	 :with-title nil
+	 :with-toc nil
+	 :section-numbers nil
+	 :html-doctype "html5"
+	 :html-html5-fancy t
 	 :html-head-include-default-style nil
 	 :html-head-include-scripts  nil
-
 	 :html-link-home "https://taingram.org/"
 	 :html-link-up "https://taingram.org/blog"
-	 :html-home/up-format "<div id=\"org-div-home-and-up\"><a href=\"%s\">Blog</a> <a href=\"%s\">Home</a></div>"
+	 :html-home/up-format ,(concat "<div id=\"org-div-home-and-up\">"
+				      "<a href=\"%s\">Blog</a>"
+				      "<a href=\"%s\">Home</a></div>")
+	 :html-head ,taingram--head
+	 :html-preamble ,taingram--blog-preamble
+	 :html-postamble ,(taingram--gen-footer t)
 
 	 :auto-sitemap t
 	 :sitemap-title "Blog Posts"
@@ -186,15 +205,10 @@ Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"http
 
 	 :auto-rss t
 	 :rss-file "blog-rss.xml"
-	 :rss-title "Thomas Ingram's Blog Posts"
-	 :rss-description "Blog posts on Emacs, Linux, etc."
-
-	 :completion-function org-publish-auto-rss
-
-	 :with-title nil
-	 :html-head ,taingram--head
-	 :html-preamble ,taingram--blog-preamble
-	 :html-postamble ,(taingram--gen-footer t))
+	 :rss-title "Thomas Ingram's Blog"
+	 :rss-description "Blog posts on Emacs, GNU+Linux, etc."
+	 :rss-with-content all
+	 :completion-function org-publish-auto-rss)
 	("blog-files"
 	 :base-directory ,(concat taingram--base-directory "blog/")
 	 :base-extension "png\\|jpg\\|jpeg\\|gif"
@@ -211,9 +225,5 @@ Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"http
 	 :publishing-directory ,taingram--publish-directory
 	 :publishing-function org-publish-attachment)
 	("taingram.org" :components ("index" "static" "pages" "blog" "blog-files"))))
-
-;; Uncomment to force full site regeneration
-;; (org-publish "taingram.org" t)
-
 
 ;;; publish.el ends here
