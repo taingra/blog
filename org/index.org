@@ -1,5 +1,5 @@
 #+TITLE: Thomas Ingram
-#+HTML_HEAD_EXTRA: <style>.projects dt, .blog-entries a {font-weight: bold; font-size: 1.2em; } .projects dd { padding-top: 0.5em; padding-bottom: 0.5em; } .blog-entries ul { list-style: none; padding-left: 0; } .blog-entries li { padding-bottom: 5mm; }  .blog-entries .timestamp { font-size: 90%; display: block; }</style>
+#+HTML_HEAD_EXTRA: <style>@media (min-width: 43em) { .profile-pic { float: right; } } .projects dt, .blog-entries a {font-weight: bold; font-size: 1.2em; } .projects dd { padding-top: 0.5em; padding-bottom: 0.5em; } .blog-entries ul { list-style: none; padding-left: 0; } .blog-entries li { padding-bottom: 5mm; }  .blog-entries .timestamp { font-size: 90%; display: block; }</style>
 
 #+begin_profile-pic
 [[file:profile.gif]]
@@ -14,10 +14,11 @@
 - [[file:interesting-links.org][Interesting Links]]
 #+end_nav
 
-Welcome to my personal website.  I am a [[https://www.gnu.org/philosophy/free-sw.en.html][Free Software]] developer
-interested in [[https://www.gnu.org/software/emacs/][Emacs]], Godot, and GNU/Linux.  I primarily use this site
-to blog technology, but I do have other interests that may appear here
-as well.
+Welcome to my personal website.  I am a volunteer [[https://www.gnu.org/philosophy/free-sw.en.html][Free Software]]
+developer interested in [[https://www.gnu.org/software/emacs/][GNU Emacs]] and GNU+Linux.  I primarily use this
+site to blog about technology, but I do have other interests that may
+appear here as well.  To receive updates when new blog posts are
+published please subscribe to my [[file:rss.org][RSS feed]].
 
 * Projects
 #+begin_projects
@@ -28,7 +29,7 @@ as well.
   welcome screens.
 #+end_projects
 
-* Blog  ([[file:rss.org][RSS]])
+* Blog  [[file:rss.org][{{{rss}}}]]
 
 #+begin_blog-entries
 #+INCLUDE: "blog/index.org" :lines "3-"

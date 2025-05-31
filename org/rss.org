@@ -1,18 +1,35 @@
-#+TITLE: RSS Feeds
+#+TITLE: RSS Feeds {{{rss}}}
 
-RSS is currently work-in-progress as I am writing my own generator
-[[https://git.sr.ht/~taingram/org-publish-auto-rss][org-publish-auto-rss]].  Right now I have a working feed with links to
-post that should get automatically updated when I have new blog posts.
+- [[https://taingram.org/blog/blog-rss.xml][My Blog's RSS Feed {{{rss}}}]]
 
-- [[https://taingram.org/blog/blog-rss.xml][Blog RSS]]
-
-If you have any issues with this feed please let me know as that will
+This feed is generated using my custom generator [[https://git.sr.ht/~taingram/org-publish-rss/][org-publish-rss]].  If
+you have any issues with this feed please let me know as that will
 help fix bugs.
+
+* Wait What is RSS?
+
+If you are not familiar with RSS ([[https://en.wikipedia.org/wiki/RSS][Wikipedia - RSS]]) it is an old web
+standard for distributing a feed of updates to readers.  You need an
+RSS feed reader app to read RSS, then it works similar to posts in a
+social media feed.  You can subscribe to an RSS feed by copying the
+link into an RSS reader app.
+
+Feed readers I generally recommend:
+
+- Capy Reader on Android available on [[https://play.google.com/store/apps/details?id=com.capyreader.app][Google Play]] or [[https://f-droid.org/en/packages/com.capyreader.app/][F-Droid]].
+- [[https://apps.apple.com/us/app/netnewswire-rss-reader/id1480640210][NetNewsWire]] on iOS.
+- [[https://github.com/skeeto/elfeed?tab=readme-ov-file][Elfeed]] on Linux or BSD.
+
+RSS is an open web standard, so you should not need to pay for an app
+license or subscription.  If you are paying for an RSS reader it
+should only be because you really like the app and want to support the
+app's makers.
 
 * Project RSS
 
-If you are interested in following along to my projects I would
-recommend using the RSS feeds provided by [[https://sourcehut.org/][sourcehut]] log tab.
+If you are interested in following closely along with my projects I
+would recommend using the RSS feeds provided by [[https://sourcehut.org/][sourcehut]] log tab.
+This follows the git code changes.
 
-- [[https://git.sr.ht/~taingram/emacs-init/log/rss.xml][RSS]] --- [[https://git.sr.ht/~taingram/emacs-init][Emacs Init]]
-- [[https://git.sr.ht/~taingram/org-publish-auto-rss/log/rss.xml][RSS]] --- [[https://git.sr.ht/~taingram/org-publish-auto-rss/][org-publish-auto-rss.el]]
+- [[https://git.sr.ht/~taingram/emacs-init][Emacs Init]] ---  [[https://git.sr.ht/~taingram/emacs-init/log/rss.xml][RSS {{{rss}}}]]
+- [[https://git.sr.ht/~taingram/org-publish-rss/][org-publish-rss.el]] --- [[https://git.sr.ht/~taingram/org-publish-rss/log/rss.xml][RSS {{{rss}}}]]
