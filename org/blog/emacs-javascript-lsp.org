@@ -1,0 +1,125 @@
+#+TITLE: Setup Emacs for JavaScript Development with LSP
+#+DATE: [2025-05-30 Fri]
+
+Recently I've been toying with JavaScript so I wanted to see if I
+could get a good development environment working inside Emacs.  The
+adoption of the Language Server Protocol LSP has streamlined a lot of
+this process in 2025.  What used to require lots of custom elisp code
+(see js2-mode) can now be handled with generic Emacs packages and a
+good Language Sever.
+
+* Installing a JavaScript Language Server (LSP)
+
+According to the internet the best JavaScript language server is the
+[[https://github.com/typescript-language-server/typescript-language-server][TypeScript Language Server]].  This language server can also be used for
+vanilla JavaScript development as well.
+
+** Installing via NPM
+
+Currently the TypeScript Language Server is not packaged in Debian so
+you have to install it via the node package manager NPM.  I am not
+that familiar with NPM, but online instructions told me I should use
+~sudo npm install -g~ to install it globally with root.  I think this
+is a bad security practice, so I am just going to install it locally
+in my home directory where it can do /less/ damage.
+
+[[https://yourlabs.org/posts/2020-02-05-npm-install-g-home-local/][This article by James Pic]] provides a workaround that advises NPM to
+install programs in your home directory instead.  All you have to do
+is add the following variables to your =~/.bashrc=
+
+#+begin_src sh
+export PATH=$HOME/.local/bin:$PATH
+export NODE_PATH=$HOME/.local/lib/node_modules:$NODE_PATH
+export npm_config_prefix=$HOME/.local
+#+end_src
+
+Apply those settings to your running shell with:
+
+#+begin_src sh
+source ~/.bashrc
+#+end_src
+
+Now we can install the Typescript Language Server with:
+
+#+begin_src sh
+npm install -g typescript-language-server typescript
+#+end_src
+
+You may need to log out and back in for Emacs to recognize the
+executable typescript-language-server is available in your path under
+=~/.local/bin=.
+
+* Emacs Setup
+
+Open a JavaScript file, run M-x =eglot=, and it should work out of the
+box.  For some additional tweaks below is a minimal Emacs config.
+Checkout my [[https://taingram.org/init.html][complete init file]] to see my actual settings.
+
+#+begin_src emacs-lisp
+  ;; Emacs LSP Client (built into Emacs 29.1)
+  (use-package eglot
+    :ensure t)
+
+  ;; Optional, can run M-x eglot to start LSP manually
+  (use-package js-mode
+    :hook ((js-mode . eglot-ensure)
+  	 (js-mode . completion-preview-mode))
+
+  ;; Drop-down completions
+  (use-package corfu
+    :ensure t
+    :hook ((prog-mode . corfu-mode)))
+
+  ;; Add bindings for navigating to next/previous error
+  (use-package flymake
+    :bind (:map prog-mode-map
+  	      ("M-n" . flymake-goto-next-error)
+  	      ("M-p" . flymake-goto-prev-error)))
+#+end_src
+
+[[https://github.com/minad/corfu][Corfu]] is an optional package that will make completions appear as a
+drop-down menu, similar to a programming integrated development
+environment IDE.  Start typing something then type 'M-TAB' to trigger
+the completion drop-down.  This can be triggered automatically but I
+find that distracting.
+
+* Things I Still Need to Figure Out
+
+This setup has given me the basic editing environment I wanted with
+drop-down completions, error checking, and documentation at point.
+Although there are still some additional enhancements I am hoping to
+add.
+
+** TODO Search for Documentation
+Eldoc will show documentation for a function/variable when it is
+written in full which is helpful.  The issue is I often don't know
+exactly what I am looking for.  Ideally I need a way to search for
+/potential matches/ and review all their reference info.  The
+documentation is in the server so I just need a way to get it out...
+
+** TODO Live Editing A Web Page
+Right now I am editing scripts and refreshing the browser manually to
+test.  I need to streamline that process.  I see there is an
+interesting [[https://elpa.gnu.org/packages/firefox-javascript-repl.html][firefox-javascript-repl]] package.
+
+* Conclusion
+
+So far things are basically working as expected.  I am actually really
+enjoying learning JavaScript.  The post ES6 language spec is pretty
+fun to work with.  I highly recommend [[https://javascript.info/][javascript.info]] to get up to
+speed quickly on modern JavaScript.
+
+Expect to see more posts about web development.  I am looking forward
+to adding some interactivity to my website and working on some other
+web-based projects.  Don't worry though, my website will always work
+great without JavaScript.  It has to look good in [[https://www.gnu.org/software/emacs/manual/html_mono/eww.html][eww]] after all.
+
+* See Also
+
+- [[https://yourlabs.org/posts/2020-02-05-npm-install-g-home-local/][Use npm install -g in ~/.local non-root]] by James Pic for
+  /yourlabs.org/
+
+** JavaScript Learning Resources
+- [[https://javascript.info/][The Modern JavaScript Tutorial]] /javascript.info/
+- [[https://developer.mozilla.org/en-US/][Mozilla Developer Network MDN]]  /developer.mozilla.org/
+- [[https://developer.mozilla.org/en-US/docs/Web/JavaScript][MDN JavaScript]] /developer.mozilla.org/
