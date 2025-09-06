@@ -1,0 +1,145 @@
+#+TITLE: Minimal Debian 13 and \TeX Live Install
+#+AUTHOR: Thomas Ingram
+#+DATE: [2025-09-05 Fri]
+
+In honor of the release of [[https://www.debian.org/News/2025/20250809][Debian 13 Trixie]] I've treated myself to a
+fresh install of Debian.  In the spirit of minimalism I've started
+with a completely bare base-system, opting to even skip all graphical
+desktops from my initial install.  I enjoy the process of starting
+with essentially a bare server and only installing packages as I
+actually need them.  Doing this process is interesting as it helps
+highlight the applications I rely on, and in turn the software those
+apps rely on.  In other words dependencies.
+
+Now I'll admit this is mostly a fun exercise that appeals to my
+brain in particular.  For the /most part/ extra software is not a big
+issue, and it is better to have a working computer than a few less
+bytes on a hard drive.  I just find a minimal setup satisfying.  At
+one point I was an [[https://archlinux.org/][Arch Linux]] user, it is what it is.
+
+This tradeoff was highlighted for me when I went to install [[https://packages.debian.org/trixie/mpd][=mpd=]]
+(Music Player Daemon).  =mpd= has a lot of dependencies and a few that
+I found a little annoying.  I will likely never need to play Commodore
+64 music files (=libsidplayfp6=), but that is also what makes =mpd=
+great.  It is a flexible tool you can throw anything at.  Still I was
+a little more annoyed to see JavaScript libraries installed just to
+show the documentation pages (Sphinx).
+
+If I was a python programmer I likely would have never noticed because
+Sphinx is a dependency for nearly every =*python-doc= package.  For me
+though =mpd= is the only package I use that pulls these dependencies.
+It's just a few extra bytes, I can live with it.  Perhaps someday I'll
+be in the woods completely offline and need to consult a local copy of
+the =mpd= docs.  In that moment I'll be so thankful.  I might not even
+consider that Sphinx definitely has export options that does not
+require JavaScript libraries.
+
+Of course this is not a real deal breaker for me.  I could build =mpd=
+myself, or build a custom deb package.  I could switch back to Arch
+Linux.  Better yet I could switch to [[https://www.gentoo.org/][Gentoo]] and spend all my days
+compiling packages.  I use Debian because I /like/ Debian.  I like the
+philosophy, stability, and cooperative spirit of the project.  Debian
+maintainers are making sane choices that makes stuff work with
+reasonable defaults that supports a huge range of use cases.
+
+With all that in mind, lets talk about LaTeX.
+
+* Installing TeX Live on Debian
+
+To build LaTeX documents we need to install the TeX Live distribution.
+A full install of the texlive packages is huge and includes thousands
+of TeX packages.  Majority of which I will never use and don't want to
+install.  The problem is to compile Org-mode documents we need several
+packages that are /only/ included in the extensive
+=texlive-latex-extra= and =texlive-pictures= packages.
+
+** Installing all of LaTeX the Normal Way
+
+#+begin_src sh
+  sudo apt install texlive texlive-latex-extra texlive-pictures texlive-science
+#+end_src
+
+You can see the list of TeX packages each of these installs in the
+package descriptions.  Run =apt info= to see the full list. The
+=texlive-latex-extra= lists around 1,500 packages.  I need 3.
+
+#+begin_src sh
+  apt info texlive-latex-extra
+#+end_src
+
+** Manual TeX Live Install
+
+If you /really/ want a minimal install the best option would be to
+just manually install texlive and the packages you want.  You can do
+that by following the instructions on [[https://tug.org/texlive/][tug.org/texlive/]], That is
+probably the *right way* to circumvent installing every Debian texlive
+package.  Once installed you'll be able to manage your whole texlive
+install with the included package manager =tlmgr= (TeX Live Manager).
+
+** Mixed Install with =tlmgr=
+
+The method I used was a little more chaotic.  I installed the base
+[[https://packages.debian.org/trixie/texlive][texlive]] system via =apt=.  This gives us all the critical stuff for
+building basic documents (pdflatex, tlmgr) with minimal effort.
+
+#+begin_src sh
+  apt install texlive
+#+end_src
+
+After that I go to my documents and start trying to build them.  Even
+for a basic Org to LaTeX document there are several TeX packages that
+will be missing.  The compile warning will call out the missing
+package =*.sty= and then I can install it with =tlmgr=.
+
+#+begin_example
+ERROR: LaTeX Error: File `wrapfig.sty' not found.
+
+--- TeX said ---
+./test.tex:9:  ==> Fatal error occurred, no output PDF file produced!
+#+end_example
+
+On Debian the texlive package manager =tlmgr= is included with the
+base =texlive= install.  The Debian maintainers have explicitly
+recommend not to use this tool[fn:1] because it may install TeX
+packages are incompatible with the deb package versions.  So please
+_do this at your own risk and do *NOT* pester Debian volunteers if
+your TeX install breaks!_
+
+One benefit of this mixed setup is the =tlmgr= tool is forced into
+=--user= mode.  This means all packages are installed locally in your
+home directory.  For my use case that is perfect.  If something breaks
+I can always delete the directory and fall back to an =apt= install.
+By default packages are stored in =~/texmf/=, and can be changed by
+setting the =TEXMFHOME= environment variable.  In my =~/.bashrc= I
+have this set:
+
+#+begin_src sh
+export TEXMFHOME=$HOME/.config/texlive/
+#+end_src
+
+Then initialize our =tlmgr= folder with:
+
+#+begin_src sh
+  source ~/.bashrc    # Ensure your $TEXMFHOME is set
+  echo $TEXMFHOME
+  tlmgr init-usertree
+#+end_src
+
+Now we can install the couple missing dependences needed for Org LaTeX
+export via =tlmgr=.  Once you've installed all the packages reported
+in your LaTeX compile errors you should be all set going forward.
+
+#+begin_src sh
+tlmgr install warpfig rotating ulem capt-of
+#+end_src
+
+Again this is a hack-y solution, but currently I only have ~10
+packages manually installed.  That is in comparison to the hundreds of
+packages included in all of texlive.  This solution may become more
+fragile over time as Debian stable drifts further out of date with
+current TeX Live releases.  Although I suspect most popular TeX
+packages are pretty stable and slow moving.
+
+* Footnotes
+
+[fn:1] See =/usr/share/doc/texlive-base/README.tlmgr-on-Debian.md=
