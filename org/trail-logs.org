@@ -1,0 +1,26 @@
+#+TITLE: Hiking Log and Trail Ratings
+
+Logs of my hikes in Michigan and surrounding areas.
+
+* Bald Mountain - South Unit Trails
+:PROPERTIES:
+:RATING:   3
+:ADDRESS: Red Trail, Orion Twp, MI 48360
+:GPS: 42.742819, -83.235120
+:WALKED: 5 mi
+:END:
+[2025-03-09 Sun]
+
+#+HTML: <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=-83.2486653327942%2C42.735886301437226%2C-83.22034120559694%2C42.750132101673834&amp;layer=mapnik&amp;marker=42.74300961073164%2C-83.23450326919556" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?mlat=42.74301&amp;mlon=-83.23450#map=16/42.74301/-83.23450">View Larger Map</a></small>
+
+- [[https://www.michigandnr.com/parksandtrails/Details.aspx?id=324&type=SPTR#map-tab][Michigan DNR]]
+- [[https://www.michigandnr.com/Publications/PDFS/RecreationCamping/bald-mtn-south-unit-trails.pdf][Map PDF]]
+- [[https://www.openstreetmap.org/way/233392863#map=16/42.74972/-83.22358][Red Loop OpenStreetMap]]
+
+Remy and I walked the full red loop, so around 5 miles.  Pretty nice
+trail that goes by some small ponds and has some nice hills.
+
+Low rating because of the close proximity to the shooting range.  On a
+Saturday at around 2 PM the gunfire was basically constant the entire
+walk and very loud for about 2 miles of the trail.  Your experience
+may vary.
