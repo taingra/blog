@@ -1,0 +1,173 @@
+#+TITLE: My Software Setup and Recommendations
+#+DATE: [2025-02-24 Mon]
+#+COLUMNS: %ITEM(TITLE) %SOFTWARE %WEBSITE %WIKIPEDIA
+
+This is my general software setup and software I recommend.  although
+some tools may not very accessible to new users.  All of these tools
+are [[https://www.gnu.org/philosophy/free-sw.en.html][Free Software]] that you can also learn yourself.
+
+
+#+BEGIN: columnview :id global :indent t :maxlevel 2
+| TITLE                  | SOFTWARE         | WEBSITE                                                       | WIKIPEDIA                                           |
+|------------------------+------------------+---------------------------------------------------------------+-----------------------------------------------------|
+| Fundamental Software   |                  |                                                               |                                                     |
+| \_  Operating System   | Debian           | https://www.debian.org/                                       | https://en.wikipedia.org/wiki/Debian                |
+| \_  Window Manager     | Sway             | https://swaywm.org/                                           | https://en.wikipedia.org/wiki/Sway_(window_manager) |
+| Basic Applications     |                  |                                                               |                                                     |
+| \_  Calculator         | Emacs Calc       | https://www.gnu.org/software/emacs/manual/html_mono/calc.html |                                                     |
+| \_  Text Editor        | GNU Emacs        | https://www.gnu.org/software/emacs/                           | https://en.wikipedia.org/wiki/GNU_Emacs             |
+| \_  Spreadsheets       | LibreOffice Calc | https://www.libreoffice.org/discover/calc                     | https://en.wikipedia.org/wiki/LibreOffice_Calc      |
+| Multi-Media Production |                  |                                                               |                                                     |
+| \_  Video Editing      | Blender          | https://www.blender.org                                       | [[https://en.wikipedia.org/wiki/Blender_(software)]]    |
+| Communication          |                  |                                                               |                                                     |
+| \_  Instant Messaging  | Signal           | https://signal.org/                                           | https://en.wikipedia.org/wiki/Signal_(software)     |
+| \_  Email              | Thunderbird      | https://www.thunderbird.net/                                  | https://en.wikipedia.org/wiki/Mozilla_Thunderbird   |
+#+END
+
+* Fundamental Software
+
+I've tried most major desktop operating systems aside from MacOS.
+Non-exhaustive list:
+
+- MS Windows XP, 7, 8, 10, 11
+- Ubuntu
+- Arch Linux
+- Fedora
+- Debian
+- OpenBSD
+
+I've spend the most of my adult life using Arch Linux, Fedora, and
+finally settled on Debian stable.  I think Fedora and Arch Linux are
+both excellent GNU+Linux options, Fedora probably being one of the
+best starter Linux distros.  Both offer a really nice up to date
+experience that allows you to easily keep up with new software.
+
+** Operating System
+:PROPERTIES:
+:SOFTWARE:  Debian
+:WEBSITE:   https://www.debian.org/
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Debian
+:END:
+
+After University I found I wanted to spend less time on the computer
+since I already spend 40 week tethered to one.  Debian is great
+because I can go a couple months without touching my computer, run a
+quick =apt update=, and be up and running.  I don't have to worry
+about huge updates or falling behind a major distro release.
+
+Debian-based distros are so widely used and supported which is great.
+Plus the Debian community is excellent and extremely responsive on
+bugs and security issues.  Debian is probably one of the most
+successful completely volunteer run Linux distro.
+
+If you need a new version of software on Debian stable it is usually
+already being packaged in the [[https://backports.debian.org/][Debian Backports]].  For bleeding edge
+software updates (Emacs, mu4e) I usually compile and build it myself.
+
+** Window Manager
+:PROPERTIES:
+:SOFTWARE:  Sway
+:WEBSITE:   https://swaywm.org/
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Sway_(window_manager)
+:END:
+
+After many years of using GNOME shell I switched away after they
+rearranged the virtual desktops from being vertical to horizontal with
+no way to revert to the old setting.  I admit this is a small
+grievance and GNOME is free to run their project as the maintainers
+see fit.  However, I personally find this strategy of implementing
+changes disrespectful to your existing user base.  Most of us just
+boot up the computer some work done, and changes to existing workflows
+conflicts with that.  This has been an ongoing issue with the GNOME
+developers as many people are still (reasonably) upset about the
+switch from GNOME 2 to 3.
+
+The situation does make me sad because GNOME is the closest thing we
+have to a standard desktop for GNU+Linux.  So it is unfortunate many
+of the most die hard FOSS supporters do not use it or write software to
+support the GNOME ecosystem.
+
+* Basic Applications
+
+** Calculator
+:PROPERTIES:
+:SOFTWARE:  Emacs Calc
+:WEBSITE:   https://www.gnu.org/software/emacs/manual/html_mono/calc.html
+:END:
+
+Amazing calculator for fast operations, huge amount of features I
+never use.  See [[https://www.youtube.com/watch?v=993dmoDdybs][this video for a good introduction]].
+
+
+** Text Editor
+:PROPERTIES:
+:SOFTWARE:  GNU Emacs
+:WEBSITE:   https://www.gnu.org/software/emacs/
+:WIKIPEDIA: https://en.wikipedia.org/wiki/GNU_Emacs
+:END:
+
+See the [[https://taingram.org/init.html][introduction to my Emacs configuration]] for more details on my
+love of GNU Emacs.
+
+** Spreadsheets
+:PROPERTIES:
+:SOFTWARE:  LibreOffice Calc
+:WEBSITE:   https://www.libreoffice.org/discover/calc
+:WIKIPEDIA: https://en.wikipedia.org/wiki/LibreOffice_Calc
+:END:
+
+LibreOffice has been chasing the MS Office Suit for literal decades.
+I highly recommend their software.  Calc is not perfect and may be
+missing some features, but the sooner you swap the better.  Save
+money, learn a free tool you can use forever, and break the MS
+monopoly.
+
+* Multi-Media Production
+
+** Video Editing
+:PROPERTIES:
+:SOFTWARE:  Blender
+:WEBSITE:   https://www.blender.org
+:WIKIPEDIA: [[https://en.wikipedia.org/wiki/Blender_(software)]]
+:END:
+
+In college I did some freelance video editing entirely on Linux.
+After trying several of the editor options available around 2017
+(Kdenlive, Openshot) I settled on Blender.
+
+I don't think many people are aware that blender is basically a fully
+featured video editor since it is primarily seen as a 3D modeler.
+Once you swap to the Video editing mode it is relatively
+straightforward to use, and there are a number of online tutorials to
+help you learn.
+
+Most importantly Blender is production software that I found to be
+relatively stable and does not randomly eat my projects.  You also
+will likely never hit the upper limit of Blender's functionality since
+it is so fully featured for professional usage.
+
+* Communication
+
+** Instant Messaging
+:PROPERTIES:
+:SOFTWARE:  Signal
+:WEBSITE:   https://signal.org/
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Signal_(software)
+:END:
+
+** Email
+:PROPERTIES:
+:SOFTWARE:  Thunderbird
+:WEBSITE:   https://www.thunderbird.net/
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Mozilla_Thunderbird
+:END:
+
+For your own privacy I recommend using a private email service.  There
+many (Kolab, Fastmail, ProtonMail), check around online and find one
+that suits your needs.  Check if the service supports IMAP then you
+can use whatever email client you like.  For general usage Thunderbird
+is pretty good.
+
+I of course use mu4e inside Emacs, but I do not recommend that unless
+you are a long way down the Emacs rabbit hole.  I often fall back to
+other email clients when away from my personal laptop.
