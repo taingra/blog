@@ -1,0 +1,92 @@
+#+TITLE: Emacs Auto-Insert Default Text in New Files
+#+DATE: [2025-06-11 Wed]
+
+I recently blogged about [[file:intro-to-emacs-tempo.org][Emacs tempo-mode]] and in that post I created
+an example way to generate the header text commonly used in Emacs
+Lisp.  While looking into Tempo I noticed this manual section [[info:autotype#Autoinserting][5
+Autoinserting Text in Empty Files]], but I had not taken the time to
+read through that section since I assumed I would still need to setup
+some kind of template.
+
+It turns out I was underestimating Emacs, because =auto-insert-mode=
+includes this exact functionality.  It is built in to Emacs and
+completely setup by default.  All you need to do is enable the mode:
+
+#+begin_src emacs-lisp
+(auto-insert-mode)
+#+end_src
+
+Now opening new elisp files will prompt us for auto-insertion and
+insert the standard boilerplate heading.  Great!
+
+If you use vertico or something similar you may get stuck in the
+keywords prompt.  It will continue prompting you for options until you
+hit M-RET to close the prompt.
+
+* Adding Defaults for other File Types
+
+=auto-insert-mode= includes several default templates you can view in
+the ~auto-insert-alist~ variable.  Defaults are included for elisp,
+C/C++, TeX, Makefile, and HTML.  These provide good examples to build
+your own settings.
+
+** A Simple Example
+Below is an example of adding an extremely simple JavaScript template
+using a [[info:autotype#Skeleton Language][skeleton template]]:
+
+#+begin_src emacs-lisp
+  (define-auto-insert 'js-mode
+    '(nil
+      "// Copyright "
+      (format-time-string "%Y") " "
+      (progn user-full-name) \n \n
+      "'use strict';" \n
+      _))
+#+end_src
+
+The first ~define-auto-insert~ argument is the condition needed to
+apply the template.  This can be written as ='CONDITION= or
+='(CONDITION . DESCRIPTION)=.  So we could replace ='js-mode= with
+='(js-mode . "JavaScript Header")= to be more verbose.  That may be
+more useful when the condition is a regex.  See the default C/C++
+header condition:
+
+#+begin_src emacs-lisp
+("\\.\\([Hh]\\|hh\\|hpp\\|hxx\\|h\\+\\+\\)\\'" . "C / C++ header")
+#+end_src
+
+The second argument is the template to be applied.  This is very
+flexible as it can be a skeleton, filename, or a function.  In this
+case it is a skeleton template, which is another templating system
+built into emacs.
+
+Note the first element of skeletons is what is called the
+"interactor", which decides whether the template is interactive.  It
+can be a text prompt like used in the default Emacs Lisp ="Short
+description: "= auto-insert setting.  In my example I do not need
+interactivity so I set the first parameter to =nil=.
+
+For more details on emacs skeletons see the [[info:autotype#Skeleton Language][manual section]] and the
+~skeleton-insert~ function.
+
+** Using Tempo Templates
+
+I find skeleton templates a little more confusing than tempo.  Since
+tempo generates a function we can define a tempo template and use that
+function instead.
+
+#+begin_src emacs-lisp
+  (tempo-define-template "js-header"
+  		       `("// Copyright "
+  			 (format-time-string "%Y") " " user-full-name n n
+  			"'use strict';" n n %)
+  		       nil
+  		       "Insert JavaScript header")
+#+end_src
+
+This will generate the function ~tempo-template-js-header~ which we
+can add as an auto-insert condition:
+
+#+begin_src emacs-lisp
+  (define-auto-insert 'js-mode  #'tempo-template-js-header)
+#+end_src
