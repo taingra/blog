@@ -1,7 +1,5 @@
 /* -*- tab-width: 4 -*- */
 
-/* PT Serif fonts */
-
 @font-face {
 	font-family: 'PT Serif';
 	src: url('static/pt-serif_bold.woff2') format('woff2'),
@@ -33,7 +31,6 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
 
 @font-face {
 	font-family: 'PT Sans';
@@ -104,6 +101,7 @@
 		--color-shadow: #eee;
 		--color-link: #0000bb;
 		--color-link-active: #223fbf;
+		--color-notice: #c6eaff;
 	}
 }
 
@@ -115,6 +113,7 @@
 		--color-shadow: #333;
 		--color-link: #00bcff;
 		--color-link-active: #79a8ff;
+		--color-notice: #093060;
 	}
 }
 
@@ -227,15 +226,17 @@ header {
 .title {
 	font-family: monospace;
 	font-size: 2.8em;
+	margin-top: 0;
 }
 
 .publish-date {
 	font-family: monospace;
+	font-size: 110%;
 }
 
 .notice {
 	border-left: var(--border-width) solid var(--color-text);;
-	background: lightblue;
+	background: var(--color-notice);
 	padding: 0.1em 1em;
 }
 
