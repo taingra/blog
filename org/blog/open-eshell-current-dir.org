@@ -1,0 +1,88 @@
+#+TITLE: Open Emacs Eshell in the Current Directory
+#+AUTHOR: Thomas Ingram
+#+DATE: [2025-11-16 Sun]
+#+OPTIONS: tasks:nil
+
+When working in Emacs I often want to swap from the current open file
+to a terminal buffer in the same working directory.  If you are
+opening an eshell buffer for the first time that is easy.  Eshell
+opens the =default-directory= automatically.  However there is no easy
+way to reuse an existing eshell buffer and move to the current
+directory without manual input.
+
+I want a way to save my current working directory, switch to eshell,
+and change to that directory without losing any work.  Here's the
+quick solution I came up with:
+
+#+begin_src emacs-lisp
+  (defun eshell-current-directory (&optional directory)
+    "Open eshell current `default-directory' or DIRECTORY."
+    (interactive)
+    (let ((current-dir (or directory default-directory))
+  	(eshell-buffer (or (get-buffer "*eshell*")
+  		    (eshell))))
+      (switch-to-buffer eshell-buffer)
+      (eshell/cd current-dir)
+      (eshell-next-prompt)
+      ;; Regenerate prompt to show current directory.
+      ;; Avoid sending any half written input commands
+      (if (eobp)
+  	(eshell-send-input nil nil nil)
+        (move-end-of-line nil)
+        (eshell-kill-input)
+        (eshell-send-input nil nil nil)
+        (yank))))
+#+end_src
+
+I've bound this to =C-x e= so whenever I am working on something I can
+quickly open a terminal in the current directory.  If I don't want to
+change directories then I can use =switch-to-buffer= instead.
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x e") #'eshell-current-directory)
+#+end_src
+
+** Future Enhancement Ideas
+
+I'd like to adapt this to work with =shell-mode=, which should be
+pretty easy.  Then look at excluding some buffer types like =*Info*=,
+=*scratch*=, and =*Help*= to avoid changing the working directory on
+accident.  I never want to go to =/usr/share/info=.
+
+*** TODO Shell-mode Version
+
+*** TODO Exclude Some Buffers Types
+
+Exclude some buffers that are not used in the current directory
+
+- info, help, scratch,
+
+
+* Free Software Foundation 40th Anniversary Hackathon
+
+I'm planning on participating in the [[https://www.fsf.org/events/fsf40-hackathon][FSF40 Anniversary Hackathon]] next
+weekend in support of Emacs [[https://orgmode.org/][Org-mode]].  I'll be participating with
+[[https://thibaut.dev/][Thibaut]] who has collaborated with me on org-publish-rss.
+
+In the next week I plan to post a few short articles as I get myself
+back into the rhythm of writing elisp.  Since September, my FOSS
+contributions have slowed as I have started graduate school for my
+MBA.  Unfortunately my current classes have very little overlap with
+my Emacs usage.  My classmates would rather collaborate using Google
+Docs than a git server...
+
+** [[https://my.fsf.org/join][Donate to the Free Software Foundation!]]
+
+The FSF is not a perfect institution (none are), but they have a
+steadfast commitment to supporting software freedom.  It is important
+we keep their message of software freedom alive for another 40 years.
+It lends credibility to the [[https://en.wikipedia.org/wiki/Free_software_movement][free software movement]] and gives [[https://www.gnu.org/][GNU]]
+projects a legal organization to work under.  Please consider
+supporting them.
+
+It is also worth noting that hosting costs for free software
+organizations has [[https://github.com/magit/magit/issues/5472#issuecomment-3487310934][gone significantly up]] in the past three years due to
+AI scrapers.  It is importantly we keep these organizations alive and
+well funded.
+
+[[https://my.fsf.org/join][Donate to the FSF!]]
