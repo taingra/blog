@@ -82,14 +82,15 @@
 <footer>
 <div class=\"copyright-container\">
 <div class=\"copyright\">
-Copyright &copy; 2017-2025 Thomas Ingram. All rights reserved unless otherwise noted.</div></div>
+<p>Created by a human with <a href=\"https://www.gnu.org/philosophy/free-sw.html\">Free Software</a> <a href=\"https://www.gnu.org/software/emacs/\">Emacs</a> on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>.<p>
+<p>Copyright &copy; 2017-2025 Thomas Ingram. All rights reserved unless otherwise noted.</p>
+<p><a href=\"https://www.paratype.com/fonts/pt/pt-sans\">PT Fonts</a> Copyright &copy; 2018 Paratype Inc, see <a href=\"/static/PT-Sans-LICENSE.txt\">license information</a>.</p>
+</div>
+</div>
 <div class=\"banner\">
 <a href=\"https://www.controlmywebsite.com/aff.php?aff=313\" rel=\"nofollow\" alt=\"Solar Powered Hosting By Viridio\">
 <img src=\"https://cdn.viridio.net/affiliate/imgs/logo-54.png\" width=\"100%%\" border=\"0\">
 </a>
-</div>
-<div class=\"generated\">
-Created with %c on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>
 </div>
 </footer>"))
 

@@ -374,11 +374,6 @@ footer {
 	padding: 1ex 0.5ex;
 }
 
-.generated {
-	font-family: monospace;
-	text-align: center;
-}
-
 .rss-badge {
 	color: var(--color-text);
 	display: inline-block;
