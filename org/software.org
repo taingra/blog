@@ -8,46 +8,48 @@ are [[https://www.gnu.org/philosophy/free-sw.en.html][Free Software]] that you c
 
 
 #+BEGIN: columnview :id global :indent t :maxlevel 2
-| TITLE                  | SOFTWARE         | WEBSITE                                                       | WIKIPEDIA                                           |
-|------------------------+------------------+---------------------------------------------------------------+-----------------------------------------------------|
-| Fundamental Software   |                  |                                                               |                                                     |
-| \_  Operating System   | Debian           | https://www.debian.org/                                       | https://en.wikipedia.org/wiki/Debian                |
-| \_  Window Manager     | Sway             | https://swaywm.org/                                           | https://en.wikipedia.org/wiki/Sway_(window_manager) |
-| Basic Applications     |                  |                                                               |                                                     |
-| \_  Calculator         | Emacs Calc       | https://www.gnu.org/software/emacs/manual/html_mono/calc.html |                                                     |
-| \_  Text Editor        | GNU Emacs        | https://www.gnu.org/software/emacs/                           | https://en.wikipedia.org/wiki/GNU_Emacs             |
-| \_  Spreadsheets       | LibreOffice Calc | https://www.libreoffice.org/discover/calc                     | https://en.wikipedia.org/wiki/LibreOffice_Calc      |
-| Multi-Media Production |                  |                                                               |                                                     |
-| \_  Video Editing      | Blender          | https://www.blender.org                                       | [[https://en.wikipedia.org/wiki/Blender_(software)]]    |
-| Communication          |                  |                                                               |                                                     |
-| \_  Instant Messaging  | Signal           | https://signal.org/                                           | https://en.wikipedia.org/wiki/Signal_(software)     |
-| \_  Email              | Thunderbird      | https://www.thunderbird.net/                                  | https://en.wikipedia.org/wiki/Mozilla_Thunderbird   |
+| TITLE                  | SOFTWARE          | WIKIPEDIA                     |
+|------------------------+-------------------+-------------------------------|
+| Fundamental Software   |                   |                               |
+| \_  [[*Operating System --- Debian][Operating System]]   | [[https://www.debian.org/][Debian]]            | [[https://en.wikipedia.org/wiki/Debian][Debian]]                        |
+| \_  [[*Window Manager --- Sway][Window Manager]]     | [[https://swaywm.org/][Sway]]              | [[https://en.wikipedia.org/wiki/Sway_(window_manager)][Sway (window manager)]]         |
+| Basic Applications     |                   |                               |
+| \_  [[Calculator --- Emacs Calc][Calculator]]         | [[https://www.gnu.org/software/emacs/manual/html_mono/calc.html][Emacs Calc]]        |                               |
+| \_  [[*Text Editor --- GNU Emacs][Text Editor]]        | [[https://www.gnu.org/software/emacs/][GNU Emacs]]         | [[https://en.wikipedia.org/wiki/GNU_Emacs][GNU Emacs]], [[https://en.wikipedia.org/wiki/Emacs][Emacs]]              |
+| \_  [[*Spreadsheets --- LibreOffice Calc][Spreadsheets]]       | [[https://www.libreoffice.org/discover/calc][LibreOffice Calc]]  | [[https://en.wikipedia.org/wiki/LibreOffice_Calc][LibreOffice Calc]], [[https://en.wikipedia.org/wiki/LibreOffice][LibreOffice]] |
+| \_  Terminal           | [[https://codeberg.org/dnkl/foot][foot]]              |                               |
+| Multi-Media Production |                   |                               |
+| \_  [[*Video Editing --- Blender][Video Editing]]      | [[https://www.blender.org][Blender]]           | [[https://en.wikipedia.org/wiki/Blender_(software)][Blender]]                       |
+| Communication          |                   |                               |
+| \_  [[*Instant Messaging --- Signal][Instant Messaging]]  | [[https://signal.org/][Signal]]            | [[https://en.wikipedia.org/wiki/Signal_(software)][Signal (software)]]             |
+| \_  [[Email --- Thunderbird][Email]]              | [[https://djcbsoftware.nl/code/mu/mu4e.html][mu4e]], [[https://www.thunderbird.net/][Thunderbird]] | [[https://en.wikipedia.org/wiki/Mozilla_Thunderbird][Mozilla Thunderbird]]           |
+|                        |                   |                               |
 #+END
 
 * Fundamental Software
+
+** Operating System --- Debian
+:PROPERTIES:
+:SOFTWARE:  Debian
+:WEBSITE:   https://www.debian.org/
+:WIKIPEDIA: https://en.wikipedia.org/wiki/Debian
+:END:
 
 I've tried most major desktop operating systems aside from MacOS.
 Non-exhaustive list:
 
 - MS Windows XP, 7, 8, 10, 11
-- Ubuntu
-- Arch Linux
-- Fedora
-- Debian
-- OpenBSD
+- [[https://ubuntu.com/download][Ubuntu]] (GNU / Linux)
+- [[https://archlinux.org/][Arch Linux]] (GNU + Linux + bspwm)
+- [[https://fedoraproject.org/][Fedora]] (GNU + Linux + GNOME)
+- [[https://www.debian.org/][Debian]] (GNU + Linux + GNOME or sway)
+- [[https://www.openbsd.org/][OpenBSD]]
 
 I've spend the most of my adult life using Arch Linux, Fedora, and
 finally settled on Debian stable.  I think Fedora and Arch Linux are
 both excellent GNU+Linux options, Fedora probably being one of the
 best starter Linux distros.  Both offer a really nice up to date
 experience that allows you to easily keep up with new software.
-
-** Operating System
-:PROPERTIES:
-:SOFTWARE:  Debian
-:WEBSITE:   https://www.debian.org/
-:WIKIPEDIA: https://en.wikipedia.org/wiki/Debian
-:END:
 
 After University I found I wanted to spend less time on the computer
 since I already spend 40 week tethered to one.  Debian is great
@@ -64,7 +66,7 @@ If you need a new version of software on Debian stable it is usually
 already being packaged in the [[https://backports.debian.org/][Debian Backports]].  For bleeding edge
 software updates (Emacs, mu4e) I usually compile and build it myself.
 
-** Window Manager
+** Window Manager --- Sway
 :PROPERTIES:
 :SOFTWARE:  Sway
 :WEBSITE:   https://swaywm.org/
@@ -89,7 +91,7 @@ support the GNOME ecosystem.
 
 * Basic Applications
 
-** Calculator
+** Calculator --- Emacs Calc
 :PROPERTIES:
 :SOFTWARE:  Emacs Calc
 :WEBSITE:   https://www.gnu.org/software/emacs/manual/html_mono/calc.html
@@ -99,7 +101,7 @@ Amazing calculator for fast operations, huge amount of features I
 never use.  See [[https://www.youtube.com/watch?v=993dmoDdybs][this video for a good introduction]].
 
 
-** Text Editor
+** Text Editor --- GNU Emacs
 :PROPERTIES:
 :SOFTWARE:  GNU Emacs
 :WEBSITE:   https://www.gnu.org/software/emacs/
@@ -109,7 +111,7 @@ never use.  See [[https://www.youtube.com/watch?v=993dmoDdybs][this video for a 
 See the [[https://taingram.org/init.html][introduction to my Emacs configuration]] for more details on my
 love of GNU Emacs.
 
-** Spreadsheets
+** Spreadsheets --- LibreOffice Calc
 :PROPERTIES:
 :SOFTWARE:  LibreOffice Calc
 :WEBSITE:   https://www.libreoffice.org/discover/calc
@@ -124,7 +126,7 @@ monopoly.
 
 * Multi-Media Production
 
-** Video Editing
+** Video Editing --- Blender
 :PROPERTIES:
 :SOFTWARE:  Blender
 :WEBSITE:   https://www.blender.org
@@ -148,14 +150,22 @@ it is so fully featured for professional usage.
 
 * Communication
 
-** Instant Messaging
+** Instant Messaging --- Signal
 :PROPERTIES:
 :SOFTWARE:  Signal
 :WEBSITE:   https://signal.org/
 :WIKIPEDIA: https://en.wikipedia.org/wiki/Signal_(software)
 :END:
 
-** Email
+I've used Signal for years and found it works well for communicating
+with friends and family.  It is a good alternative to apps like
+WhatsApp or Facebook Messenger.
+
+I generally don't hang out in chat rooms like IRC.  For collaboration
+I prefer to conduct work asynchronously through email.  When I do need
+to use IRC I've found ERC to works well with minimal setup.
+
+** Email --- Thunderbird
 :PROPERTIES:
 :SOFTWARE:  Thunderbird
 :WEBSITE:   https://www.thunderbird.net/
