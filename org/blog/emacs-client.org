@@ -103,7 +103,7 @@ chmod +x emacsclient-one-frame.sh
 
 And place it somewhere accessible from your =$PATH=. I use =~/bin= but if you would
 like it hidden =~/.local/bin= is another option. Add both to your =$PATH= by adding
-the following to your =~/bashrc=:
+the following to your =~/.bashrc=:
 
 #+BEGIN_SRC bash
 PATH="$HOME/.local/bin:$HOME/bin:$PATH"
