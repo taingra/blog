@@ -1,0 +1,70 @@
+#+TITLE: Creating a Desktop Launcher for Emacs Calc
+#+DATE: [2025-11-18 Tue]
+
+[[info:calc#Top][Calc]] is one of Emacs my favorite packages.  It is an excellent
+calculator with [[https://www.youtube.com/watch?v=993dmoDdybs][a bunch of neat features]].  For me, the only downside
+is I need to swap to Emacs to use it.  When I'm working in spreadsheet
+or browsing the web I'll often need to make some quick calculations
+and want open a real calculator.  By creating a custom desktop
+launcher for calc we can open it as easily as the standard desktop
+calculator.
+
+* Creating a Desktop Launcher
+
+On most Linux desktop environments you can create a launcher entry by
+adding a [[https://specifications.freedesktop.org/desktop-entry/latest/][desktop file]] in =~/.local/share/applications/=.  Once added
+the app icon will appear in your applications list.  Here is the
+=calc.desktop= file I created:
+
+#+begin_src conf
+[Desktop Entry]
+Name=Calc (Emacs)
+GenericName=Calculator
+Comment=Emacs Calculator
+Exec=emacs -Q --eval "(full-calc)" -l "~/.config/emacs/early-init.el"
+Icon=emacs
+Type=Application
+Terminal=false
+Categories=Utility;
+#+end_src
+
+To make sure it launches quickly I'm skipping my full init file with
+=-Q= and manually loading my =early-init.el= to hide the tool-bar
+etc..  See [[https://manpages.debian.org/trixie/emacs-gtk/emacs.1.en.html][emacs(1)]] for all options.
+
+This solution should work automatically in most mainstream Linux/BSD
+desktop environments.  Although you may need to log out and back in to
+refresh your applications list.  If you use a window manager like [[https://i3wm.org/][i3]]
+or [[https://swaywm.org/][sway]] you can using a custom launcher that supports desktop files,
+or a script like [[https://github.com/enkore/j4-dmenu-desktop][j4-dmenu-desktop]].  I use the latter in conjunction
+with wmenu on sway to launch applications.
+
+#+begin_src conf
+# Simple Application Launcher for Sway
+bindsym $mod+space exec j4-dmenu-desktop --no-generic --dmenu="wmenu -b -f 'Monospace 16' -i" | xargs swaymsg exec --
+#+end_src
+
+* Launching Calc in an Emacs Client
+
+If you run emacs as a daemon then you can launch calc directly into an
+emacsclient frame instead.  This has the added benefit of maintaining
+your calc history and current emacs theme.  For further discussion of
+emacsclient see my [[file:emacs-client.org][earlier blog post]].
+
+#+begin_src conf
+[Desktop Entry]
+Name=Calc (Emacs Client)
+GenericName=Calculator
+Comment=Emacs Calculator
+Exec=emacsclient -c --eval "(full-calc)"
+Icon=emacs
+Type=Application
+Terminal=false
+Categories=Utility;
+#+end_src
+
+* See Also
+
+- [[info:calc#Top][Calc Manual]] /gnu.org/ Emacs Advance Desktop Calculator
+- [[https://github.com/enkore/j4-dmenu-desktop][j4-dmenu-desktop]] /github.com/ created by enkore et. al.
+- [[https://specifications.freedesktop.org/desktop-entry/latest/][Desktop File Specification]] /freedesktop.org/
