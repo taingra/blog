@@ -62,8 +62,10 @@ Checkout my [[https://taingram.org/init.html][complete init file]] to see my act
 
   ;; Optional, can run M-x eglot to start LSP manually
   (use-package js-mode
-    :hook ((js-mode . eglot-ensure)
-  	 (js-mode . completion-preview-mode))
+    :hook ((js-mode . subword-mode)
+  	 (js-mode . electric-pair-mode)
+  	 (js-mode . eglot-ensure)
+  	 (js-mode . completion-preview-mode)))
 
   ;; Drop-down completions
   (use-package corfu
