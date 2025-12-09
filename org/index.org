@@ -41,5 +41,5 @@ Out of respect for your time and mine this site contains *no AI generated conten
 * Blog [[file:rss.org][{{{rss}}}]]
 
 #+begin_blog-entries
-#+INCLUDE: "blog/index.org" :lines "3-"
+#+INCLUDE: "blog/partials/blog-sitemap.org" :lines "3-"
 #+end_blog-entries
