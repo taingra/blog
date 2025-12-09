@@ -1,24 +1,33 @@
 #+TITLE: Thomas Ingram
-#+HTML_HEAD_EXTRA: <style>@media (min-width: 43em) { .profile-pic { float: right; } } .projects dt, .blog-entries a {font-weight: bold; font-size: 1.2em; } .projects dd { padding-top: 0.5em; padding-bottom: 0.5em; } .blog-entries ul { list-style: none; padding-left: 0; } .blog-entries li { padding-bottom: 5mm; }  .blog-entries .timestamp { font-size: 90%; display: block; }</style>
+#+HTML_HEAD_EXTRA: <style> #nav-home-link a { color: var(--color-text); } @media (min-width: 43em) { .profile-pic { float: right; } } .projects dt, .blog-entries a {font-weight: bold; font-size: 1.2em; } .projects dd { padding-top: 0.5em; padding-bottom: 0.5em; } .blog-entries ul { list-style: none; padding-left: 0; } .blog-entries li { padding-bottom: 5mm; }  .blog-entries .timestamp { font-size: 90%; display: block; }</style>
 
 #+begin_profile-pic
 [[file:profile.gif]]
 #+end_profile-pic
 
-#+ATTR_HTML: :id home-nav
+Welcome to my personal website.  I work in technology and I'm
+primarily interested in the intersection of business, communication,
+data, and tech.  I've worked at Comerica Bank for 5+ years.  In my
+role I support our Credit applications and their on-going development.
+
+In my free time I enjoy gardening, drawing, and writing.  I am a
+volunteer [[https://www.gnu.org/philosophy/free-sw.en.html][Free Software]] developer interested in [[https://www.gnu.org/software/emacs/][GNU Emacs]] and the
+GNU+Linux ecosystem.  I primarily use this site to blog about
+technology, but my other interests may appear here as well.  To
+receive updates when new blog posts are published please subscribe to
+my low-volume [[file:rss.org][RSS feed]].
+
+#+begin_notice
+Out of respect for your time and mine this site contains *no AI generated content*.
+#+end_notice
+
+#+ATTR_HTML: :id home-nav :class home-nav
 #+begin_nav
-- [[file:blog/index.org][Blog]]
-- [[https://git.sr.ht/~taingram][Code]]
-- [[file:contact.org][Contact]]
+- [[file:software.org][Recommended Software]]
+- [[file:blogroll.org][Recommended Blogs]]
 - [[file:tips-and-tricks.org][Tips & Tricks]]
 - [[file:interesting-links.org][Interesting Links]]
 #+end_nav
-
-Welcome to my personal website.  I am a volunteer [[https://www.gnu.org/philosophy/free-sw.en.html][Free Software]]
-developer interested in [[https://www.gnu.org/software/emacs/][GNU Emacs]] and GNU+Linux.  I primarily use this
-site to blog about technology, but I do have other interests that may
-appear here as well.  To receive updates when new blog posts are
-published please subscribe to my [[file:rss.org][RSS feed]].
 
 * Projects
 #+begin_projects
@@ -29,7 +38,7 @@ published please subscribe to my [[file:rss.org][RSS feed]].
   welcome screens.
 #+end_projects
 
-* Blog  [[file:rss.org][{{{rss}}}]]
+* Blog [[file:rss.org][{{{rss}}}]]
 
 #+begin_blog-entries
 #+INCLUDE: "blog/index.org" :lines "3-"
