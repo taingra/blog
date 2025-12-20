@@ -1,4 +1,4 @@
-#+TITLE: Emacs Auto-Insert Default Text in New Files
+#+TITLE: Emacs Auto-Insert Text in New Files
 #+DATE: [2025-06-11 Wed]
 
 I recently blogged about [[file:intro-to-emacs-tempo.org][Emacs tempo-mode]] and in that post I created
