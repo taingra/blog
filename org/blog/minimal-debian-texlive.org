@@ -1,15 +1,14 @@
-#+TITLE: Minimal Debian 13 and \TeX Live Install
+#+TITLE: Minimal Debian 13 and LaTeX Install
 #+AUTHOR: Thomas Ingram
 #+DATE: [2025-09-05 Fri]
 
 In honor of the release of [[https://www.debian.org/News/2025/20250809][Debian 13 Trixie]] I've treated myself to a
 fresh install of Debian.  In the spirit of minimalism I've started
-with a completely bare base-system, opting to even skip all graphical
-desktops from my initial install.  I enjoy the process of starting
-with essentially a bare server and only installing packages as I
-actually need them.  Doing this process is interesting as it helps
-highlight the applications I rely on, and in turn the software those
-apps rely on.  In other words dependencies.
+with a completely bare base-system, opting to skip all graphical
+desktops for my initial install.  I enjoy the process of starting with
+essentially a Linux server and only installing packages as I actually
+need them.  Doing this highlights the applications I rely on, and in
+turn the software those apps rely on.  In other words dependencies.
 
 Now I'll admit this is mostly a fun exercise that appeals to my
 brain in particular.  For the /most part/ extra software is not a big
@@ -17,43 +16,43 @@ issue, and it is better to have a working computer than a few less
 bytes on a hard drive.  I just find a minimal setup satisfying.  At
 one point I was an [[https://archlinux.org/][Arch Linux]] user, it is what it is.
 
-This tradeoff was highlighted for me when I went to install [[https://packages.debian.org/trixie/mpd][=mpd=]]
-(Music Player Daemon).  =mpd= has a lot of dependencies and a few that
-I found a little annoying.  I will likely never need to play Commodore
-64 music files (=libsidplayfp6=), but that is also what makes =mpd=
-great.  It is a flexible tool you can throw anything at.  Still I was
-a little more annoyed to see JavaScript libraries installed just to
-show the documentation pages (Sphinx).
+The tradeoffs of software minimalism were highlighted for me when I
+installed [[https://packages.debian.org/trixie/mpd][=mpd=]] (Music Player Daemon).  =mpd= has a lot of
+dependencies and a few that I found unnecessary.  I will likely never
+need to play Commodore 64 music files (=libsidplayfp6=), but that is
+also what makes =mpd= great.  It is a flexible tool you can throw
+anything at.  Still I was a little more annoyed to see JavaScript
+libraries installed just to show the documentation pages (Sphinx).
 
 If I was a python programmer I likely would have never noticed because
 Sphinx is a dependency for nearly every =*python-doc= package.  For me
-though =mpd= is the only package I use that pulls these dependencies.
+though =mpd= is the only package that requires these dependencies.
 It's just a few extra bytes, I can live with it.  Perhaps someday I'll
 be in the woods completely offline and need to consult a local copy of
 the =mpd= docs.  In that moment I'll be so thankful.  I might not even
 consider that Sphinx definitely has export options that does not
 require JavaScript libraries.
 
-Of course this is not a real deal breaker for me.  I could build =mpd=
+Of course this is not a real deal breaker.  I could build =mpd=
 myself, or build a custom deb package.  I could switch back to Arch
 Linux.  Better yet I could switch to [[https://www.gentoo.org/][Gentoo]] and spend all my days
-compiling packages.  I use Debian because I /like/ Debian.  I like the
-philosophy, stability, and cooperative spirit of the project.  Debian
-maintainers are making sane choices that makes stuff work with
+compiling packages.  No, I use Debian because I /like/ Debian.  I like
+the philosophy, stability, and cooperative spirit of the project.
+Debian maintainers are making sane choices that makes stuff work with
 reasonable defaults that supports a huge range of use cases.
 
 With all that in mind, lets talk about LaTeX.
 
-* Installing TeX Live on Debian
+* Installing LaTeX on Debian
 
 To build LaTeX documents we need to install the TeX Live distribution.
-A full install of the texlive packages is huge and includes thousands
-of TeX packages.  Majority of which I will never use and don't want to
-install.  The problem is to compile Org-mode documents we need several
-packages that are /only/ included in the extensive
+A full install of the =texlive= packages is huge and includes
+thousands of TeX packages.  Majority of which I will never use and
+don't want to install.  The problem is to compile Org-mode documents
+we need several packages that are /only/ included in the extensive
 =texlive-latex-extra= and =texlive-pictures= packages.
 
-** Installing all of LaTeX the Normal Way
+** Installing LaTeX the Normal Way
 
 #+begin_src sh
   sudo apt install texlive texlive-latex-extra texlive-pictures texlive-science
@@ -61,7 +60,7 @@ packages that are /only/ included in the extensive
 
 You can see the list of TeX packages each of these installs in the
 package descriptions.  Run =apt info= to see the full list. The
-=texlive-latex-extra= lists around 1,500 packages.  I need 3.
+=texlive-latex-extra= lists around 1,500 packages.  I need ~3.
 
 #+begin_src sh
   apt info texlive-latex-extra
@@ -76,7 +75,7 @@ probably the *right way* to circumvent installing every Debian texlive
 package.  Once installed you'll be able to manage your whole texlive
 install with the included package manager =tlmgr= (TeX Live Manager).
 
-** Mixed Install with =tlmgr=
+** Mixed Install with =apt= and =tlmgr=
 
 The method I used was a little more chaotic.  I installed the base
 [[https://packages.debian.org/trixie/texlive][texlive]] system via =apt=.  This gives us all the critical stuff for
@@ -100,7 +99,7 @@ ERROR: LaTeX Error: File `wrapfig.sty' not found.
 
 On Debian the texlive package manager =tlmgr= is included with the
 base =texlive= install.  The Debian maintainers have explicitly
-recommend not to use this tool[fn:1] because it may install TeX
+recommend not to use this tool[fn:1], because it may install TeX
 packages are incompatible with the deb package versions.  So please
 _do this at your own risk and do *NOT* pester Debian volunteers if
 your TeX install breaks!_
