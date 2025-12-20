@@ -1,5 +1,6 @@
 #+TITLE: Lightweight Emacs-like Editors
 #+DATE: [2020-08-18 Tue]
+#+KEYWORDS: emacs linux
 
 *Note*: Some information may be out of date.
 

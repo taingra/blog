@@ -1,4 +1,6 @@
 #+TITLE: Building Your Own Emacs IDE with LSP
+#+DATE: [2021-06-17 Thu]
+#+KEYWORDS: emacs development
 
 When it comes to programming there is a lot of options around how you choose to
 code. None is perhaps as personal as your [[https://en.wikipedia.org/wiki/Comparison_of_text_editors][choice of editor]]. Among editors Emacs

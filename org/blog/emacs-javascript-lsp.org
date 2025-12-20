@@ -1,5 +1,6 @@
 #+TITLE: Setup Emacs for JavaScript Development with LSP
 #+DATE: [2025-05-30 Fri]
+#+KEYWORDS: emacs devlopment
 
 Recently I've been toying with JavaScript so I wanted to see if I
 could get a good development environment working inside Emacs.  The

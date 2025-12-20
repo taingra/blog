@@ -2,6 +2,7 @@
 #+AUTHOR: Thomas Ingram
 #+DATE: [2025-11-16 Sun]
 #+OPTIONS: tasks:nil
+#+KEYWORDS: emacs
 
 When working in Emacs I often want to swap from the current open file
 to a terminal buffer in the same working directory.  If you are

@@ -1,5 +1,6 @@
-#+DATE: [2019-06-13 Thu]
 #+TITLE: Building a Emacs Org-Mode Blog
+#+DATE: [2019-06-13 Thu]
+#+KEYWORDS: emacs org
 
 As my WordPress website nears the end of its subscription, I've decided this
 would be a perfect opportunity to build my own website using a pure [[https://gnu.org/s/emacs][Emacs]] and

@@ -1,5 +1,7 @@
 #+TITLE: Getting Started with Watchy
+#+DATE: [2021-10-21 Thu]
 #+OPTIONS: tasks:nil
+#+KEYWORDS: arduino
 
 I've recently received my [[https://www.crowdsupply.com/sqfmi/watchy][Watchy]], an open source E-Ink watch, and have
 just started to crack the surface of what can be done with the

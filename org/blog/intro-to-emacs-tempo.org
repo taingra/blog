@@ -1,5 +1,6 @@
 #+TITLE:  Introduction to Emacs Tempo Code Templates
 #+DATE: [2025-04-12 Sat]
+#+KEYWORDS: emacs
 
 Recently I removed [[https://github.com/joaotavora/yasnippet][yasnippets]] from my Emacs config as I rarely used
 the most of the snippets.  Probably my own fault, when I started using
@@ -112,8 +113,12 @@ file header.
 
   ;;; " (file-name-with-extension (or buffer-file-name "")) " ends here")
       nil
-      "Insert documentation skeletion for a Emacs Lisp file.")
+      "Insert documentation header for a Emacs Lisp file.")
 #+end_src
+
+Note this is just an example definition, repetitive file headers are
+better entered using [[info:autotype#Autoinserting][auto-insert-mode]]. Another really cool package
+built into Emacs.
 
 * Conclusion
 

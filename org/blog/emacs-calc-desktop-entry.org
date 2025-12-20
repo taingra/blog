@@ -1,5 +1,6 @@
 #+TITLE: Creating a Desktop Launcher for Emacs Calc
 #+DATE: [2025-11-18 Tue]
+#+KEYWORDS: emacs linux
 
 [[info:calc#Top][Calc]] is one of Emacs my favorite packages.  It is an excellent
 calculator with [[https://www.youtube.com/watch?v=993dmoDdybs][a bunch of neat features]].  For me, the only downside

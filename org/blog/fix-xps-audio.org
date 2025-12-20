@@ -1,6 +1,6 @@
-#+DATE: [2017-04-01 Sat 16:40]
 #+TITLE: Fixing Dell XPS 13 Audio Popping
-#+TAGS: xps, linux, tlp, laptop
+#+DATE: [2017-04-01 Sat 16:40]
+#+KEYWORDS: linux
 
 The Dell XPS 13 has been my primary computer for the past couple
 months. It has worked great but recently I noticed some audio

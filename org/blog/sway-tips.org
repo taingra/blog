@@ -1,6 +1,7 @@
-#+Title: Useful Tips for the Sway Window Manager
-#+Date: [2022-11-30 Wed]
-#+Options: toc:t
+#+TITLE: Useful Tips for the Sway Window Manager
+#+DATE: [2022-11-30 Wed]
+#+OPTIONS: toc:t
+#+KEYWORDS: sway linux wayland
 
 For the past several months I've been using [[https://swaywm.org/][Sway window manager]], after
 getting tired of how much GNOME was changing[fn:1].  The switch has

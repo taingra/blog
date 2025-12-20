@@ -1,4 +1,6 @@
 #+Title: Building Emacs 28.1 with Native Compilation on GNU/Linux
+#+DATE: [2022-01-24 Mon]
+#+KEYWORDS: emacs
 
 The recent release of Emacs version 28 brings the addition of a
 just-in-time (JIT) native compiler for Emacs Lisp.  This will allow

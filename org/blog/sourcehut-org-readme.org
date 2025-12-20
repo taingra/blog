@@ -1,6 +1,7 @@
-#+Title: Using an Org-mode README on SourceHut
-#+Date: [2025-03-12 Wed]
+#+TITLE: Using an Org-mode README on SourceHut
+#+DATE: [2025-03-12 Wed]
 #+OPTIONS: toc:nil num:t
+#+KEYWORDS: emacs org
 
 [[https://sourcehut.org/][Sourcehut]] is a fantastic development platform for free software
 hackers.  It's fun to use and works well with good 'ol tools like git

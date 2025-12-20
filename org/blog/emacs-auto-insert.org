@@ -1,5 +1,6 @@
 #+TITLE: Emacs Auto-Insert Text in New Files
 #+DATE: [2025-06-11 Wed]
+#+KEYWORDS: emacs
 
 I recently blogged about [[file:intro-to-emacs-tempo.org][Emacs tempo-mode]] and in that post I created
 an example way to generate the header text commonly used in Emacs
