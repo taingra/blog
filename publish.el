@@ -82,7 +82,7 @@
 <footer>
 <div class=\"copyright-container\">
 <div class=\"copyright\">
-<p>Created by a human with <a href=\"https://www.gnu.org/philosophy/free-sw.html\">Free Software</a> <a href=\"https://www.gnu.org/software/emacs/\">Emacs</a> on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>.<p>
+<p>Created by a human with <a href=\"https://www.gnu.org/philosophy/free-sw.html\">Free Software</a> tools <a href=\"https://www.gnu.org/software/emacs/\">Emacs</a> on <a href=\"https://www.debian.org/\">Debian</a> <a href=\"https://www.gnu.org\">GNU</a>/<a href=\"https://www.kernel.org/\">Linux</a>.<p>
 <p>Copyright &copy; 2017-2025 Thomas Ingram. All rights reserved unless otherwise noted.</p>
 <p><a href=\"https://www.paratype.com/fonts/pt/pt-sans\">PT Fonts</a> Copyright &copy; 2018 Paratype Inc, see <a href=\"/static/PT-Sans-LICENSE.txt\">license information</a>.</p>
 </div>
@@ -245,6 +245,12 @@
 	 :recursive t
 	 :publishing-directory ,(concat taingram--publish-directory "blog/")
 	 :publishing-function org-publish-attachment)
+	;; ("tagged"
+	;;  :base-directory ,(concat taingram--base-directory "blog/")
+	;;  :base-extension "org"
+	;;  :exclude "sitemap.org\\|index.org"
+	;;  :publishing-directory ,(concat taingram--base-directory "tags/")
+	;;  :publishing-function )
 	("css-js-xml"
 	 :base-directory ,taingram--base-directory
 	 :base-extension "css\\|js\\|xml"
