@@ -154,11 +154,3 @@ local.
 lftp's mirror command has a wide breadth of options that can be used to fit your
 needs. In my case I was trying to replicate rsync style syncing for a system
 that I only had FTP access to.
-
-** TODO Connect to TLS/SSL secured FTP server
-Source: [[https://www.versatilewebsolutions.com/blog/2014/04/lftp-ftps-and-certificate-verification.html][Versatile Web Solutions: LFTP FTPS and Certificate Verification]]
-
-Get the certificate with
-#+BEGIN_SRC
-openssl s_client -showcerts -connect example.com:21 -starttls ftp
-#+END_SRC
