@@ -1,7 +1,6 @@
-#+TITLE: Interesting Links From Around the Web
+#+TITLE: Interesting Links
 #+OPTIONS: <:nil toc:t
 #+STARTUP: overview hidestars indent
-#+HTML_HEAD_EXTRA: <style>.outline-2 h2 { border-bottom: 2px solid black; }</style>
 
 See also my [[file:blogroll.org][Recommended Blogs]] page.
 
@@ -112,11 +111,12 @@ that I've found.
 ** [[http://grafx2.chez.com/index.php][GrafX2 a bitmap paint program]]
 
 * Art
-
 ** [[https://mokuhankan.com/collection/][Mokuhankan --- Japanese Woodblock Prints]]
-
-
-* Science and History
-** [[https://mattbruenig.com/2021/09/20/when-mcdonalds-came-to-denmark/][When McDonalds Came to Denmark]]
+* Productivity
 ** [[https://www.science.org/doi/full/10.1126/sciadv.ads1560?af=R][Age and cognitive skills: Use it or lose it]]
 [2025-03-08 Sat]
+** [[https://jsomers.net/blog/speed-matters][Speed matters: Why working quickly is more important than it seems]] by James Somers
+* Science and History
+** [[https://mattbruenig.com/2021/09/20/when-mcdonalds-came-to-denmark/][When McDonalds Came to Denmark]]
+
+** [[https://people.stfx.ca/lstanley/stanley/flagmemo2.htm][Original Proposal for Canadian Flag]] --- Dr. George F.G. Stanley's Flag Memorandum
